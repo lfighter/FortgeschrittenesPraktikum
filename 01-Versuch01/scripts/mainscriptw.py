@@ -50,16 +50,98 @@ from sympy import *
 # params = unp.uarray(params, np.sqrt(np.diag(covar)))
 # makeNewTable([convert((r'$c_\text{1}$',r'$c_\text{2}$',r'$T_{\text{A}1}$',r'$T_{\text{A}2}$',r'$\alpha$',r'$D_1$',r'$D_2$',r'$A_1$',r'$A_2$',r'$A_3$',r'$A_4$'),strFormat),convert(np.array([paramsGes2[0],paramsGes1[0],deltat2*10**6,deltat1*10**6,-paramsDaempfung[0]*2,4.48*10**-6 *paramsGes1[0]/2*10**3, 7.26*10**-6 *paramsGes1[0]/2*10**3, (VierteMessung-2*deltat2*10**6)[0]*10**-6 *1410 /2*10**3, unp.uarray((VierteMessung[1]-VierteMessung[0])*10**-6 *1410 /2*10**3, 0), unp.uarray((VierteMessung[2]-VierteMessung[1])*10**-6 *2500 /2*10**3, 0),unp.uarray((VierteMessung[3]-VierteMessung[2])*10**-6 *1410 /2*10**3, 0)]),unpFormat,[[r'\meter\per\second',"",True],[r'\meter\per\second',"",True],[r'\micro\second',"",True],[r'\micro\second',"",True],[r'\per\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',r'1.3f',True],[r'\milli\meter',r'1.3f',True],[r'\milli\meter',r'2.2f',True]]),convert(np.array([2730,2730]),floatFormat,[r'\meter\per\second','1.0f',True])+convert((r'-',r'-'),strFormat)+convert(unp.uarray([57,6.05,9.9],[2.5,0,0]),unpFormat,[[r'\per\meter',"",True],[r'\milli\meter',r'1.2f',True],[r'\milli\meter',r'1.2f',True]])+convert((r'-',r'-',r'-',r'-'),strFormat),convert(np.array([(2730-paramsGes2[0])/2730*100,(2730-paramsGes1[0])/2730*100]),unpFormat,[r'\percent','',True])+convert((r'-',r'-'),strFormat)+convert(np.array([(-paramsDaempfung[0]*2-unp.uarray(57,2.5))/unp.uarray(57,2.5)*100,(4.48*10**-6 *paramsGes1[0]/2*10**3-6.05)/6.05*100, (-7.26*10**-6 *paramsGes1[0]/2*10**3+9.90)/9.90*100]),unpFormat,[r'\percent','',True])+convert((r'-',r'-',r'-',r'-'),strFormat)],r'{Wert}&{gemessen}&{Literaturwert\cite{cAcryl},\cite{alphaAcryl}}&{Abweichung}','Ergebnisse', ['c ','c',r'c','c'])
 
-A, B, C = symbols('A B C')
-f = A**3 *B*cos(C)
-f2 = scipy_to_unp(f, [A, B, C])
+#A, B, C = symbols('A B C')
+#f = A**3 *B*cos(C)
+#f2 = scipy_to_unp(f, [A, B, C])
+#AW, BW = unp.uarray([1,2],[0.1,0.2])
+#CW = 3
+#print(f2(AW, BW, CW))
+#print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
+
+def f(x,a,b,c):
+	return np.exp(-a*x+b)+c
+
+Counts=np.genfromtxt('scripts/Messwerte.txt')
+channel=np.linspace(1/100,512/100,512)
+params, covar = curve_fit(f,channel[17:],Counts[17:],maxfev=100000,sigma=np.sqrt(Counts[17:])+1)
+fitparams=unp.uarray(params, np.sqrt(np.diag(covar)))
+print(fitparams)
+channelplot = np.linspace(0,513/100,1000)
+plt.cla()
+plt.clf()
+plt.plot(channel[0:17], Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
+plt.plot(channel[17:], Counts[17:], 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
+plt.plot(channelplot, f(channelplot,*params), 'r-', label='Fit')
+# plt.ylim(0, line(t[-1], *params)+0.1)
+plt.xlim(0, 513/100)
+#plt.ylabel(r'$N\si{\per\second}$')
+#plt.xlabel(r'$Channel$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'Fit')
+#plt.plot(channel[Counts>0], Counts[Counts>0], 'g+', label='Messwerte',linewidth='0.1')
+#plt.plot(channelplot, f(channelplot,*params), 'r-', label='Fit')
+#plt.xlim(0, 513)
+#plt.yscale('log')
+#plt.ylabel(r'$\log(N\si{\per92164\second})$')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/'+'FitLin')
+lambdas = (1/fitparams[0])/unp.uarray(22,0.5)*100
+print('Mittlere Lebensdauer in us: ',lambdas)
+
+Counts2 = []
+channel2 = []
+for i in range(0,511):
+	Counts2.append(Counts[i]+Counts[i+1])
+	if(Counts[i]!=0 or Counts[i+1]!=0):
+		channel2.append((Counts[i]*channel[i]+Counts[i+1]*channel[i+1])/(Counts[i]+Counts[i+1]))
+	else:
+		channel2.append((channel[i]+channel[i+1])/2.0)
+channel2=np.array(channel2)
+Counts2=np.array(Counts2)
+params2, covar2 = curve_fit(f,channel2[15:],Counts2[15:],maxfev=100000)
+fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
+channelplot2 = np.linspace(0,513/100,1000)
+plt.cla()
+plt.clf()
+plt.plot(channel2[0:15], Counts2[0:15], 'bx', label='Messwerte',linewidth='0.1')
+plt.plot(channel2[15:], Counts2[15:], 'g+', label='Messwerte',linewidth='0.1')
+plt.plot(channelplot2, f(channelplot2,*params2), 'r-', label='Fit')
+# plt.ylim(0, line(t[-1], *params)+0.1)
+plt.xlim(0, 513/100)
+#plt.ylabel(r'$N\si{\per\second}$')
+#plt.xlabel(r'$Channel$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'Fit2')
+lambdas2 = (1/fitparams2[0])/22*100
+print('Mittlere Lebensdauer in us: ',lambdas2)
 
 
-AW, BW = unp.uarray([1,2],[0.1,0.2])
-CW = 3
+#def f2(x,a,b):
+#	return a*x+b
+#CountsDown=Counts[Counts>0]
+#channel2=channel[Counts>0]
+#CountsDown=np.log(CountsDown)
+#params2, covar2 = curve_fit(f2,channel2[0:100],CountsDown[0:100],maxfev=100000)
+#fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
+#print(fitparams2)
+#channelplot2 = np.linspace(0,513,1000)
+#plt.cla()
+#plt.clf()
+#plt.plot(channel2, CountsDown, 'g+', label='Messwerte',linewidth='0.1')
+#plt.plot(channelplot2, f2(channelplot2,*params2), 'r-', label='Fit')
+# plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, 513)
+# plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+# plt.ylabel(r'$\Delta f / \si{\hertz}$')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/'+'Fit2')
+#lambdas2 = (1/(fitparams2[0]))/22
+#print(lambdas2)
 
-
-print(f2(AW, BW, CW))
-print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
+#1us ~ 22 ch 
 
 
