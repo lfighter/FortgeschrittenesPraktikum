@@ -61,21 +61,44 @@ from sympy import *
 def f(x,a,b,c):
 	return np.exp(-a*x+b)+c
 
+EineMicroSekInChan = unp.uarray(22,0.5)
+lambdasTheorie = unp.uarray(2.1969811,0.0000022)
+gelaufeneZeitInSec = 92164
+AnzahlAnEreignissenInsgesammt = 2212943
+Erwartungswert = unp.uarray(AnzahlAnEreignissenInsgesammt/gelaufeneZeitInSec,np.sqrt(AnzahlAnEreignissenInsgesammt)/gelaufeneZeitInSec)*(10**-6)*20
+WahrscheinlichkeitnachfolgendesTeilchen = Erwartungswert*unp.exp(-Erwartungswert)
+AnzahlUntergrundEreignisse = WahrscheinlichkeitnachfolgendesTeilchen * AnzahlAnEreignissenInsgesammt
+AnzahlUntergrundProKanal = AnzahlUntergrundEreignisse /(20*EineMicroSekInChan)
+print('Erwartungswert: ', Erwartungswert)
+print('WahrscheinlichkeitnachfolgendesTeilchen: ',WahrscheinlichkeitnachfolgendesTeilchen)
+print('AnzahlUntergrundEreignisse: ',AnzahlUntergrundEreignisse)
+print('AnzahlUntergrundProKanal: ',AnzahlUntergrundProKanal)
+
+AnzahlGestoppt = 17880
+print("anzahlChannels:", 20*EineMicroSekInChan)
+
+
+#,sigma=np.sqrt(fitCounts+1)
 Counts=np.genfromtxt('scripts/Messwerte.txt')
 channel=np.linspace(1/100,512/100,512)
-params, covar = curve_fit(f,channel[17:],Counts[17:],maxfev=100000,sigma=np.sqrt(Counts[17:])+1)
+fitchannel = channel[17:]
+fitchannel = fitchannel[0:-72]
+fitCounts = Counts[17:]
+fitCounts = fitCounts[0:-72]
+params, covar = curve_fit(f,fitchannel,fitCounts,maxfev=100000,sigma=np.sqrt(fitCounts+1))
 fitparams=unp.uarray(params, np.sqrt(np.diag(covar)))
 print(fitparams)
 channelplot = np.linspace(0,513/100,1000)
 plt.cla()
 plt.clf()
-plt.plot(channel[0:17], Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
-plt.plot(channel[17:], Counts[17:], 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
-plt.plot(channelplot, f(channelplot,*params), 'r-', label='Fit')
+plt.plot(channel[0:17]*100, Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
+plt.plot(channel[-72:]*100, Counts[-72:], 'bx', linewidth='0.1')
+plt.plot(fitchannel*100, fitCounts, 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
+plt.plot(channelplot*100, f(channelplot,*params), 'r-', label='Fit')
 # plt.ylim(0, line(t[-1], *params)+0.1)
-plt.xlim(0, 513/100)
-#plt.ylabel(r'$N\si{\per\second}$')
-#plt.xlabel(r'$Channel$')
+plt.xlim(0, 513)
+plt.ylabel(r'$N$')
+plt.xlabel(r'$\text{Channel}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'Fit')
@@ -87,36 +110,70 @@ plt.savefig('build/'+'Fit')
 #plt.legend(loc='best')
 #plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 #plt.savefig('build/'+'FitLin')
-lambdas = (1/fitparams[0])/unp.uarray(22,0.5)*100
+lambdas = (1/fitparams[0])/EineMicroSekInChan*100
 print('Mittlere Lebensdauer in us: ',lambdas)
+print('Mittlere Lebensdauer Theorie in us: ',lambdasTheorie)
+print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas/lambdasTheorie))
 
-Counts2 = []
-channel2 = []
-for i in range(0,511):
-	Counts2.append(Counts[i]+Counts[i+1])
-	if(Counts[i]!=0 or Counts[i+1]!=0):
-		channel2.append((Counts[i]*channel[i]+Counts[i+1]*channel[i+1])/(Counts[i]+Counts[i+1]))
-	else:
-		channel2.append((channel[i]+channel[i+1])/2.0)
-channel2=np.array(channel2)
-Counts2=np.array(Counts2)
-params2, covar2 = curve_fit(f,channel2[15:],Counts2[15:],maxfev=100000)
-fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
-channelplot2 = np.linspace(0,513/100,1000)
-plt.cla()
-plt.clf()
-plt.plot(channel2[0:15], Counts2[0:15], 'bx', label='Messwerte',linewidth='0.1')
-plt.plot(channel2[15:], Counts2[15:], 'g+', label='Messwerte',linewidth='0.1')
-plt.plot(channelplot2, f(channelplot2,*params2), 'r-', label='Fit')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Counts2 = []
+#channel2 = []
+#for i in range(0,511):
+#	Counts2.append(Counts[i]+Counts[i+1])
+#	if(Counts[i]!=0 or Counts[i+1]!=0):
+#		channel2.append((Counts[i]*channel[i]+Counts[i+1]*channel[i+1])/(Counts[i]+Counts[i+1]))
+#	else:
+#		channel2.append((channel[i]+channel[i+1])/2.0)
+#channel2=np.array(channel2)
+#Counts2=np.array(Counts2)
+#params2, covar2 = curve_fit(f,channel2[15:],Counts2[15:],maxfev=100000)
+#fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
+#channelplot2 = np.linspace(0,513/100,1000)
+#plt.cla()
+#plt.clf()
+#plt.plot(channel2[0:15], Counts2[0:15], 'bx', label='Messwerte',linewidth='0.1')
+#plt.plot(channel2[15:], Counts2[15:], 'g+', label='Messwerte',linewidth='0.1')
+#plt.plot(channelplot2, f(channelplot2,*params2), 'r-', label='Fit')
 # plt.ylim(0, line(t[-1], *params)+0.1)
-plt.xlim(0, 513/100)
+#plt.xlim(0, 513/100)
 #plt.ylabel(r'$N\si{\per\second}$')
 #plt.xlabel(r'$Channel$')
-plt.legend(loc='best')
-plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/'+'Fit2')
-lambdas2 = (1/fitparams2[0])/22*100
-print('Mittlere Lebensdauer in us: ',lambdas2)
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/'+'Fit2')
+#lambdas2 = (1/fitparams2[0])/22*100
+#print('Mittlere Lebensdauer in us: ',lambdas2)
 
 
 #def f2(x,a,b):
