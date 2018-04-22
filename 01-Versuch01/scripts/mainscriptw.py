@@ -61,7 +61,7 @@ from sympy import *
 def f(x,a,b,c):
 	return np.exp(-a*x+b)+c
 
-EineMicroSekInChan = unp.uarray(22,0.5)
+EineMicroSekInChan = unp.uarray(22,0.5) # noch anders machen vielleicht
 lambdasTheorie = unp.uarray(2.1969811,0.0000022)
 gelaufeneZeitInSec = 92164
 AnzahlAnEreignissenInsgesammt = 2212943
@@ -78,27 +78,27 @@ AnzahlGestoppt = 17880
 print("anzahlChannels:", 20*EineMicroSekInChan)
 
 
-#,sigma=np.sqrt(fitCounts+1)
+#,sigma=np.sqrt(fitCounts+9)
 Counts=np.genfromtxt('scripts/Messwerte.txt')
 channel=np.linspace(1/100,512/100,512)
 fitchannel = channel[17:]
 fitchannel = fitchannel[0:-72]
 fitCounts = Counts[17:]
 fitCounts = fitCounts[0:-72]
-params, covar = curve_fit(f,fitchannel,fitCounts,maxfev=100000,sigma=np.sqrt(fitCounts+1))
+params, covar = curve_fit(f,fitchannel,fitCounts,maxfev=100000)
 fitparams=unp.uarray(params, np.sqrt(np.diag(covar)))
 print(fitparams)
 channelplot = np.linspace(0,513/100,1000)
 plt.cla()
 plt.clf()
-plt.plot(channel[0:17]*100, Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
+#plt.plot(channel[0:17]*100, Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
 plt.plot(channel[-72:]*100, Counts[-72:], 'bx', linewidth='0.1')
 plt.plot(fitchannel*100, fitCounts, 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
 plt.plot(channelplot*100, f(channelplot,*params), 'r-', label='Fit')
 # plt.ylim(0, line(t[-1], *params)+0.1)
 plt.xlim(0, 513)
 plt.ylabel(r'$N$')
-plt.xlabel(r'$\text{Channel}$')
+plt.xlabel(r'$\text{Kanal}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'Fit')
@@ -114,6 +114,8 @@ lambdas = (1/fitparams[0])/EineMicroSekInChan*100
 print('Mittlere Lebensdauer in us: ',lambdas)
 print('Mittlere Lebensdauer Theorie in us: ',lambdasTheorie)
 print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas/lambdasTheorie))
+print('Untergrund pro Channel: ', fitparams[2])
+print('Untergrund relative Abweichung: ', abs(1-fitparams[2]/AnzahlUntergrundProKanal))
 
 
 
