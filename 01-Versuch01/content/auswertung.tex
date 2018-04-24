@@ -13,6 +13,15 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 	\caption{Die Zeit $T_\text{gen}$ zwischen den Impulsen aus dem Doppelimpulsgenerator gegen die Messkanäle aufgetragen.}
 	\label{fig:erste}
 \end{figure}
+Für die Wertepaare aus Tabelle \ref{sec:Auswertung}  wurde eine lineare Ausgleichsrechnung durchgeführt. Die ermittelte Ausgleichsgerade und die Wertepaare sind in Abbildung \ref{fig:erste} dargestellt. Für die Parameter der Geraden $g(x)=a x + b$ ergibt sich
+\begin{gather*}
+a=\num{}\\
+b=\num{}
+\end{gather*}
+und somit für den Umrechnungsfaktor von Kanälen zu \si{\micro\second}
+\begin{displaymath}
+u=\num{}.
+\end{displaymath}
 \subsection{Berechnung des Untergrundes mit Hilfe der gesamten Anzahl von Start-Ereignissen}
 
 \subsection{Bestimmung der Lebensdauer und des Untergrundes mit Hilfe einer nicht linearen Ausgleichsrechnung}
@@ -20,6 +29,19 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/Fit.pdf}
 	\caption{Die Anzahl der gemessenen Ereignisse in den verschiedenen Messkanälen.}
-	\label{fig:erste}
+	\label{fig:zweite}
 \end{figure}
-
+Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung mit der Funktion curvefit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Die ersten $ $ und letzen $ $ Wertepaare wurden für den Fit ignoriert. ???Die Messwertepaare sind in der Tabelle ??? zu finden.??? Für die Parameter ergibt sich somit
+\begin{gather*}
+a=\num{}\\
+b=\num{}\\
+c=\num{}.
+\end{gather*}
+Für den aus dem Fit ermittelten Untergrund ergibt sich somit
+\begin{displaymath}
+	=\num{}
+\end{displaymath}
+und für die Lebensdauer des Myons
+\begin{displaymath}
+	=\num{}.
+\end{displaymath}
