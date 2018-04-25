@@ -10,38 +10,37 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/LinFit.pdf}
-	\caption{Die Zeit $T_\text{gen}$ zwischen den Impulsen aus dem Doppelimpulsgenerator gegen die Messkanäle aufgetragen.}
+	\caption{Die Zeit $T$ zwischen den Impulsen aus dem Doppelimpulsgenerator gegen die Messkanäle aufgetragen.}
 	\label{fig:erste}
 \end{figure}
+
+Für die Wertepaare aus Tabelle \ref{tab:tab1}  wurde eine lineare und nicht gewichtete Ausgleichsrechnung durchgeführt. Die ermittelte Ausgleichsgerade und die Wertepaare sind in Abbildung \ref{fig:erste} dargestellt. Für die Parameter der Geraden $g(x)=a x + b$ ergibt sich
+\begin{gather*}
+a=\SI{4.577(2)e-2}{\micro\second}\\
+b=\SI{-1.2(3)e-2}{\micro\second}
+\end{gather*}
+und somit für den Umrechnungsfaktor von Kanälen in \si{\micro\second}
+\begin{displaymath}
+u=a=\SI{4.577(2)e-2}{\micro\second}.
+\end{displaymath}
 \begin{table}
 	\centering
-	\caption{Die Kanäle mit den Peaks, wobei die Werte mit Fehler durch einen gewichteten Mittelwert zustande kommen.}
+	\caption{Die Kanäle die einen Peak aufweisen, wobei die Werte mit Fehler durch einen gewichteten Mittelwert zustande kommen.}
 	\input{build/tab1.tex}
-	\label{tab:b}
 \end{table}
-Für die Wertepaare aus Tabelle \ref{tab:tab1}  wurde eine lineare Ausgleichsrechnung durchgeführt. Die ermittelte Ausgleichsgerade und die Wertepaare sind in Abbildung \ref{fig:erste} dargestellt. Für die Parameter der Geraden $g(x)=a x + b$ ergibt sich
-\begin{gather*}
-a=\num{}\\
-b=\num{}
-\end{gather*}
-und somit für den Umrechnungsfaktor von Kanälen zu \si{\micro\second}
-\begin{displaymath}
-u=\num{}.
-\end{displaymath}
-
 \subsection{Berechnung des Untergrundes mit Hilfe der gesamten Anzahl von Start-Ereignissen}
-Mit der gesamten Anzahl von $\num{2212943}$ Start-Ereignissen in $\SI{92164}{\second}$ ergibt ein Erwartungswert $\lambda$ von $\num{1000}$ Start-Ereignissen in $\SI{20}{\micro\second}$. Mit der Annahme einer Poisson-Verteilung ergibt sich somit für die Wahrscheinlichkeit das genau ein Myon einem vorherigem in der Messzeit von $\SI{20}{\micro\second}$ folgt 
+Mit der gesamten Anzahl $S$ von $\num{2.213(2)e6}$ Start-Ereignissen in $\SI{92164}{\second}$ ergibt ein Erwartungswert $\lambda$ von $\num{4.802(3)e-4}$ Start-Ereignissen in $\SI{20}{\micro\second}$. Die Standardabweichung für $S$ kommt aus der Annahme, dass diese Größe einer Poisson-Verteilung unterliegt. Mit dieser Annahme ergibt sich für die Wahrscheinlichkeit, das genau ein Myon einem vorherigem in der Messzeit von $T_\text{S}=\SI{20}{\micro\second}$ folgt 
 \begin{displaymath}
-f=\lambda \exp(-\lambda)=\num{}.
+f=\lambda \exp(-\lambda)=\num{4800(3)e-4}.
 \end{displaymath}
 Damit folgt für die erwartete Anzahl an Untergrund-Ereignissen
 \begin{displaymath}
-\cdot f =\num{}.
+U_\text{ges}=S \cdot f =\num{1062(1)}.
 \end{displaymath}
-Mit der zuvor bestimmten Zeitskalar lässt sich die Anzahl der verwendeten Kanäle zu $\num{}$ berechnen.
+Mit der zuvor bestimmten Umrechnungsfaktor lässt sich die Anzahl der verwendeten Kanäle zu $K=T_\text{S} / u=\num{436.9(2)}$ berechnen.
 Somit ergibt sich für die Anzahl der Untergrund-Ereignisse pro Kanal
 \begin{displaymath}
-=\frac{}{} =\num{}.
+U_\text{ber}=\frac{U_\text{ges}}{K} =\num{2.431(4)}.
 \end{displaymath}
 
 
@@ -49,20 +48,20 @@ Somit ergibt sich für die Anzahl der Untergrund-Ereignisse pro Kanal
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/Fit.pdf}
-	\caption{Die Anzahl der gemessenen Ereignisse in den verschiedenen Messkanälen.}
+	\caption{Die Anzahl der gemessenen Ereignisse mit einer zeitlichen Differenz Zeit T zum vorherigen.}
 	\label{fig:zweite}
 \end{figure}
-Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung mit der Funktion curvefit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Die ersten $ $ und letzen $ $ Wertepaare wurden für den Fit ignoriert. ???Die Messwertepaare sind in der Tabelle ??? zu finden.??? Für die Parameter ergibt sich somit
+Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung wurde mit der Funktion curvefit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Als Gewichte wurden die Wurzeln der jeweiligen Anzahl an Ereignissen genommen, da bei dieser von einer Poisson-Verteilung ausgegangen wird. Die ersten $9$ und letzten $37$ Wertepaare wurden für den Fit ignoriert. Dies wird in der Diskussion begründet. Um den Fit so möglich zu machen wurden jeweils zwei Kanäle zu einem zusammengefasst, wobei die Anzahl an Ereignissen von beiden Kanälen addierte und die mittlere Kanalnummer von beiden genommen wird.  Die ursprünglichen Messwertepaare sind in der Tabelle \ref{tab:tab2} zu finden. Für die Parameter ergibt sich somit
 \begin{gather*}
-a=\num{}\\
-b=\num{}\\
-c=\num{}.
+a=\SI{0.468(6)}{\per\second}\\
+b=\num{6.43(2)}\\
+c=\num{3.8(2)}.
 \end{gather*}
-Für den aus dem Fit ermittelten Untergrund ergibt sich somit
+Für den aus dem Fit ermittelten Untergrund pro Kanal ergibt sich somit
 \begin{displaymath}
-	=\num{}
+	U=\frac{c}{2}=\num{1.9(1)}
 \end{displaymath}
 und für die Lebensdauer des Myons
 \begin{displaymath}
-	=\num{}.
+	\tau=\frac{1}{a}=\num{2.14(3)}.
 \end{displaymath}

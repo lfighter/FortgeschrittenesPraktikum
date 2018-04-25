@@ -74,7 +74,7 @@ for i in range(0,512):
 			PeakPos.append(nom)
 			PeakPosStd.append(std)
 			#print('PeakPos1',i,':', PeakPos[-1])
-			print('PeakPos2',i,':',unp.uarray(*weighted_avg_and_sem([i-1,i],[CountsKallibrierung[i-1],CountsKallibrierung[i]])))
+			#print('PeakPos2',i,':',unp.uarray(*weighted_avg_and_sem([i-1,i],[CountsKallibrierung[i-1],CountsKallibrierung[i]])))
 		else:
 			nom,std=weighted_avg_and_sem([i],[CountsKallibrierung[i]])
 			PeakPos.append(nom)
@@ -85,7 +85,9 @@ makeNewTable([convert(PeakPos,unpFormat,[r'','',True])],r'\multicolumn{1}{c}{Kan
 time = np.linspace(0.9,1*len(PeakPos),len(PeakPos))
 #print(time)
 params,std,sigmay = linregress(unp.nominal_values(PeakPos),time)
-
+uparams=unp.uarray(params,std)
+print('a:',uparams[0])
+print('b:',uparams[1])
 
 timeOffset=params[1]
 PeakPos2=np.linspace(0,unp.nominal_values(PeakPos)[-1]*1.02+1)
@@ -130,25 +132,34 @@ print("anzahlChannels:", 20*EineMicroSekInChan)
 
 
 Counts=np.genfromtxt('scripts/Messwerte.txt')
+Counts=unp.uarray(Counts,np.sqrt(Counts))
 channel=np.linspace(1/100,512/100,512)
+#makeNewTable([convert(channel*100,floatFormat,[r'','1.0f',True]),convert(Counts,unpFormat,[r'','',False])],r'{Kanal}&\multicolumn{2}{c}{Anzahl an Ereignissen}','tab2', ['S[table-format=2.0]', 'S[table-format=2.3]', ' @{${}\pm{}$} S[table-format=1.3]'])
 Counts2 = []
 channel2 = []
 for i in range(0,511,2):
 	Counts2.append(Counts[i]+Counts[i+1])
-	#if(Counts[i]!=0 or Counts[i+1]!=0):
-	#	channel2.append((Counts[i]*channel[i]+Counts[i+1]*channel[i+1])/(Counts[i]+Counts[i+1]))
-	#else:
 	channel2.append((channel[i]+channel[i+1])/2.0)
 
+	
 channel2=np.array(channel2)
-Counts2=np.array(Counts2)
-params2, covar2 = curve_fit(f,channel2[9:-37],Counts2[9:-37],maxfev=100000,sigma=np.sqrt(Counts2[9:-37]))
+Counts2Nominal = []
+Counts2Std = []
+for value in Counts2:
+     Counts2Nominal.append(unp.nominal_values(value))
+     Counts2Std.append(unp.std_devs(value))
+Counts2=unp.uarray(Counts2Nominal,Counts2Std)
+
+
+
+params2, covar2 = curve_fit(f,channel2[9:-37],unp.nominal_values(Counts2[9:-37]),maxfev=100000,sigma=unp.std_devs(Counts2[9:-37]))
 fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
+
 channelplot2 = np.linspace(0,513/100,1000)
 plt.cla()
 plt.clf()
 #plt.plot(channel2[0:9], Counts2[0:9], 'bx', label='Messwerte',linewidth='0.1')
-plt.errorbar(channel2[9:-37]*100/EineMicroSekInChan.nominal_value+timeOffset, Counts2[9:-37],yerr=np.sqrt(Counts2[9:-37]), label='In den Fit einbezogene Messwerte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5)
+plt.errorbar(channel2[9:-37]*100/EineMicroSekInChan.nominal_value+timeOffset, unp.nominal_values(Counts2[9:-37]),yerr=unp.std_devs(Counts2[9:-37]), label='In den Fit einbezogene Messwerte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5)
 plt.plot(channelplot2*100/EineMicroSekInChan.nominal_value+timeOffset, f(channelplot2,*params2), 'r-', label='Fit',linewidth='0.5')
 ##plt.ylim(0, line(t[-1], *params)+0.1)
 plt.xlim(0, 513/EineMicroSekInChan.nominal_value)
@@ -159,10 +170,14 @@ plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'Fit')
 lambdas2 = (1/fitparams2[0])/EineMicroSekInChan*100
+print('a in 1/us: ', fitparams2[0]*EineMicroSekInChan/100)
+print('b: ', fitparams2[1])
+print('c: ', fitparams2[2])
 print('Mittlere Lebensdauer2 in us: ',lambdas2)
 print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas2/lambdasTheorie))
 print('Untergrund pro Channel: ', fitparams2[2]/2)
 print('Untergrund relative Abweichung: ', abs(1-(fitparams2[2]/2)/AnzahlUntergrundProKanal))
+
 
 
 
