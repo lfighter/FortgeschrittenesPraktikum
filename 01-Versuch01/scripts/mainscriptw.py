@@ -87,14 +87,14 @@ params,std,sigmay = linregress(unp.nominal_values(PeakPos),time)
 
 
 timeOffset=params[1]
-PeakPos2=np.linspace(0,unp.nominal_values(PeakPos)[-1]+1)
+PeakPos2=np.linspace(0,unp.nominal_values(PeakPos)[-1]*1.02+1)
 plt.cla()
 plt.clf()
 plt.errorbar(unp.nominal_values(PeakPos), time,fmt='x',xerr=unp.std_devs(PeakPos), label='Messwerte')
 plt.plot(PeakPos2, line(PeakPos2,*params), 'r-', label='Fit')
 # plt.ylim(0, line(t[-1], *params)+0.1)
 plt.xlim(0, PeakPos2[-1])
-plt.ylabel(r'$t\si{\per\second}$')
+plt.ylabel(r'$T/\si{\second}$')
 plt.xlabel(r'$\text{Kanal}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
@@ -128,81 +128,8 @@ AnzahlGestoppt = 17880
 print("anzahlChannels:", 20*EineMicroSekInChan)
 
 
-#,sigma=np.sqrt(fitCounts+9)
 Counts=np.genfromtxt('scripts/Messwerte.txt')
 channel=np.linspace(1/100,512/100,512)
-#fitchannel = channel[17:436]
-#fitCounts = Counts[17:436]
-#params, covar = curve_fit(f,fitchannel,fitCounts,maxfev=1000000)
-#fitparams=unp.uarray(params, np.sqrt(np.diag(covar)))
-#print(fitparams)
-#channelplot = np.linspace(0,513/100,1000)
-#plt.cla()
-#plt.clf()
-#plt.plot(channel[0:17]*100, Counts[0:17], 'bx', label='Im Fit nicht mit einbezogene Messwerte',linewidth='0.1')
-#plt.plot(channel[436:]*100, Counts[436:], 'bx', linewidth='0.1')
-#plt.plot(fitchannel*100, fitCounts, 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
-#plt.plot(channelplot*100, (f(channelplot,*params)), 'r-', label='Fit')
-# plt.ylim(0, line(t[-1], *params)+0.1)
-#plt.xlim(0, 513)
-#plt.ylabel(r'$N$')
-#plt.xlabel(r'$\text{Kanal}$')
-#plt.legend(loc='best')
-#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-#plt.savefig('build/'+'Fit')
-#plt.cla()
-#plt.clf()
-#plt.plot(fitchannel[fitCounts>0]*100, fitCounts[fitCounts>0], 'g+', label='Im Fit mit einbezogene Messwerte',linewidth='0.1')
-#plt.plot(channelplot*100, f(channelplot,*params), 'r-', label='Fit')
-#plt.xlim(0, 513)
-#plt.yscale('log')
-#plt.ylabel(r'$N$')
-#plt.xlabel(r'$\text{Kanal}$')
-#plt.legend(loc='best')
-#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-#plt.savefig('build/'+'FitLog')
-#lambdas = (1/fitparams[0])/EineMicroSekInChan*100
-#print('Mittlere Lebensdauer in us: ',lambdas)
-#print('Mittlere Lebensdauer Theorie in us: ',lambdasTheorie)
-#print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas/lambdasTheorie))
-#print('Untergrund pro Channel: ', fitparams[2])
-#print('Untergrund relative Abweichung: ', abs(1-(fitparams[2])/AnzahlUntergrundProKanal))
-
-
-
-
-
-#params,std,sigmay = linregress(channel[17:110],np.log(Counts[17:110]-2.4))
-#fitparams = unp.uarray(params,std)
-#lambdas = -(1/fitparams[0])/EineMicroSekInChan*100
-#print('Mittlere Lebensdauer in us: ',lambdas)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Counts2 = []
 channel2 = []
 for i in range(0,511,2):
@@ -220,15 +147,15 @@ channelplot2 = np.linspace(0,513/100,1000)
 plt.cla()
 plt.clf()
 #plt.plot(channel2[0:9], Counts2[0:9], 'bx', label='Messwerte',linewidth='0.1')
-plt.errorbar(channel2[9:-37]*100/EineMicroSekInChan.nominal_value+timeOffset, Counts2[9:-37],yerr=np.sqrt(Counts2[9:-37]), label='Messwerte',fmt='x', capthick=2, linewidth='0.5')
-#plt.plot(channelplot2*100/EineMicroSekInChan.nominal_value+timeOffset, f(channelplot2,*params2), 'r-', label='Fit')
+plt.errorbar(channel2[9:-37]*100/EineMicroSekInChan.nominal_value+timeOffset, Counts2[9:-37],yerr=np.sqrt(Counts2[9:-37]), label='In den Fit einbezogene Messwerte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5)
+plt.plot(channelplot2*100/EineMicroSekInChan.nominal_value+timeOffset, f(channelplot2,*params2), 'r-', label='Fit',linewidth='0.5')
 ##plt.ylim(0, line(t[-1], *params)+0.1)
-#plt.xlim(0, 513/EineMicroSekInChan.nominal_value)
-#plt.yscale('log')
-#plt.ylabel(r'$N$')
-#plt.xlabel(r'$T/\si{\second}$')
-#plt.legend(loc='best')
-#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.xlim(0, 513/EineMicroSekInChan.nominal_value)
+plt.yscale('log')
+plt.ylabel(r'$N$')
+plt.xlabel(r'$T/\si{\second}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'Fit')
 lambdas2 = (1/fitparams2[0])/EineMicroSekInChan*100
 print('Mittlere Lebensdauer2 in us: ',lambdas2)
@@ -236,30 +163,5 @@ print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas2/lambdasTheorie
 print('Untergrund pro Channel: ', fitparams2[2]/2)
 print('Untergrund relative Abweichung: ', abs(1-(fitparams2[2]/2)/AnzahlUntergrundProKanal))
 
-
-#def f2(x,a,b):
-#	return a*x+b
-#CountsDown=Counts[Counts>0]
-#channel2=channel[Counts>0]
-#CountsDown=np.log(CountsDown)
-#params2, covar2 = curve_fit(f2,channel2[0:100],CountsDown[0:100],maxfev=100000)
-#fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
-#print(fitparams2)
-#channelplot2 = np.linspace(0,513,1000)
-#plt.cla()
-#plt.clf()
-#plt.plot(channel2, CountsDown, 'g+', label='Messwerte',linewidth='0.1')
-#plt.plot(channelplot2, f2(channelplot2,*params2), 'r-', label='Fit')
-# plt.ylim(0, line(t[-1], *params)+0.1)
-#plt.xlim(0, 513)
-# plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
-# plt.ylabel(r'$\Delta f / \si{\hertz}$')
-#plt.legend(loc='best')
-#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-#plt.savefig('build/'+'Fit2')
-#lambdas2 = (1/(fitparams2[0]))/22
-#print(lambdas2)
-
-#1us ~ 22 ch 
 
 
