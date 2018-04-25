@@ -14,7 +14,7 @@ xtick.labelsize : 9
 ytick.labelsize : 9
 
 # unsere Fonteinstellungen benutzen
-pgf.rcfonts : False
+# pgf.rcfonts : False
 
 # TeX benutzen
 text.usetex : True

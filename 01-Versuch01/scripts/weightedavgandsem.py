@@ -2,7 +2,7 @@
 from scipy import stats
 def weighted_avg_and_sem(values, weights):
 	average = np.average(values, weights=weights)
-	variance = np.average((values-average)**2, weights=weights)/(len(values)-1)
+	variance = np.average((values-average)**2, weights=weights)/(np.sum(weights)-1)
 	return (average, np.sqrt(variance))
 
 def avg_and_sem(values):

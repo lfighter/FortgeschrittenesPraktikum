@@ -10,6 +10,7 @@ from scipy import stats
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import uncertainties.unumpy as unp
+from uncertainties import ufloat
 import scipy.constants as const
 from errorfunkt2tex import error_to_tex
 from errorfunkt2tex import scipy_to_unp
@@ -32,7 +33,7 @@ from sympy import *
 
 # unp.uarray(np.mean(), stats.sem())
 # unp.uarray(*avg_and_sem(values)))
-# unp.uarray(*weighted_avg_and_sem(unp.nominal_values(bneuDiff), 1/unp.std_devs(bneuDiff)))
+# unp.uarray(*weighted_avg_and_sem(unp.nominal_values(bneuDiff), 1/unp.std_devs(bneuDiff))) achtung sum(gewichte muss gleich anzahl der Messungen sein)
 
 # plt.cla()
 # plt.clf()
@@ -62,25 +63,34 @@ def line(x,a,b):
 	return a*x+b
 
 CountsKallibrierung=np.genfromtxt('scripts/Kalibrierung.txt')
-PeakPos = [] 
+PeakPos = []
+PeakPosStd=[]
 for i in range(0,512):
 	if CountsKallibrierung[i] != 0:
 		if CountsKallibrierung[i-1] != 0:
 			PeakPos.pop()
-			PeakPos.append((i*CountsKallibrierung[i]+(i-1)*CountsKallibrierung[i-1])/(CountsKallibrierung[i]+CountsKallibrierung[i-1]))
+			PeakPosStd.pop()
+			nom,std=weighted_avg_and_sem([i-1,i],[CountsKallibrierung[i-1],CountsKallibrierung[i]])
+			PeakPos.append(nom)
+			PeakPosStd.append(std)
+			#print('PeakPos1',i,':', PeakPos[-1])
+			print('PeakPos2',i,':',unp.uarray(*weighted_avg_and_sem([i-1,i],[CountsKallibrierung[i-1],CountsKallibrierung[i]])))
 		else:
-			PeakPos.append(i)
-
-PeakPos = np.array(PeakPos)
+			nom,std=weighted_avg_and_sem([i],[CountsKallibrierung[i]])
+			PeakPos.append(nom)
+			PeakPosStd.append(std)
+PeakPos=unp.uarray(PeakPos,PeakPosStd)
 #print(PeakPos)
 time = np.linspace(0.9,1*len(PeakPos),len(PeakPos))
 #print(time)
-params,std,sigmay = linregress(PeakPos,time)
+params,std,sigmay = linregress(unp.nominal_values(PeakPos),time)
+
+
 timeOffset=params[1]
-PeakPos2=np.linspace(0,PeakPos[-1]+1)
+PeakPos2=np.linspace(0,unp.nominal_values(PeakPos)[-1]+1)
 plt.cla()
 plt.clf()
-plt.plot(PeakPos, time, 'g+', label='Messwerte',linewidth='0.1')
+plt.errorbar(unp.nominal_values(PeakPos), time,fmt='x',xerr=unp.std_devs(PeakPos), label='Messwerte')
 plt.plot(PeakPos2, line(PeakPos2,*params), 'r-', label='Fit')
 # plt.ylim(0, line(t[-1], *params)+0.1)
 plt.xlim(0, PeakPos2[-1])
@@ -204,22 +214,22 @@ for i in range(0,511,2):
 
 channel2=np.array(channel2)
 Counts2=np.array(Counts2)
-params2, covar2 = curve_fit(f,channel2[9:-36],Counts2[9:-36],maxfev=100000,sigma=np.sqrt(Counts2[9:-36]))
+params2, covar2 = curve_fit(f,channel2[9:-37],Counts2[9:-37],maxfev=100000,sigma=np.sqrt(Counts2[9:-37]))
 fitparams2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
 channelplot2 = np.linspace(0,513/100,1000)
 plt.cla()
 plt.clf()
 #plt.plot(channel2[0:9], Counts2[0:9], 'bx', label='Messwerte',linewidth='0.1')
-plt.plot(channel2[9:-36]*100/EineMicroSekInChan.nominal_value+timeOffset, Counts2[9:-36], 'g+', label='Messwerte',linewidth='0.1')
-plt.plot(channelplot2*100/EineMicroSekInChan.nominal_value+timeOffset, f(channelplot2,*params2), 'r-', label='Fit')
+plt.errorbar(channel2[9:-37]*100/EineMicroSekInChan.nominal_value+timeOffset, Counts2[9:-37],yerr=np.sqrt(Counts2[9:-37]), label='Messwerte',fmt='x', capthick=2, linewidth='0.5')
+#plt.plot(channelplot2*100/EineMicroSekInChan.nominal_value+timeOffset, f(channelplot2,*params2), 'r-', label='Fit')
 ##plt.ylim(0, line(t[-1], *params)+0.1)
-plt.xlim(0, 513)
-plt.yscale('log')
-plt.ylabel(r'$N\si{\per\second}$')
-plt.xlabel(r'$Channel$')
-plt.legend(loc='best')
-plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/'+'Fit2')
+#plt.xlim(0, 513/EineMicroSekInChan.nominal_value)
+#plt.yscale('log')
+#plt.ylabel(r'$N$')
+#plt.xlabel(r'$T/\si{\second}$')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'Fit')
 lambdas2 = (1/fitparams2[0])/EineMicroSekInChan*100
 print('Mittlere Lebensdauer2 in us: ',lambdas2)
 print('Mittlere Lebensdauer relative Abweichung: ',abs(1-lambdas2/lambdasTheorie))
