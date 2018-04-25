@@ -102,8 +102,9 @@ def f(x,a,b,c):
 
 lambdasTheorie = unp.uarray(2.1969811,0.0000022)
 gelaufeneZeitInSec = 92164
-AnzahlAnEreignissenInsgesammt = 2212943
-Erwartungswert = unp.uarray(AnzahlAnEreignissenInsgesammt/gelaufeneZeitInSec,np.sqrt(AnzahlAnEreignissenInsgesammt)/gelaufeneZeitInSec)*(10**-6)*20
+AnzahlAnEreignissenInsgesammt = unp.uarray(2212943,np.sqrt(2212943))
+print('AnzahlAnEreignissenInsgesammt: ',AnzahlAnEreignissenInsgesammt)
+Erwartungswert = AnzahlAnEreignissenInsgesammt*(10**-6)*20/gelaufeneZeitInSec
 WahrscheinlichkeitnachfolgendesTeilchen = Erwartungswert*unp.exp(-Erwartungswert)
 AnzahlUntergrundEreignisse = WahrscheinlichkeitnachfolgendesTeilchen * AnzahlAnEreignissenInsgesammt
 AnzahlUntergrundProKanal = AnzahlUntergrundEreignisse /(20*EineMicroSekInChan)
