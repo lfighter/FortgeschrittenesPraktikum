@@ -4,7 +4,7 @@ def makeTable(data, names, filename, formats=[], formats2=[]):
     TableFile = open('build/'+filename+'.tex', 'w+')
     # TableFile.write( r'\begin{table}'+'\n\t'+r'\centering'+'\n\t'+r'\caption{'+name+r'}'+'\n\t')
     TableFile.write( r'\label{tab:'+filename+'}\n\t'+r'\sisetup{table-format=1.2}'+'\n\t'+r'\begin{tabular}{')
-    for i in range(len(data)):
+    for i in range(len(formats)):
         if formats:
             TableFile.write(formats[i])
         else:
@@ -38,7 +38,7 @@ def makeTable(data, names, filename, formats=[], formats2=[]):
 def makeNewTable(data, names, filename='test', formats=[], formats2=[], formats3=[]):
     TableFile = open('build/'+filename+'.tex', 'w+')
     TableFile.write( r'\label{tab:'+filename+'}\n\t'+r'\sisetup{table-format=1.2}'+'\n\t'+r'\begin{tabular}{')
-    for i in range(len(data)):
+    for i in range(len(formats)):
         if formats:
             TableFile.write(formats[i])
         else:
