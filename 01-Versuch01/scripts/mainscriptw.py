@@ -80,7 +80,7 @@ for i in range(0,512):
 			PeakPos.append(nom)
 			PeakPosStd.append(std)
 PeakPos=unp.uarray(PeakPos,PeakPosStd)
-makeNewTable([convert(PeakPos,unpFormat,[r'','',False])],r'\multicolumn{2}{c}{Kanal}','tab1', [r'S[table-format=3.3]',' @{${}\pm{}$} S[table-format=1.3]'])
+makeNewTable([convert(PeakPos,unpFormat,[r'','',True])],r'\multicolumn{1}{c}{Kanal}','tab1', [r'S'])
 #print(PeakPos)
 time = np.linspace(0.9,1*len(PeakPos),len(PeakPos))
 #print(time)
