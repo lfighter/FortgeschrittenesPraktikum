@@ -51,7 +51,8 @@ U_\text{ber}=\frac{U_\text{ges}}{K} =\num{2.431(4)}.
 	\caption{Die Anzahl der gemessenen Ereignisse mit einer zeitlichen Differenz Zeit T zum vorherigen.}
 	\label{fig:zweite}
 \end{figure}
-Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung wurde mit der Funktion curvefit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Als Gewichte wurden die Wurzeln der jeweiligen Anzahl an Ereignissen genommen, da bei dieser von einer Poisson-Verteilung ausgegangen wird. Die ersten $9$ und letzten $37$ Wertepaare wurden für den Fit ignoriert. Dies wird in der Diskussion begründet. Um den Fit so möglich zu machen wurden jeweils zwei Kanäle zu einem zusammengefasst, wobei die Anzahl an Ereignissen von beiden Kanälen addierte und die mittlere Kanalnummer von beiden genommen wird.  Die ursprünglichen Messwertepaare sind in der Tabelle \ref{tab:tab2} zu finden. Für die Parameter ergibt sich somit
+Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung wurde mit der Funktion curvefit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Als Gewichte wurden die Wurzeln der jeweiligen Anzahl an Ereignissen genommen, da bei dieser von einer Poisson-Verteilung ausgegangen wird. Die ersten $9$ und letzten $37$ Wertepaare wurden für den Fit ignoriert. Dies wird in der Diskussion begründet. Um den Fit so möglich zu machen wurden jeweils zwei Kanäle zu einem zusammengefasst, wobei die Anzahl an Ereignissen von beiden Kanälen addiert und die mittlere Kanalnummer von beiden genommen wird. %Die ursprünglichen Messwertepaare sind in der Tabelle \ref{tab:tab2} zu finden. 
+Für die Parameter ergibt sich somit
 \begin{gather*}
 a=\SI{0.468(6)}{\per\second}\\
 b=\num{6.43(2)}\\
@@ -59,7 +60,7 @@ c=\num{3.8(2)}.
 \end{gather*}
 Für den aus dem Fit ermittelten Untergrund pro Kanal ergibt sich somit
 \begin{displaymath}
-	U=\frac{c}{2}=\num{1.9(1)}
+	U_\text{fit}=\frac{c}{2}=\num{1.9(1)}
 \end{displaymath}
 und für die Lebensdauer des Myons
 \begin{displaymath}
