@@ -4,16 +4,19 @@
 Im folgendem sollen die Ergebnisse und Vorgehensweisen aus der Auswertung diskutiert werden.
 
 eingehen warum werte herausgenommen wurden:\\
-In dem Abschnitt \ref{subsec:Ausgleich} wurden zum Fitten zuerst jeweils zwei Kanäle zu einem zusammen gefasst und danach die ersten $9$ und letzten $37$ Wertepaare herausgenommen.
-Die Kanäle wurden zusammen gefasst da die Statistik nicht ausreichend war und es deshalb störende Nulleinträge gibt. Diese werden mit diesem Vorgehen eliminiert. Zu beachten ist, dass durch dieses Vorgehen Auflösung verloren geht. Diese Auflösung wurde bei der Auswertung nicht beachtet, da sie für die gesuchten Größen eine Untergeordnete Rolle spielt. Die letzten $37$ Wertepaare also $72$ Messkanäle wurden herausgenommen, da bei diesen, Aufgrund der begrenzten Suchzeit von $T_\text{S}\SI{20}{\micro\second}$, keine Ereignisse gemessen werden können. Die ersten $9$ also $18$ Messkanäle wurden aus verschiedenen Gründen herausgenommen. Die ersten da, der Aufbau bei geringen Messzeiten $T$ unter Umständen nicht wie gewünscht funktioniert, zum Beispiel da nicht zwischen den Start- und Stopimpuls unterschieden werden kann oder die Spannungen zwischen TAC und Vielkanalanalysator zu gering sind. Unter den ersten $9$ Wertepaaren mit einer größeren Messzeit gibt es ein stark ausgeprägtes Peak. Für dieses gibt es mehrere mögliche Ursachen. Zu einem könnte es dadurch zustande kommen, dass leichte Spannungsschwankungen am TAC fälschlicher Weise als Ereignis aufgefasst werden. Eine andere Ursache wäre, dass durch Reflexionen in den Kabeln ein Impuls doppelt erscheint.
+In dem Abschnitt \ref{subsec:Ausgleichs} wurden zum Fitten zuerst jeweils zwei Kanäle zu einem zusammen gefasst und danach die ersten $9$ und letzten $37$ Wertepaare herausgenommen.
+Die Kanäle wurden zusammen gefasst da die Statistik nicht ausreichend war und es deshalb störende Nulleinträge gibt. Diese werden mit diesem Vorgehen eliminiert. Zu beachten ist, dass durch dieses Vorgehen Auflösung verloren geht. Diese Auflösung wurde bei der Auswertung nicht beachtet, da sie für die gesuchten Größen eine untergeordnete Rolle spielt. Die letzten $37$ Wertepaare also $72$ Messkanäle wurden herausgenommen, da bei diesen, Aufgrund der maximalen Messzeit von $T_\text{S}=\SI{20}{\micro\second}$, keine Ereignisse gemessen werden können. Die ersten $9$ also $18$ Messkanäle wurden aus verschiedenen Gründen herausgenommen. Die ersten da, der Aufbau bei geringen Messzeiten $T$ unter Umständen nicht wie gewünscht funktioniert, zum Beispiel da nicht zwischen den Start- und Stopimpuls unterschieden werden kann oder die Spannungen zwischen TAC und Vielkanalanalysator zu gering sind. Unter den ersten $9$ Wertepaaren mit einer größeren Messzeit gibt es ein stark ausgeprägtes Peak. Für dieses gibt es mehrere mögliche Ursachen. Zu einem könnte es dadurch zustande kommen, dass leichte Spannungsschwankungen am TAC fälschlicher Weise als Ereignis aufgefasst werden. Eine andere Ursache wäre, dass durch Reflexionen in den Kabeln ein Impuls doppelt erscheint.
 
 
 
 
 
 vergleich mit theoriewerten $\tau$ abweichung \SI{3(1)}{\percent} Untergundabweichung zu berrechnet \SI{21(5)}{\percent}
-mit begründung:\\
+mit begründung:\\\\
+Der in Abschnitt \ref{subsec:Ausgleichs} bestimmte Wert für den Untergrund von $U_\text{fit}=\num{1.9(1)}$ weicht um \SI{21(5)}{\percent} vom im Abschnitt \ref{subsec:Berechnung} berechneten Wert von $U_\text{ber}=\num{2.431(4)}$ ab.
 
+
+Der in Abschnitt \ref{subsec:Ausgleichs} bestimmte Wert für die Lebensdauer des Myons von $\tau=\SI{2.14(3)}{\micro\second}$ weicht um \SI{3(1)}{\percent} vom Literaturwert von $\tau_\text{lit}=\SI{2.1969811(22)}{\micro\second}$ \cite{ParticlePhysics} ab. Dies könnte durch ein systematischen Fehler bei den zeitlichen Abständen die der Doppelimpulsgenerator liefert verursacht werden, da dadurch eine verfälschte Zeitskalar verursacht würde. Tatsächlich weicht der berechnete Wert von $\num{436.9(2)}$ von der die Anzahl der Kanäle in denen Ereignisse gezählt werden mit ungefähr $450$ um ca \SI{3}{\percent} ab. Dies könnte jedoch auch durch eine an der Univibrator ungenau eingestellte Suchzeit von nicht genau $\SI{20}{\micro\second}$ verursacht werden.
 
 
 
