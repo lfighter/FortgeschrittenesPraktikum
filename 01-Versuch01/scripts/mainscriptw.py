@@ -63,6 +63,9 @@ def line(x,a,b):
 	return a*x+b
 
 CountsKallibrierung=np.genfromtxt('scripts/Kalibrierung.txt')
+print('Anzahl an Stopereignissen:',np.sum(CountsKallibrierung))
+print('Anzahl an Stopereignissen (Impulszähler):', 17880)
+
 PeakPos = []
 PeakPosStd=[]
 for i in range(0,512):
@@ -118,7 +121,7 @@ lambdasTheorie = unp.uarray(2.1969811,0.0000022)
 gelaufeneZeitInSec = 92164
 AnzahlAnEreignissenInsgesammt = unp.uarray(2212943,np.sqrt(2212943))
 print('AnzahlAnEreignissenInsgesammt: ',AnzahlAnEreignissenInsgesammt)
-Erwartungswert = AnzahlAnEreignissenInsgesammt*(10**-6)*20/gelaufeneZeitInSec
+Erwartungswert = AnzahlAnEreignissenInsgesammt/gelaufeneZeitInSec*(10**-6)*20
 WahrscheinlichkeitnachfolgendesTeilchen = Erwartungswert*unp.exp(-Erwartungswert)
 AnzahlUntergrundEreignisse = WahrscheinlichkeitnachfolgendesTeilchen * AnzahlAnEreignissenInsgesammt
 AnzahlUntergrundProKanal = AnzahlUntergrundEreignisse /(20*EineMicroSekInChan)
