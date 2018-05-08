@@ -1,19 +1,3 @@
 
 \section{Diskussion}
 \label{sec:Diskussion}
-Im folgendem sollen die Ergebnisse und Vorgehensweisen aus der Auswertung diskutiert werden.
-
-%eingehen warum werte herausgenommen wurden:\\
-In dem Abschnitt \ref{subsec:Ausgleichs} wurden zum Fitten zuerst jeweils zwei Kanäle zu einem zusammen gefasst und danach die ersten $9$ und letzten $37$ Wertepaare herausgenommen.
-Die Kanäle wurden zusammen gefasst, da die Messdauer zu kurz war um die Statistik ausreichend zu füllen. Es ergaben sich daher störende Nulleinträge. Diese werden mit diesem Vorgehen eliminiert. Zu beachten ist, dass durch dieses Vorgehen Auflösung verloren geht. Die Auflösung wurde bei der Auswertung nicht beachtet, da sie für die gesuchten Größen eine untergeordnete Rolle spielt. Die letzten $37$ Wertepaare beziehungsweise $72$ Messkanäle wurden herausgenommen, da bei diesen keine Ereignisse gemessen werden können. Die Ursache hierfür ist die maximalen Messzeit von $T_\text{S}=\SI{20}{\micro\second}$. Die ersten $9$ Messwerte beziehungsweise $18$ Messkanäle wurden aus verschiedenen Gründen herausgenommen. Die Ersten wurden herausgenommen, da der Aufbau bei geringen Messzeiten $T$ unter Umständen nicht wie gewünscht funktioniert. Beispiele sind, dass nicht zwischen den Start- und Stopimpulsen unterschieden werden kann oder auch das die Spannungen zwischen TAC und Vielkanalanalysator zu gering sind. Die Wertepaaren mit einer leicht größeren Messzeit zeigen hingegen einen stark ausgeprägtes Peak. Für diesen gibt es mehrere mögliche Ursachen. Zu einem könnte es dadurch zustande kommen, dass leichte Spannungsschwankungen am TAC fälschlicherweise als Ereignis aufgefasst werden. Eine andere Ursache wäre, dass ein Impuls  durch Reflexionen in den Kabeln doppelt gezählt wird. Ein Indiz dafür wäre auch, dass insgesamt $23047$ Ereignisse in den Kanälen, jedoch nur $17880$ Ereignisse am Stopimpulszähler gezählt wurden.
-Es folgt eine Diskussion der bestimmten Größen:
-
-Der in Abschnitt \ref{subsec:Ausgleichs} bestimmte Wert für die Lebensdauer des Myons von $\tau=\SI{2.14(3)}{\micro\second}$ weicht um \SI{3(1)}{\percent} vom Literaturwert von $\tau_\text{lit}=\SI{2.1969811(22)}{\micro\second}$ \cite{ParticlePhysics} ab. Dies könnte durch einen systematischen Fehler der Zeitabstände der Doppelimpulse des Doppelimpulsgenerators auftreten, da diese eine verfälschte Zeitskala verursachen würden. Tatsächlich weicht der berechnete Wert von $\num{436.9(2)}$ Kanälen von der Anzahl der Kanäle, in denen Ereignisse gezählt worden sind, mit ungefähr $450$ um ca. \SI{3}{\percent} ab. 
-Es könnte jedoch auch durch eine an dem Univibrator ungenau eingestellte Suchzeit von nicht genau $\SI{20}{\micro\second}$ verursacht werden.
-
-Der in Abschnitt \ref{subsec:Ausgleichs} bestimmte Wert für den Untergrund von $U_\text{fit}=\num{1.9(1)}$ weicht um \SI{21(5)}{\percent} vom im Abschnitt \ref{subsec:Berechnung} berechneten Wert von $U_\text{ber}=\num{2.431(4)}$ ab. Dies könnte durch die Gewichtung der nicht linearen Ausgleichsrechnung zustande kommen. Bei dieser wird ein Fehler von $\sqrt{N}$ für $N$ Ereignisse im Kanal angenommen. Für größere Zeiten $T$ schwankt der Wert für $N$ relativ stark. Aufgrund der Gewichtung werden die niedrigeren Werte jedoch stärker gewichtet als die höheren. Dies könnte zu der Abweichung nach unten führen.
-
-
-
-
-%sonst noch was??
