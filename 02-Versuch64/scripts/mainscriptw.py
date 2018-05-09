@@ -59,16 +59,23 @@ from sympy import *
 #print(f2(AW, BW, CW))
 #print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
 
+def kontrastf(phi,phimax,a):
+	return 2*np.abs(np.sin(phi-phimax)*np.cos(phi-phimax))*a
 v0=406
-
 winkel, maximum, minimum  = np.genfromtxt('scripts/kontrast.txt',unpack=True)
+winkelinrad = 2*np.pi*winkel/360
 kontrast = (maximum-minimum)/(maximum+minimum-2*406)
+params, covar = curve_fit(kontrastf,winkelinrad,kontrast)
+fitergebniss = unp.uarray(params, np.sqrt(np.diag(covar)))
+winkelf=np.linspace(-1,90,1000)
 plt.cla()
 plt.clf()
+plt.plot(winkelf, kontrastf(winkelf*2*np.pi/360,*params), 'b-', label='Fit')
 plt.plot(winkel, kontrast, 'rx', label='Messwerte')
-
+print(fitergebniss)
+print('Maximum bei:', fitergebniss[0]/(2*np.pi)*360%90+45)
 #plt.ylim(0, line(t[-1], *params)+0.1)
-#plt.xlim(0, t[-1]*100)
+plt.xlim(-1, 90)
 plt.xlabel(r'$\phi/\si{\degree}$')
 plt.ylabel(r'$K$')
 plt.legend(loc='best')
