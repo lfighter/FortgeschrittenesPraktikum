@@ -61,7 +61,7 @@ from sympy import *
 
 v0=406
 
-winkel, minimum, maximum = np.genfromtxt('scripts/kontrast.txt')
+winkel, maximum, minimum  = np.genfromtxt('scripts/kontrast.txt',unpack=True)
 kontrast = (maximum-minimum)/(maximum+minimum-2*406)
 plt.cla()
 plt.clf()
