@@ -1,0 +1,13 @@
+#die brechungsmessung von luft bei verschiedenen drücken (das was unter master stand)
+#Temperatur bei allen versuchen: 26.5 ceslsius, atmosphärendruck 990 mbar. vakuumdrücke : zu erste spalte 8, zu zweiter 8, zu dritter 7 mbar
+#druck in mbar|anzahl maxima  1|anzahl maxima  2|anzahl maxima  3
+100 4 5 4
+200 8 8 8
+300 12 12 12
+400 16 16 16
+500 21 21 21
+600 24 25 25
+700 29 29 29
+800 33 33 33
+900 38 37 37
+990 42 41 41

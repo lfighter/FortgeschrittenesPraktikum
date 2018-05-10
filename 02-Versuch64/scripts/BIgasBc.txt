@@ -1,0 +1,10 @@
+#die bachelormessungen zur gaszelle(die wo wir nur den endwert gemessen haben)
+#temperatur in grad C | druck in mbar atmosphäre| druck in mbar vakuum| anzahl der gemessenen maxima
+26.2 991 8 41
+26.3 991 10 41
+26.3 991 7 41
+26.2 990 6 41
+26.2 990 6 43
+26.3 990 6 41
+26.3 990 6 42
+26.3 990 6 41
