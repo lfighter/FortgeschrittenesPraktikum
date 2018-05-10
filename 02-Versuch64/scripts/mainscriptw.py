@@ -59,6 +59,10 @@ from sympy import *
 #print(f2(AW, BW, CW))
 #print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
 
+lambdavac = 632.99 #in nm
+L = unp.uarray(100,0.1) #in mm
+T = 1 # in mm
+
 def kontrastf(phi,phimax,a):
 	return 2*np.abs(np.sin(phi-phimax)*np.cos(phi-phimax))*a
 v0=406
@@ -82,6 +86,11 @@ plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'kontrast')
 
+Mglass = np.genfromtxt('scripts/kontrast.txt',unpack=True)
+Mglass = unp.uarray(*avg_and_sem(Mglass)))
+
+def n(a,phi1,phi2):
+	return (a*a+2*(np.cos(phi1)-np.cos(phi2))*(1-a))/(2*(np.cos(phi1)-np.cos(phi2)-a))
 
 
 
