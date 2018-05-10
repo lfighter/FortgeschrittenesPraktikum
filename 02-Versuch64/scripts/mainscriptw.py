@@ -69,7 +69,7 @@ v0=406
 winkel, maximum, minimum  = np.genfromtxt('scripts/kontrast.txt',unpack=True)
 winkelinrad = 2*np.pi*winkel/360
 kontrast = (maximum-minimum)/(maximum+minimum-2*406)
-makeNewTable([winkel, maximum, minimum, kontrast],r'{$\phi$} & {$U_\text{min}$} & {$U_\text{max}$} & {$K$}','Kontrast',['S[table-format=3.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],['{:1.2f}','{:1.2f}','{:1.2f}','{:1.2f}'])
+makeNewTable([winkel, maximum, minimum, kontrast],r'{$\phi/\si{\degree}$} & {$U_\text{max}/\si{\milli\volt}$} & {$U_\text{min}/\si{\milli\volt}$} & {$K$}','Kontrast',['S[table-format=2.0]','S[table-format=4.0]','S[table-format=3.0]','S[table-format=1.2]'],['{:1.0f}','{:1.0f}','{:1.0f}','{:1.2f}'])
 params, covar = curve_fit(kontrastf,winkelinrad,kontrast)
 fitergebniss = unp.uarray(params, np.sqrt(np.diag(covar)))
 winkelf=np.linspace(-1,90,1000)
@@ -106,7 +106,7 @@ def nhoch2(x,a,b):
 
 
 p, m1, m2, m3 = np.genfromtxt('scripts/BIgasMA.txt',unpack=True)
-makeNewTable([p, m1, m2, m3],r'{$p$} & {$M_1$} & {$M_2$} & {$M_3$}','Luft',['S[table-format=3.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],['{:1.0f}','{:1.0f}','{:1.0f}','{:1.0f}'])
+makeNewTable([p, m1, m2, m3],r'{$p/\si{\milli\bar}$} & {$M_1$} & {$M_2$} & {$M_3$}','Luft',['S[table-format=3.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],['{:1.0f}','{:1.0f}','{:1.0f}','{:1.0f}'])
 m=m1.tolist()+m2.tolist()+m3.tolist()
 m=np.array(m)
 p=p.tolist()
@@ -124,11 +124,17 @@ plt.plot(pres, nhoch2(pres, *params), 'b-', label='Fit')
 plt.plot(p, n2**2, 'rx', label='Messwerte')
 #plt.ylim(1, 1.0003)
 plt.xlim(0, 1100)
-plt.xlabel(r'$p/\si{\bar}$')
+plt.xlabel(r'$p/\si{\milli\bar}$')
 plt.ylabel(r'$n^2$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'luft')
+nluft=unp.sqrt(nhoch2(1013,fitparams[0],fitparams[1]))
+nlufttheo=unp.uarray(1.000265205,0.000000032 )
+print('n_luft:', nluft)
+print('n_luftlit:', nlufttheo)
+print('n_luftlitabweichung:', unp.sqrt((nlufttheo-nluft)**2)/nlufttheo)
+
 
 
 

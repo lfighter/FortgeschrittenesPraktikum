@@ -1,15 +1,46 @@
 \section{Auswertung}
 \label{sec:Auswertung}
-
+Die Graphen wurden sowohl mit Matplotlib \cite{matplotlib} als auch NumPy \cite{numpy} erstellt. Die
+Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgeführt.
 \subsection{Bestimmung des optimalen Winkels am Polarisationsfilter}
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/Kontrast.pdf}
-	\caption{Die Zeit $T$ zwischen den Impulsen aus dem Doppelimpulsgenerator gegen die Messkanäle aufgetragen.}
-	\label{fig:erste}
+	\caption{Der Kontrast des Interferometer gegen den Winkel des Polarisationsfilters aufgetragen.}
 \end{figure}
 \begin{table}
 	\centering
-	\caption{Die Kanäle die einen Peak aufweisen, wobei die Werte mit Fehler durch einen gewichteten Mittelwert zustande kommen.}
+	\caption{Die maximale Spannung $U_\text{max}$ und die minimale Spannung $U_\text{min}$ an der Diode und der daraus berechnete Kontrast für die verschiedenen Winkel $\phi$ am Polarisationsfilter.}
 	\input{build/Kontrast.tex}
 \end{table}
+Der Kontrast in Tabelle \ref{tab:Kontrast} wird mit Formel \eqref{eq:kont} aus den am Oszilloskop gemessenen Spannungen $U_\text{min}$ und $U_\text{max}$ berechnet. Der Fit wird mit einer nicht linearen Ausgleichsrechnung der Form $a |\sin(2(\phi+\delta\phi))|$ bestimmt. Hierbei wird die Funktion curve\_fit aus der NumPy-Bibliothek SciPy \cite{scipy} verwendet.
+
+\subsection{Bestimmung des Brechungsindexes der Glasplatten}
+\begin{table}
+	\centering
+	\caption{Die gemessene Anzahl an Übergängen $M$ bei einer Drehung von jeweils $\SI{10}{\degree}$.}
+	\input{build/Glas.tex}
+\end{table}
+
+\subsection{Bestimmung des Brechungsindexes von Luft}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/Luft.pdf}
+	\caption{Der jeweils aus der Anzahl an Übergängen $M$ berechnete Brechungsindex $n$ gegen den Luftdruck $p$ aufgetragen.}
+	\label{fig:Luft}
+\end{figure}
+\begin{table}
+	\centering
+	\caption{Die Anzahl an gemessenen Übergängen $M$ für verschiedene Luftdrücke $p$.}
+	\input{build/Luft.tex}
+\end{table}
+Die in Abbildung \ref{fig:Luft} berechneten Wirkungsindexe wurden mit Formel \eqref{eq:Deltaphi} berechnet. Der Fit besitzt die Form $f(x,a,b) =a\cdot x +b$ und wurde mit Hilfe einer linearen Regression bestimmt. Für die Parameter ergeben sich:
+\begin{gather*}
+	a=\SI{5.29(3)e-7}{\per\milli\bar}\\
+	b=\num{0.999996(2)}.
+\end{gather*}
+Durch Einsetzten der bestimmten Parameter in $\sqrt{f(x,a,b)}$ ergibt sich für einen Luftdruck von \SI{1013}{\milli\bar} und bei \SI{26.5}{\degreeCelsius} nach dem Lorenz-Lorentz Gesetz
+\begin{displaymath}
+ n_\text{Luft}(\SI{1013}{\milli\bar},\SI{26.5}{\degreeCelsius})=\num{1.000266(2)}.
+\end{displaymath}
