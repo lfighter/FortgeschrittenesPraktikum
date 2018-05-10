@@ -59,7 +59,7 @@ from sympy import *
 #print(f2(AW, BW, CW))
 #print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
 
-lambdavac = 632.99 #in nm
+lambdavac = 632.99 *10**-6 #in mm
 L = unp.uarray(100,0.1) #in mm
 T = 1 # in mm
 
@@ -86,11 +86,49 @@ plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'kontrast')
 
-Mglass = np.genfromtxt('scripts/kontrast.txt',unpack=True)
-Mglass = unp.uarray(*avg_and_sem(Mglass)))
 
+#gglllaaaaaaaaaaaaassssssss
 def n(a,phi1,phi2):
-	return (a*a+2*(np.cos(phi1)-np.cos(phi2))*(1-a))/(2*(np.cos(phi1)-np.cos(phi2)-a))
+	return (a*a+2*(unp.cos(phi1)-unp.cos(phi2))*(1-a))/(2*(unp.cos(phi1)-unp.cos(phi2)-a))
+
+Mglass = np.genfromtxt('scripts/BIglas.txt',unpack=True)
+Mglass = unp.uarray(*avg_and_sem(Mglass))
+print(Mglass)
+a=Mglass*lambdavac/(2*T)
+print(a)
+N=n(a,10*2*np.pi/360,20*2*np.pi/360)
+print(N)
+
+#gasssssssssssss
+def nhoch2(x,a,b):
+	return a*x +b
+
+
+p, m1, m2, m3 = np.genfromtxt('scripts/BIgasMA.txt',unpack=True)
+makeNewTable([p, m1, m2, m3],r'{$p$} & {$p$} & {$p$} & {$p$}','Luft',['S[table-format=3.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],['{:1.0f}','{:1.0f}','{:1.0f}','{:1.0f}'])
+m=m1.tolist()+m2.tolist()+m3.tolist()
+m=np.array(m)
+p=p.tolist()
+p*=3
+p=np.array(p)
+n2 = unp.nominal_values(m*lambdavac/L  + 1)
+print(n2)
+params, error, sigmay= linregress(p,n2**2)
+fitparams = unp.uarray(params,error)
+print(fitparams)
+pres=np.linspace(0,1100,1000)
+plt.cla()
+plt.clf()
+plt.plot(pres, nhoch2(pres, *params), 'b-', label='Fit')
+plt.plot(p, n2**2, 'rx', label='Messwerte')
+#plt.ylim(1, 1.0003)
+plt.xlim(0, 1100)
+plt.xlabel(r'$p/\si{\bar}$')
+plt.ylabel(r'$n^2$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'luft')
+
 
 
 
