@@ -15,10 +15,10 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 \end{table}
 Der Kontrast in Tabelle \ref{tab:Kontrast} wird mit Formel \eqref{eq:kont} aus den am Oszilloskop gemessenen Spannungen $U_\text{min}$ und $U_\text{max}$ berechnet. Der Fit wird mit einer nicht linearen Ausgleichsrechnung der Form $a |\sin(2(\phi+\delta\phi))|$ bestimmt. Hierbei wird die Funktion curve\_fit aus der NumPy-Bibliothek SciPy \cite{scipy} verwendet. Die Parameter berechnen sich zu
 \begin{gather*}
-a=\num{0.95(1)}
+a=\num{0.95(1)}\\
 \delta\phi=\SI{3.1(4)}{\degree}.
 \end{gather*}
-Daraus ergibt sich der maximale Kontrast $K_\text{max}=a=\num{0.95(1)$ bei einem Winkel am Polarisationsfilter von $\phi=\SI{45}{\degree}+\delta\phi=\SI{48.1(4)}{\degree}$.
+Daraus ergibt sich der maximale Kontrast $K_\text{max}=a=\num{0.95(1)}$ bei einem Winkel am Polarisationsfilter von $\phi=\SI{45}{\degree}+\delta\phi=\SI{48.1(4)}{\degree}$.
 
 \subsection{Bestimmung des Brechungsindexes der Glasplatten}
 \begin{table}
@@ -26,7 +26,10 @@ Daraus ergibt sich der maximale Kontrast $K_\text{max}=a=\num{0.95(1)$ bei einem
 	\caption{Die gemessene Anzahl an Übergängen $M$ bei einer Drehung von jeweils $\SI{10}{\degree}$.}
 	\input{build/Glas.tex}
 \end{table}
-
+Mit den Werten aus Tabelle \ref{tab:Glas} ergibt sich für den Mittelwert $M_\text{mittel}=\num{34.1(4)}$. Damit bestimmt sich der Wert für $n_\text{Glas}$ nach Formel \eqref{} zu
+\begin{displaymath}
+	n=\num{1.302(4)}.
+\end{displaymath}
 
 \subsection{Bestimmung des Brechungsindexes von Luft}
 
@@ -41,7 +44,7 @@ Daraus ergibt sich der maximale Kontrast $K_\text{max}=a=\num{0.95(1)$ bei einem
 	\caption{Die Anzahl an gemessenen Übergängen $M$ für verschiedene Luftdrücke $p$.}
 	\input{build/Luft.tex}
 \end{table}
-Die in Abbildung \ref{fig:Luft} berechneten Wirkungsindexe wurden mit Formel \eqref{eq:Deltaphi} berechnet. Der Fit besitzt die Form $f(x,a,b) =a\cdot x +b$ und wurde mit Hilfe einer linearen Regression bestimmt. Für die Parameter ergeben sich:
+Die in Abbildung \ref{fig:Luft} berechneten Wirkungsindexe wurden mit Formel \eqref{eq:Deltaphi} berechnet. Der Fit besitzt die Form $f(x,a,b) =a\cdot x +b$ und wurde mit Hilfe einer linearen Regression bestimmt. Für die Parameter ergeben sich
 \begin{gather*}
 	a=\SI{5.29(3)e-7}{\per\milli\bar}\\
 	b=\num{0.999996(2)}.
