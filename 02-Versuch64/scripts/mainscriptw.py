@@ -92,14 +92,53 @@ plt.savefig('build/'+'kontrast')
 def n(a,phi1,phi2):
 	return (a*a+2*(unp.cos(phi1)-unp.cos(phi2))*(1-a))/(2*(unp.cos(phi1)-unp.cos(phi2)-a))
 
+def nalt(M, phi):
+	return (phi*T)/(phi*T-M*lambdavac)
+zehnGradinRad = 10*2*np.pi/360
+
+def MFastExakt(phi,n):
+	return 
+def MFastExakt(phi,n):
+	vorfaktor = T/lambdavac
+	ersterTerm = (n-np.cos(phi+zehnGradinRad-np.arcsin(1/n*np.sin(phi+zehnGradinRad))))/np.cos(np.arcsin(1/n*np.sin(phi+zehnGradinRad)))
+	zweiterTerm = (n-np.cos(phi-zehnGradinRad-np.arcsin(1/n*np.sin(phi-zehnGradinRad))))/np.cos(np.arcsin(1/n*np.sin(phi-zehnGradinRad)))
+	return vorfaktor*(ersterTerm-zweiterTerm)
+
+def MFastExakt2(phi,n):
+	vorfaktor = T/lambdavac
+	ersterTerm = (n-np.cos(phi+zehnGradinRad-np.arcsin(1/n*np.sin(phi+zehnGradinRad))))/np.cos(phi+zehnGradinRad)
+	return vorfaktor*(ersterTerm)
+
 Mglass = np.genfromtxt('scripts/BIglas.txt',unpack=True)
 makeNewTable([Mglass],r'{$M$}','Glas',['S[table-format=2.0]'],['{:1.0f}'])
-Mglass = unp.uarray(*avg_and_sem(Mglass))
+params, covar = curve_fit(MFastExakt,(Mglass*0+zehnGradinRad),Mglass,bounds=(1,3))
+fitergebniss = unp.uarray(params, np.sqrt(np.diag(covar)))
+MglassU = unp.uarray(*avg_and_sem(Mglass))
 print(Mglass)
-a=Mglass*lambdavac/(2*T)
-N=n(a,10*2*np.pi/360,20*2*np.pi/360)
+a=MglassU*lambdavac/(2*T)
+N=n(a,0*2*np.pi/360,20*2*np.pi/360)
+print(10*2*np.pi/360)
 print(N)
-
+print(nalt(MglassU,10*2*np.pi/360 * 20*2*np.pi/360))
+print(MFastExakt(0,1.3))
+print(fitergebniss)
+phi=np.linspace(-zehnGradinRad*6,zehnGradinRad*6,1000000)
+plt.cla()
+plt.clf()
+plt.plot(phi, MFastExakt(phi, *params), 'b-', label='Fit')
+plt.plot(phi, MFastExakt(phi, 1), '-', label='n=1')
+plt.plot(phi, MFastExakt(phi, 1.2), '-', label='n=1.2')
+plt.plot(phi, MFastExakt(phi, 1.5), '-', label='n=1.5')
+plt.plot(phi, MFastExakt(phi, 2), '-', label='n=2')
+plt.plot(phi, MFastExakt(phi, 2.5), '-', label='n=2.5')
+plt.plot((Mglass*0+zehnGradinRad),Mglass, 'rx', label='Messwerte')
+plt.ylim(-180, 180)
+plt.xlim(-zehnGradinRad*6, zehnGradinRad*6)
+plt.xlabel(r'$\phi$')
+plt.ylabel(r'$M$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'glas')
 #gasssssssssssss
 def nhoch2(x,a,b):
 	return a*x +b
