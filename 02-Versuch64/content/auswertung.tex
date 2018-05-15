@@ -24,14 +24,20 @@ Daraus ergibt sich der maximale Kontrast $K_\text{max}=a=\num{0.95(1)}$ bei eine
 
 \subsection{Bestimmung des Brechungsindexes der Glasplatten}
 \label{ssec:glas}
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/glas.pdf}
+	\caption{Die theoretischen Funktionen $M(\phi)$ für verschiedene $n$ aufgetragen, mit Messwerten und zugehörigem Fit.}
+	\label{fig:Glas}
+\end{figure}
 \begin{table}
 	\centering
-	\caption{Die gemessene Anzahl an Übergängen $M$ bei einer Drehung von jeweils $\SI{10}{\degree}$.}
+	\caption{Die gemessene Anzahl an Übergängen $M$ bei einer Drehung von jeweils $\SI{10}{\degree}$ .}
 	\input{build/Glas.tex}
 \end{table}
-Mit den Werten aus Tabelle \ref{tab:Glas} ergibt sich für den Mittelwert $M_\text{mittel}=\num{34.1(4)}$. Damit bestimmt sich der Wert für $n_\text{Glas}$ nach Formel \eqref{eq:glas} zu
+Der Parameter des Fits in Abbildung \ref{fig:Glas} wurde mit der Funktion curve\_fit aus der python-Bibliothek SciPy \cite{scipy} ermittelt. Der Fit besitzt die Form von Formel \eqref{eq:Mglas}. Mit den gegeben Werten von $\lambda_\text{vac}=\SI{632.99}{\nano\meter}$ und $T=\SI{1}{\milli\meter}$ ergibt sich für den fehlenden Parameter
 \begin{displaymath}
-	n_\text{Glas}=\num{1.302(4)}.
+	n_\text{Glas}=\num{1.520(7)}.
 \end{displaymath}
 
 \subsection{Bestimmung des Brechungsindexes von Luft}
@@ -47,12 +53,12 @@ Mit den Werten aus Tabelle \ref{tab:Glas} ergibt sich für den Mittelwert $M_\te
 	\caption{Die Anzahl an gemessenen Übergängen $M$ für verschiedene Luftdrücke $p$.}
 	\input{build/Luft.tex}
 \end{table}
-Die in Abbildung \ref{fig:Luft} berechneten Wirkungsindexe wurden mit Formel \eqref{eq:Deltaphi} aus den Werten in Tabelle \ref{tab:Luft} berechnet. Der Fit besitzt die Form $f(x,a,b) =a\cdot x +b$ und wurde mit Hilfe einer linearen Regression bestimmt. Für die Parameter ergeben sich
+Die in Abbildung \ref{fig:Luft} berechneten Wirkungsindexe werden mit Formel \eqref{eq:Deltaphi} aus den Werten in Tabelle \ref{tab:Luft} berechnet. Dafür wird $\lambda_\text{vac}=\SI{632.99}{\nano\meter}$ und $L=\SI{100.0(1)}{\milli\meter}$ verwendet. Der Fit besitzt die Form $f(x,a,b) =a\cdot x +b$ und wird mit Hilfe einer linearen Regression bestimmt. Für die Parameter ergeben sich
 \begin{gather*}
 	a=\SI{5.29(3)e-7}{\per\milli\bar}\\
 	b=\num{0.999996(2)}.
 \end{gather*}
-Durch Einsetzten der bestimmten Parameter in $\sqrt{f(x,a,b)}$ ergibt sich für einen Luftdruck von \SI{1013}{\milli\bar} und bei \SI{26.5}{\degreeCelsius} nach dem Lorenz-Lorentz Gesetz
+Durch Einsetzten der bestimmten Parameter in $\sqrt{f(x,a,b)}$ ergibt sich für einen Luftdruck von $\SI{1013}{\milli\bar}$ und bei $\SI{26.5}{\degreeCelsius}$ nach dem Lorenz-Lorentz Gesetz
 \begin{displaymath}
  n_\text{Luft}(\SI{1013}{\milli\bar},\SI{26.5}{\degreeCelsius})=\num{1.000266(2)}.
 \end{displaymath}
