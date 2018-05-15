@@ -27,16 +27,23 @@ Der Brechungsindex eines Gases beziehungsweise einer Flüssigkeit in Abhängigke
 \end{figure}
 
 \subsection{Die Bestimmung des Brechungsindex von lichtdurchlässigen Festkörpern}
-Im Falle eines Festkörpers kann die Dichte nicht einfach variiert werden. Daher wird eine dünne Scheibe der Dicke $T$ des Materials auf eine drehbare Bühne gesetzt. Wird die Probe nun gedreht, verlängert sich der optische Lichtweg gemäß Abb. \ref{fig:Drehscheibe} wieder kontinuierlich. Wird die drehbare Bühne nun in das Interferometer gesetzt folgt für den auftretenden Phasenunterschied:
+Im Falle eines Festkörpers kann die Dichte nicht einfach variiert werden. Daher wird eine dünne Scheibe der Dicke $T$ des Materials mit Brechungsindex $n$ auf eine drehbare Bühne gesetzt. Wird die Probe nun gedreht, verlängert sich der optische Lichtweg gemäß Abb. \ref{fig:Drehscheibe} wieder kontinuierlich. Wird die drehbare Bühne nun in das Interferierter gesetzt folgt für den auftretenden Phasenunterschied mit zwei zueinander um $\frac{\alpha}{2}$ verdrehte Scheiben:
 \begin{equation}
-    \varphi(\theta) = \frac{2 \pi}{c_\text{Vakuum}} T \left( \frac{n - \cos(\theta - \theta ')}{\cos(\theta')} - n + 1 \right) \text{.} \label{eq:phi}
+\begin{split}
+\delta\varphi(\phi) = & \frac{2 \pi}{\lambda_\text{vac}} T \left( \frac{n - \cos\left(\phi+\alpha - \arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)} \right. \\
+& \left. - \frac{n - \cos\left(\phi-\alpha - \arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)} \right)  \label{eq:phi}
+\end{split}
+\end{equation}
+und somit für die Anzahl an übergangenen Maxima $M$ bei einer Drehung um $\phi$:
+\begin{equation}
+\begin{split}
+M(\phi) = & \frac{T}{\lambda_\text{vac}} \left( \frac{n - \cos\left(\phi+\alpha - \arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)} \right. \\
+& \left. - \frac{n - \cos\left(\phi-\alpha - \arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)} \right) \text{.} \label{eq:Mglas}
+\end{split} 
 \end{equation}
 
-Für den Brechungsindex folgt:
-\begin{equation}
- n_\text{Glas} = \frac{\alpha^2 + 2 (\cos(\theta_1)-\cos(\theta_2))(1-\alpha)}{2 (\cos(\theta_1)-\cos(\theta_2)-\alpha)} \label{eq:glas}
-\end{equation}
-mit $\alpha = M \lambda_\text{vac}/(2 T)$.
+
+
 
 
 \begin{figure}
