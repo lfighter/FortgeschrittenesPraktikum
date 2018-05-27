@@ -60,6 +60,25 @@ from sympy import *
 #print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
 
 
+def gi(L,r):
+	return 1-L/r
+
+
+L=np.linspace(0,10,1000)
+plt.cla()
+plt.clf()
+plt.plot(L, gi(L,1)*gi(L,1), 'g-', label='1')
+plt.plot(L, gi(L,3)*gi(L,5), 'r-', label='3,5')
+plt.plot(L, gi(L,4)*gi(L,5), 'b-', label='4,5')
+plt.plot(L, 1+0*gi(L,3)*gi(L,5), 'y-', label='1konst')
+plt.plot(L, 0+0*gi(L,3)*gi(L,5), 'k-', label='0konst')
+plt.ylim(-0.2, 1.2)
+# plt.xlim(0, t[-1]*100)
+# plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+# plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'unnötigerKram')
 
 
 
