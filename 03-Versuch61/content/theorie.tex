@@ -1,0 +1,75 @@
+
+\section{Theorie}
+\label{sec:Theorie}
+\subsection{Der Brechungsindex}
+Es ist bekannt, dass die Lichtgeschwindigkeit eine feste Größe ist und ca. $\SI{3 E8}{\meter\per\second}$ beträgt. Hierbei handelt es sich jedoch um die die Lichtgeschwindigkeit im Vakuum.  In Materie hat Licht hingegen eine materialspezifische Geschwindigkeit, welche geringer ausfällt. Anders betrachtet verlängert sich der optische Weg in einem Medium. Der Brechungsindex gibt das Verhältnis der Lichtgeschwindigkeit in Materie zur Lichtgeschwindigkeit im Vakuum an. Daher gilt:
+\begin{equation}
+    n = \frac{c_\text{Materie}}{c_\text{Vakuum}} \label{eq:n} \text{.}
+\end{equation}  
+
+ \subsection{Die Bestimmung des Brechungsindex von Gasen}
+%<<<<<<< 307d0282aa6ca1be5fc3cda9cc4792d458782bf9
+ %Eine Methode den Brechungsindex bei Gasen zu bestimmen, ist die Dichte des untersuchten Gases zunächst zu reduzieren und den Druck nachher wieder langsam zu erhöhen. Wird das Gas dabei in den Lichtweg eines Interferometers gebracht, sorgt die dynamisch ansteigende optische Weglänge dazu, dass beide Strahlen am Ende miteinander interferieren und es zu Intensitätsmaxima und Minima kommt. Dies wird bei Verwendung des Wellenmodells des Lichtes deutlich. 
+ Eine Methode den Brechungsindex von Gasen zu bestimmen, ist die Dichte des untersuchten Gases kontinuierlich zu variieren. Wird das Gas dabei in den Lichtweg eines Interferometers gebracht, sorgt die dynamisch ansteigende optische Weglänge dafür, dass beide Strahlen am Ende miteinander interferieren und es zu Intensitätsmaxima und Minima kommt. Dies wird bei Verwendung des Wellenmodells des Lichtes deutlich. 
+%>>>>>>> rechtschreibfehler in meinem kram gefixt
+ In der klassischen Darstellung wird Licht als Überlagerung ebener Wellen dargestellt. Wird zusätzlich linear polarisiertes Licht angenommen, kann Die Welle durch
+ \begin{equation}
+    f(x,t) = exp(i \frac{2 \pi}{\lambda_\text{Vakuum}} n x ) e^{(-i \omega t)} \label{eq:ebeneWelle}
+ \end{equation}
+dargestellt werden. Kommt es nun zu einer Änderung des Brechungsindex über eine Länge $L$,so führt dies zu einer Phasenverschiebung $\delta\varphi$ der Welle. Bei einem Vakuumbrechungsindex von eins folgt:
+\begin{equation}
+    \delta \varphi = \frac{2 \pi}{\lambda_\text{Vakuum}} (n-1) L \text{.} \label{eq:Deltaphi}
+\end{equation}
+Werden die zueinander phasenverschobenen Wellen nun überlagert, bilden sich die genannten Minima und Maxima aus, welche sich zählen lassen. Aus der Maximaanzahl $M$ folgt für den Brechungsindex:
+\begin{equation}
+	n_\text{Gas} = \frac{\delta\varphi  \lambda_{Vakuum}}{L} +1 \text{.} \label{eq:nGas}
+\end{equation} 
+Der Brechungsindex eines Gases beziehungsweise einer Flüssigkeit in Abhängigkeit des Druckes, der Temperatur und der Polarisierbarkeit lässt sich gut durch das Lorenz-Lorentz Gesetz beschreiben, für welches der Brechungsindex durch 
+\begin{equation}
+n_\text{Gas} \approx \sqrt{1+\frac{3 A p}{R T}} \label{eq:lorenz}
+\end{equation}
+angenähert werden kann. In der Näherung beschreibt $p$ den Druck, $T$ die absolute Temperatur, R die allgemeine Gaskonstante und $A$ das molare Refraktionsvermögen. Es ist zudem möglich die Eigenschaften von Gas oder Flüssigkeitsgemischen zu bestimmen, indem die Eigenschaften der einzelnen Komponenten bestimmt werden.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Bilder/drehscheibeskizze.png}
+	\caption{Hilfsskizze zur Bestimmung des optischen Weges einer rotierender Scheibe \cite{V64}.}
+	\label{fig:Drehscheibe}
+\end{figure}
+
+\subsection{Die Bestimmung des Brechungsindex von lichtdurchlässigen Festkörpern}
+Im Falle eines Festkörpers kann die Dichte nicht einfach variiert werden. Daher wird eine dünne Scheibe der Dicke $T$ des Materials mit Brechungsindex $n$ auf eine drehbare Bühne gesetzt. Wird die Probe nun gedreht, verlängert sich der optische Lichtweg gemäß Abb. \ref{fig:Drehscheibe} wieder kontinuierlich. Wird die drehbare Bühne nun in das Interferierter gesetzt folgt für den auftretenden Phasenunterschied mit zwei zueinander um $\frac{\alpha}{2}$ verdrehte Scheiben:
+\begin{equation}
+\begin{split}
+\delta\varphi(\phi) = & \frac{2 \pi}{\lambda_\text{vac}} T \left( \frac{n - \cos\left(\phi+\alpha - \arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)} \right. \\
+& \left. - \frac{n - \cos\left(\phi-\alpha - \arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)} \right)  \label{eq:phi}
+\end{split}
+\end{equation}
+und somit für die Anzahl an übergangenen Maxima $M$ bei einer Drehung um $\phi$:
+\begin{equation}
+\begin{split}
+M(\phi) = & \frac{T}{\lambda_\text{vac}} \left( \frac{n - \cos\left(\phi+\alpha - \arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi+\alpha)\right)\right)} \right. \\
+& \left. - \frac{n - \cos\left(\phi-\alpha - \arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)}{\cos\left(\arcsin\left(\frac{1}{n} \sin(\phi-\alpha)\right)\right)} \right) \text{.} \label{eq:Mglas}
+\end{split} 
+\end{equation}
+
+
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Bilder/PBSC.png}
+	\caption{Skizzierung der Wirkungsweise eines PBSC \cite{V64}.}
+	\label{fig:PBSC}
+\end{figure}
+
+
+\subsection{Die Polarisation von Licht}
+Licht besteht aus einer Überlagerung vieler verschiedener einzelner Wellen. Wird nun ein Polarisationsfilter in den Strahlengang gebracht, filtert dieser alle Komponenten des Lichtes heraus, welche orthogonal zur Polarisationsrichtung des Filters verlaufen. Daher verbleibt nur ein linear polarisierter Strahl übrig. Die Wirkung des PBSC ist eine ähnliche. Dieser besteht gemäß Abb. \ref{fig:PBSC} aus zwei Glasprismen und lässt eine Polarisationsrichtung des Strahles passieren, während die dazu orthogonale Komponente um $\SI{90}{\degree}$ abgelenkt wird.
+
+\subsection{Definition des Kontrastes}
+Der Kontrast gibt ein Verhältnis zwischen maximaler $I_\text{max}$ und minimaler Intensität $I_\text{min}$an. Er ist definiert durch:
+\begin{equation}
+    K = \frac{I_\text{max} - I_\text{min}}{I_\text{max} + I_\text{min}} \text{.}          \label{eq:kont}
+\end{equation}
