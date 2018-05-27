@@ -10,17 +10,25 @@ Es ist bekannt, dass die Lichtgeschwindigkeit eine feste Größe ist und ca. $\S
  \subsection{Die Bestimmung des Brechungsindex von Gasen}
 %<<<<<<< 307d0282aa6ca1be5fc3cda9cc4792d458782bf9
  %Eine Methode den Brechungsindex bei Gasen zu bestimmen, ist die Dichte des untersuchten Gases zunächst zu reduzieren und den Druck nachher wieder langsam zu erhöhen. Wird das Gas dabei in den Lichtweg eines Interferometers gebracht, sorgt die dynamisch ansteigende optische Weglänge dazu, dass beide Strahlen am Ende miteinander interferieren und es zu Intensitätsmaxima und Minima kommt. Dies wird bei Verwendung des Wellenmodells des Lichtes deutlich. 
- Eine Methode den Brechungsindex von Gasen zu bestimmen, ist die Dichte des untersuchten Gases kontinuierlich zu variieren. Wird das Gas dabei in den Lichtweg eines Interferometers gebracht, sorgt die dynamisch ansteigende optische Weglänge dazu, dass beide Strahlen am Ende miteinander interferieren und es zu Intensitätsmaxima und Minima kommt. Dies wird bei Verwendung des Wellenmodells des Lichtes deutlich. 
+ Eine Methode den Brechungsindex von Gasen zu bestimmen, ist die Dichte des untersuchten Gases kontinuierlich zu variieren. Wird das Gas dabei in den Lichtweg eines Interferometers gebracht, sorgt die dynamisch ansteigende optische Weglänge dafür, dass beide Strahlen am Ende miteinander interferieren und es zu Intensitätsmaxima und Minima kommt. Dies wird bei Verwendung des Wellenmodells des Lichtes deutlich. 
 %>>>>>>> rechtschreibfehler in meinem kram gefixt
  In der klassischen Darstellung wird Licht als Überlagerung ebener Wellen dargestellt. Wird zusätzlich linear polarisiertes Licht angenommen, kann Die Welle durch
  \begin{equation}
     f(x,t) = exp(i \frac{2 \pi}{\lambda_\text{Vakuum}} n x ) e^{(-i \omega t)} \label{eq:ebeneWelle}
  \end{equation}
-dargestellt werden. Kommt es nun zu einer Änderung des Brechungsindex über eine Länge $L$,so führt dies zu einer Phasenverschiebung der Welle. Bei einem Vakuumbrechungsindex von eins folgt:
+dargestellt werden. Kommt es nun zu einer Änderung des Brechungsindex über eine Länge $L$,so führt dies zu einer Phasenverschiebung $\delta\varphi$ der Welle. Bei einem Vakuumbrechungsindex von eins folgt:
 \begin{equation}
-    \Delta \varphi = \frac{2 \pi}{\lambda_\text{Vakuum}} (n-1) L \text{.} \label{eq:Deltaphi}
+    \delta \varphi = \frac{2 \pi}{\lambda_\text{Vakuum}} (n-1) L \text{.} \label{eq:Deltaphi}
 \end{equation}
-Der Brechungsindex eines Gases beziehungsweise einer Flüssigkeit in Abhängigkeit des Druckes, der Temperatur und der Polarisierbarkeit lässt sich gut durch das Lorenz-Lorentz Gesetz beschreiben. Es ist zudem möglich die Eigenschaften von Gas oder Flüssigkeitsgemischen zu bestimmen, indem die Eigenschaften der einzelnen Komponenten bestimmt werden.
+Werden die zueinander phasenverschobenen Wellen nun überlagert, bilden sich die genannten Minima und Maxima aus, welche sich zählen lassen. Aus der Maximaanzahl $M$ folgt für den Brechungsindex:
+\begin{equation}
+	n_\text{Gas} = \frac{\delta\varphi  \lambda_{Vakuum}}{L} +1 \text{.} \label{eq:nGas}
+\end{equation} 
+Der Brechungsindex eines Gases beziehungsweise einer Flüssigkeit in Abhängigkeit des Druckes, der Temperatur und der Polarisierbarkeit lässt sich gut durch das Lorenz-Lorentz Gesetz beschreiben, für welches der Brechungsindex durch 
+\begin{equation}
+n_\text{Gas} \approx \sqrt{1+\frac{3 A p}{R T}} \label{eq:lorenz}
+\end{equation}
+angenähert werden kann. In der Näherung beschreibt $p$ den Druck, $T$ die absolute Temperatur, R die allgemeine Gaskonstante und $A$ das molare Refraktionsvermögen. Es ist zudem möglich die Eigenschaften von Gas oder Flüssigkeitsgemischen zu bestimmen, indem die Eigenschaften der einzelnen Komponenten bestimmt werden.
 
 \begin{figure}
 	\centering
@@ -58,7 +66,7 @@ M(\phi) = & \frac{T}{\lambda_\text{vac}} \left( \frac{n - \cos\left(\phi+\alpha 
 
 
 \subsection{Die Polarisation von Licht}
-Licht besteht aus einer Überlagerung vieler verschiedener einzelner Wellen. Wird nun ein Polarisationsfilter in den Strahlengang gebracht, filtert dieser alle Komponenten des Lichtes heraus, welche orthogonal zum Polarisationsrichtung des Filters verlaufen. Daher verbleibt nur ein linear polarisierter Strahl übrig. Die Wirkung des PBSC ist eine ähnliche. Dieser besteht gemäß Abb. \ref{fig:PBSC} aus zwei Glasprismen und lässt eine Polarisationsrichtung des Strahles passieren, während die dazu orthogonale Komponente um $\SI{90}{\degree}$ abgelenkt wird.
+Licht besteht aus einer Überlagerung vieler verschiedener einzelner Wellen. Wird nun ein Polarisationsfilter in den Strahlengang gebracht, filtert dieser alle Komponenten des Lichtes heraus, welche orthogonal zur Polarisationsrichtung des Filters verlaufen. Daher verbleibt nur ein linear polarisierter Strahl übrig. Die Wirkung des PBSC ist eine ähnliche. Dieser besteht gemäß Abb. \ref{fig:PBSC} aus zwei Glasprismen und lässt eine Polarisationsrichtung des Strahles passieren, während die dazu orthogonale Komponente um $\SI{90}{\degree}$ abgelenkt wird.
 
 \subsection{Definition des Kontrastes}
 Der Kontrast gibt ein Verhältnis zwischen maximaler $I_\text{max}$ und minimaler Intensität $I_\text{min}$an. Er ist definiert durch:
