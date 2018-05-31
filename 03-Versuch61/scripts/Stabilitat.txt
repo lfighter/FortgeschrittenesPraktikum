@@ -1,0 +1,2 @@
+flat, 1400 mm; gemessen -> bis 1400 mm stabil
+1400 mm, 1400 mm; gemessen -> bei 1940 mm noch stabil, maximum nicht testbar, schiene zu kurz

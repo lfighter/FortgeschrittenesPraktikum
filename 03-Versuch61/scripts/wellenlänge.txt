@@ -1,0 +1,7 @@
+#maximalpunkte in mm, abstand diode gitter 5.5 cm
+14
+11.65
+8.85
+6
+3.37
+0.55
