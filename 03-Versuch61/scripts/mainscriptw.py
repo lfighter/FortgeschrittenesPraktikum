@@ -59,27 +59,104 @@ from sympy import *
 #print(f2(AW, BW, CW))
 #print(error_to_tex(f,'f',[AW, BW, CW], [A, B, C],[A, B]))
 
+#Daten
+Winkelpol, Intenspol  = np.genfromtxt('scripts/polarisation.txt',unpack=True)
+T00x, T00I  = np.genfromtxt('scripts/T00mode.txt',unpack=True)
+T01x, T01I  = np.genfromtxt('scripts/T01mode.txt',unpack=True)
+wellenlaenge = np.genfromtxt('scripts/wellenlaenge.txt',unpack=True)
+T00I = T00I-100
+print("T00x:", T00x)
+print("T00I:", T00I)
+print("T01x:", T01x)
+print("T01I:", T01I)
+#T01I = T01I -400
+#hier tabellen erzeugen
 
-def gi(L,r):
-	return 1-L/r
 
 
-L=np.linspace(0,10,1000)
-plt.cla()
-plt.clf()
-plt.plot(L, gi(L,1)*gi(L,1), 'g-', label='1')
-plt.plot(L, gi(L,3)*gi(L,5), 'r-', label='3,5')
-plt.plot(L, gi(L,4)*gi(L,5), 'b-', label='4,5')
-plt.plot(L, 1+0*gi(L,3)*gi(L,5), 'y-', label='1konst')
-plt.plot(L, 0+0*gi(L,3)*gi(L,5), 'k-', label='0konst')
-plt.ylim(-0.2, 1.2)
+#alle Angaben in si basiseinheiten, abhängigkeiten
+T00I = T00I/(T00I[0])
+T01I = T01I/(T01I[0])
+wellenlaenge = 0.001*wellenlaenge
+wellenlaengeabstandgitter = 5.5*0.01
+gitterkonstante  = 80 *1000
+#Stabilitätsprüfung
+
+#def gi(L,r):
+#	return 1-L/r
+
+
+#L=np.linspace(0,10,1000)
+#plt.cla()
+#plt.clf()
+#plt.plot(L, gi(L,1)*gi(L,1), 'g-', label='1')
+#plt.plot(L, gi(L,3)*gi(L,5), 'r-', label='3,5')
+#plt.plot(L, gi(L,4)*gi(L,5), 'b-', label='4,5')
+#plt.plot(L, 1+0*gi(L,3)*gi(L,5), 'y-', label='1konst')
+#plt.plot(L, 0+0*gi(L,3)*gi(L,5), 'k-', label='0konst')
+#plt.ylim(-0.2, 1.2)
 # plt.xlim(0, t[-1]*100)
 # plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
 # plt.ylabel(r'$\Delta f / \si{\hertz}$')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/'+'unnötigerKram')
+
+
+
+#T00 mode fit
+def T00(x,a,b,c):
+	return a*np.exp(-2*((x-c)**2)/(b**2))
+	
+
+params, covariance_matrix = curve_fit(T00,T00x,T00I,p0 = [1500,1000,5200])
+errors = np.sqrt(np.diag(covariance_matrix))
+print('a =', params[0], '±', errors[0])
+print('b =', params[1], '±', errors[1])
+print('c =', params[2], '±', errors[2])
+#print('d =', params[3], '±', errors[3])
+
+#der plot
+x = np.linspace(0, T00x[-1],10000)
+plt.cla()
+plt.clf()
+plt.plot(x, T00(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
+plt.plot(T00x, T00I, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+#plt.ylabel(r'$\Delta f / \si{\hertz}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/'+'unnötigerKram')
+plt.savefig('build/'+'T00')
 
+def T01(x,a,b,c):
+	return ((x-c)**2)*a*np.exp(-2*((x-c)**2)/(b**2))
+
+params, covariance_matrix = curve_fit(T01,T01x,T01I,p0 = [40,1000,5200])
+errors = np.sqrt(np.diag(covariance_matrix))
+print('a =', params[0], '±', errors[0])
+print('b =', params[1], '±', errors[1])
+print('c =', params[2], '±', errors[2])
+#print('d =', params[3], '±', errors[3])
+
+#der plot
+x = np.linspace(0, T01x[-1],10000)
+plt.cla()
+plt.clf()
+plt.plot(x, T01(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
+plt.plot(T01x, T01I, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'T01')
+
+#Wellenlängenbestimmung
+
+#def welle(x,c,g,b):
 
 
 
