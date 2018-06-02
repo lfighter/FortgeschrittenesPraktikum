@@ -156,8 +156,53 @@ plt.savefig('build/'+'T01')
 
 #Wellenlängenbestimmung
 
+
 #def welle(x,c,g,b):
 
+
+pos = np.genfromtxt('scripts/wellenlaenge.txt', unpack=True)
+
+min = np.linspace(0,0,5)
+
+g=0.0125
+b=55
+
+def wellenlaenge(x,n):
+	return g*np.sin(np.arctan(np.abs(x)/b))/n
+
+def fitFunkt(x,pos0):
+	index0 = np.where(np.abs(x-pos0)==np.min(np.abs(x-pos0)))
+	indexall = np.where(np.abs(x-pos0)>np.min(np.abs(x-pos0)))
+	indexall=np.array(indexall[0])
+	index0=np.array(index0[0])
+	n = np.abs(indexall-index0)
+	print(n)
+	wellenlaenge2=wellenlaenge((x-pos0)[np.abs(x-pos0)>np.min(np.abs(x-pos0))],n)
+	return wellenlaenge2-np.mean(wellenlaenge2)
+
+def ErgebnisFunkt(x,pos0):
+	index0 = np.where(np.abs(x-pos0)==np.min(np.abs(x-pos0)))
+	indexall = np.where(np.abs(x-pos0)>np.min(np.abs(x-pos0)))
+	indexall=np.array(indexall[0])
+	index0=np.array(index0[0])
+	n = np.abs(indexall-index0)
+	wellenlaenge2=wellenlaenge((x-pos0)[np.abs(x-pos0)>np.min(np.abs(x-pos0))],n)
+	return wellenlaenge2
+
+params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,bounds=(0,1))
+print(unp.uarray(params, np.sqrt(np.diag(covar))))
+print(np.mean(ErgebnisFunkt(pos,*params)*10**6))
+
+plt.cla()
+plt.clf()
+plt.plot((pos)[np.abs(pos-params[0])>np.min(np.abs(pos-params[0]))], ErgebnisFunkt(pos,*params)*10**6, 'g-', label='1')
+
+# plt.xlim(0, t[-1]*100)
+# plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+# plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'unnötigerKram2')
 
 
 
