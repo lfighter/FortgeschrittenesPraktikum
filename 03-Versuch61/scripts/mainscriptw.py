@@ -63,16 +63,25 @@ from sympy import *
 Winkelpol, Intenspol  = np.genfromtxt('scripts/polarisation.txt',unpack=True)
 T00x, T00I  = np.genfromtxt('scripts/T00mode.txt',unpack=True)
 T01x, T01I  = np.genfromtxt('scripts/T01mode.txt',unpack=True)
+wellenlaengeneu = np.genfromtxt('scripts/wellenlaengeneu.txt',unpack=True)
 wellenlaenge = np.genfromtxt('scripts/wellenlaenge.txt',unpack=True)
 T00I = T00I-100
+T01I = T01I -400
+T00x = T00x *0.001
+T01x = T01x *0.001
+#x werte nun in mm
 print("T00x:", T00x)
 print("T00I:", T00I)
 print("T01x:", T01x)
 print("T01I:", T01I)
-#T01I = T01I -400
+
 #hier tabellen erzeugen
-
-
+makeTable([Winkelpol,Intenspol], r'{$\text{Winkel}/ \si{\degree}$} & {$\text{I}/ \si{\micro\ampere}$}','tabpolarisation' , ['S[table-format=2.2]' , 'S[table-format=2.2]'] ,  ["%2.0f", "%1.2f"])
+makeTable([T00x,T00I*0.001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT00' , ['S[table-format=2.1]' , 'S[table-format=3.2]'] ,  ["%2.1f", "%3.2f"])
+makeTable([T01x[0:31],T01I[0:31]*0.0001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT011' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
+makeTable([T01x[31:61],T01I[31:61]*0.0001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT012' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
+makeTable([wellenlaenge], r'{$\text{x}/ \si{\milli\meter}$}','tabwelle' , ['S[table-format=2.2]'] ,  ["%2.2f"])
+makeTable([wellenlaengeneu/10], r'{$\text{\Delta x}/ \si{\centi\meter}$}','tabwelleneu' , ['S[table-format=2.1]'] ,  ["%2.1f"])
 
 #alle Angaben in si basiseinheiten, abhängigkeiten
 T00I = T00I/(T00I[0])
@@ -80,13 +89,31 @@ T01I = T01I/(T01I[0])
 Winkelpol = Winkelpol *2 *(np.pi)/360
 Intenspol = Intenspol/Intenspol[-2]
 wellenlaenge = 0.001*wellenlaenge
-wellenlaengeabstandgitter = 5.5*0.01
+wellenlaengeabstandgitteralt = 5.5*0.01
+wellenlaengeabstandgitter = 44*0.01
 gitterkonstante  = 80 *1000
 #Stabilitätsprüfung
 
-#def gi(L,r):
-#	return 1-L/r
+def gi1(L,r1,r2):
+	return (1-L/r1)*(1-L/r2)
 
+def gi2(L,r):
+	return (1-L/r)
+
+
+x = np.linspace(0,280,10000)
+y = np.linspace(0,140,5000)
+plt.cla()
+plt.clf()
+plt.plot(y, gi2(y,140),'k',label='Stabilitätskurve für (flach, 140 cm)')
+plt.plot(x, gi1(x,140,140), 'r', label='Stabilitätskurve für (140 cm, 140 cm)')
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+plt.xlabel(r'$L/\si{\centi\meter}$')
+#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.04, w_pad=1.08)
+plt.savefig('build/'+'stabilitat')
 
 #L=np.linspace(0,10,1000)
 #plt.cla()
@@ -111,7 +138,7 @@ def T00(x,a,b,c):
 	return a*np.exp(-2*((x-c)**2)/(b**2))
 	
 
-params, covariance_matrix = curve_fit(T00,T00x,T00I,p0 = [1500,1000,5200])
+params, covariance_matrix = curve_fit(T00,T00x,T00I,p0 = [1.5,1,5.2])
 errors = np.sqrt(np.diag(covariance_matrix))
 print('Die Parameter der T00 mode:')
 print('a =', params[0], '±', errors[0])
@@ -123,12 +150,12 @@ print('c =', params[2], '±', errors[2])
 x = np.linspace(0, T00x[-1],10000)
 plt.cla()
 plt.clf()
-plt.plot(x, T00(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
-plt.plot(T00x, T00I, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+plt.plot(x, T00(x,params[0],params[1],params[2]), '-', label='Die gefittete Kurve')
+plt.plot(T00x, T00I, 'rx', label='Die Messdaten')
 #plt.ylim(0, line(t[-1], *params)+0.1)
 #plt.xlim(0, t[-1]*100)
-#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
-#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.xlabel(r'$\Delta x/\si{\milli\meter}$')
+plt.ylabel(r'$I / I_\text{min}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'T00')
@@ -138,7 +165,7 @@ plt.savefig('build/'+'T00')
 def T01(x,a,b,c):
 	return ((x-c)**2)*a*np.exp(-2*((x-c)**2)/(b**2))
 
-params, covariance_matrix = curve_fit(T01,T01x,T01I,p0 = [1,1000,5200])
+params, covariance_matrix = curve_fit(T01,T01x,T01I,p0 = [0.1,1,5.200])
 errors = np.sqrt(np.diag(covariance_matrix))
 print('Die Parameter der T01 mode:')
 print('a =', params[0], '±', errors[0])
@@ -150,12 +177,12 @@ print('c =', params[2], '±', errors[2])
 x = np.linspace(0, T01x[-1],10000)
 plt.cla()
 plt.clf()
-plt.plot(x, T01(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
-plt.plot(T01x, T01I, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+plt.plot(x, T01(x,params[0],params[1],params[2]), '-', label='Die gefittete Kurve')
+plt.plot(T01x, T01I, 'rx', label='Die Messdaten')
 #plt.ylim(0, line(t[-1], *params)+0.1)
 #plt.xlim(0, t[-1]*100)
-#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
-#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.xlabel(r'$\Delta x/\si{\milli\meter}$')
+plt.ylabel(r'$I / I_\text{min}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'T01')
@@ -176,14 +203,14 @@ print('c =', params[2], '±', errors[2])
 x = np.linspace(0, Winkelpol[-1],10000)
 plt.cla()
 plt.clf()
-plt.plot(x, polar(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
-plt.plot(Winkelpol, Intenspol, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+plt.plot(x, polar(x,params[0],params[1],params[2]), '-', label='Die gefittete Kurve')
+plt.plot(Winkelpol, Intenspol, 'rx', label='Die Messdaten')
 plt.xticks([0, np.pi / 4, np.pi/2, 3 * np.pi / 4, np.pi, np.pi*5/4, np.pi*3/2, np.pi*7/4, np.pi*2],
            [r"$0$", r"$\frac{1}{4}\pi$", r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$", r"$\pi$", r"$\frac{5}{4}\pi$", r"$\frac{3}{2}\pi$", r"$\frac{7}{4}\pi$", r"$2\pi$"])
 #plt.ylim(0, line(t[-1], *params)+0.1)
 #plt.xlim(0, t[-1]*100)
-#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
-#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.xlabel(r'$\varphi$')
+plt.ylabel(r'$I/I_\text{min}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'Polarisation')
@@ -191,10 +218,8 @@ plt.savefig('build/'+'Polarisation')
 #Wellenlängenbestimmung
 
 
-#def welle(x,c,g,b):
 
-
-pos = np.genfromtxt('scripts/wellenlaenge.txt', unpack=True)
+pos = np.genfromtxt('scripts/wellenlaengeneu.txt', unpack=True)
 
 min = np.linspace(0,0,5)
 

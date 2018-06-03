@@ -1,6 +1,6 @@
 #x in mikrometer | I in 10^-4 mikroampere nullmessung 400
 0 2800
-250 2800
+250 4800
 500 7000
 750 9500
 1000 12800
