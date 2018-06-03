@@ -77,6 +77,8 @@ print("T01I:", T01I)
 #alle Angaben in si basiseinheiten, abhängigkeiten
 T00I = T00I/(T00I[0])
 T01I = T01I/(T01I[0])
+Winkelpol = Winkelpol *2 *(np.pi)/360
+Intenspol = Intenspol/Intenspol[-2]
 wellenlaenge = 0.001*wellenlaenge
 wellenlaengeabstandgitter = 5.5*0.01
 gitterkonstante  = 80 *1000
@@ -111,6 +113,7 @@ def T00(x,a,b,c):
 
 params, covariance_matrix = curve_fit(T00,T00x,T00I,p0 = [1500,1000,5200])
 errors = np.sqrt(np.diag(covariance_matrix))
+print('Die Parameter der T00 mode:')
 print('a =', params[0], '±', errors[0])
 print('b =', params[1], '±', errors[1])
 print('c =', params[2], '±', errors[2])
@@ -130,11 +133,14 @@ plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'T00')
 
+#T01 mode fit
+
 def T01(x,a,b,c):
 	return ((x-c)**2)*a*np.exp(-2*((x-c)**2)/(b**2))
 
-params, covariance_matrix = curve_fit(T01,T01x,T01I,p0 = [40,1000,5200])
+params, covariance_matrix = curve_fit(T01,T01x,T01I,p0 = [1,1000,5200])
 errors = np.sqrt(np.diag(covariance_matrix))
+print('Die Parameter der T01 mode:')
 print('a =', params[0], '±', errors[0])
 print('b =', params[1], '±', errors[1])
 print('c =', params[2], '±', errors[2])
@@ -153,6 +159,34 @@ plt.plot(T01x, T01I, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'T01')
+
+
+#Polarisation
+
+def polar(x,a,b,c):
+	return a*(np.cos(b*x+c)**2)
+
+params, covariance_matrix = curve_fit(polar,Winkelpol,Intenspol,p0 = [250,1,0])
+errors = np.sqrt(np.diag(covariance_matrix))
+print('Die Parameter der Polarisationsmessung:')
+print('a =', params[0], '±', errors[0])
+print('b =', params[1], '±', errors[1])
+print('c =', params[2], '±', errors[2])
+
+x = np.linspace(0, Winkelpol[-1],10000)
+plt.cla()
+plt.clf()
+plt.plot(x, polar(x,params[0],params[1],params[2]), '-', label='Daten mit Bewegungsrichtung aufs Mikrofon zu')
+plt.plot(Winkelpol, Intenspol, 'rx', label='Daten mit Bewegungsrichtung vom Mikrofon weg')
+plt.xticks([0, np.pi / 4, np.pi/2, 3 * np.pi / 4, np.pi, np.pi*5/4, np.pi*3/2, np.pi*7/4, np.pi*2],
+           [r"$0$", r"$\frac{1}{4}\pi$", r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$", r"$\pi$", r"$\frac{5}{4}\pi$", r"$\frac{3}{2}\pi$", r"$\frac{7}{4}\pi$", r"$2\pi$"])
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+#plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
+#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'Polarisation')
 
 #Wellenlängenbestimmung
 
