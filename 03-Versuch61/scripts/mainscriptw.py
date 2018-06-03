@@ -224,7 +224,7 @@ pos = np.genfromtxt('scripts/wellenlaengeneu.txt', unpack=True)
 min = np.linspace(0,0,5)
 
 g=0.0125
-b=55
+b=440
 
 def wellenlaenge(x,n):
 	return g*np.sin(np.arctan(np.abs(x)/b))/n
@@ -248,7 +248,7 @@ def ErgebnisFunkt(x,pos0):
 	wellenlaenge2=wellenlaenge((x-pos0)[np.abs(x-pos0)>np.min(np.abs(x-pos0))],n)
 	return wellenlaenge2
 
-params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,bounds=(0,1))
+params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,p0=[69])
 print(unp.uarray(params, np.sqrt(np.diag(covar))))
 print(np.mean(ErgebnisFunkt(pos,*params)*10**6))
 
