@@ -26,7 +26,7 @@ Für die $\text{TEM}_\text{00}$ Mode wurden die Daten in  Tabelle \ref{tab:T00} 
 	$\frac{I}{I_\text{min}} = a \exp \left( \frac{-2*(x-c)^2}{b^2}\right)$
 bestimmt. Dieser Fit wird aufgrund von Formel \eqref{eq:gaus} gewählt. Hierzu wird die Funktion curve\_fit aus der Numpy-Bibliothek Scipy \cite{scipy} gewählt. Für die Parameter des Fits ergibt sich:
 \begin{gather*}
-a = \num{1.45(4)}\cdot 10^3\\
+a = \num{1.45(4)e3}\\
 b = \num{3.5(1)}\\
 c = \num{5.28(6)}
 \end{gather*}
@@ -67,7 +67,7 @@ Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\te
 Nach der Vermessung der Moden wurde zusätzlich noch die Polarisation des entstandenen Laserstrahles untersucht. Die Messung ergab die Werte in Tabelle \ref{tab:polarisation}. Auf Basis dieser Werte und einem nicht linearen Fit der Form $I/I_\text{min} = a  \cos(b x + c)$
  aufgrund von Formel \eqref{eq:polar} ergibt sich der Graph in Abb. \ref{fig:polarisation}. Auch für diesen Fit wurde Scipy \cite{scipy} verwendet. Der Fit ergibt die folgenden Parameter:
  \begin{gather*}
-	a = \num{2.36(6)}*10^2\\
+	a = \num{2.36(6)e2}\\
 	b = \num{1.00(1)}\\
 	c = \num{1.20(4)}
 	\end{gather*}
