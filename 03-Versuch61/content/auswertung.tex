@@ -30,7 +30,7 @@ a = \num{1.45(4)e3}\\
 b = \num{3.5(1)}\\
 c = \num{5.28(6)}
 \end{gather*}
-Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\text{00}$ Mode gut durch Formel \eqref{eq:gaus} dargestellt werden kann.
+Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\text{00}$ Mode gut durch Formel \eqref{eq:gaus} dargestellt werden kann. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
 
 
 %a*np.exp(-2*((x-c)**2)/(b**2))
@@ -42,6 +42,12 @@ Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\te
 	\label{fig:T00}
 \end{figure}
 
+\begin{table}
+	\centering
+	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{00}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\input{build/tabT00.tex}
+	\label{tab:T00}
+\end{table}
 
 
 \subsection{Vermessung der $\text{TEM}_{01}$ Mode}
@@ -52,7 +58,7 @@ a = \num{17.(1)}\\
 b = \num{3.78(8)}\\
 c = \num{6.21(6)}
 \end{gather*}
-Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\text{01}$ Mode gut als entsprechender Fall der Formel \eqref{eq:tem} dargestellt werden kann.
+Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\text{01}$ Mode gut als entsprechender Fall der Formel \eqref{eq:tem} dargestellt werden kann. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
 
 \begin{figure}
 	\centering
@@ -61,7 +67,13 @@ Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\te
 	\label{fig:T01}
 \end{figure}
 
-
+\begin{table}
+	\centering
+	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{01}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\input{build/tabT011.tex}
+	\input{build/tabT012.tex}
+	\label{tab:T01}
+\end{table}
 
 \subsection{Vermessung der Polarisation des Laserstrahles}
 Nach der Vermessung der Moden wurde zusätzlich noch die Polarisation des entstandenen Laserstrahles untersucht. Die Messung ergab die Werte in Tabelle \ref{tab:polarisation}. Auf Basis dieser Werte und einem nicht linearen Fit der Form $I/I_\text{min} = a  \cos(b x + c)^2$
@@ -81,6 +93,12 @@ Es ist zu erkennen, dass der experimentelle Verlauf die theoretisch überlegte F
 \end{figure}
 
 
+\begin{table}
+	\centering
+	\caption{Die gemessenen Daten der Stromstärke für die verschiedenen Winkel $\varphi$ des Polarisationsfilters .}
+	\input{build/tabpolarisation.tex}
+	\label{tab:polarisation}
+\end{table}
 
 
 \subsection{Bestimmung der ausgesendeten Wellenlänge des HeNe Lasers}
@@ -91,25 +109,8 @@ Eine zweite Messreihe mit einem Gitter-Dioden Abstand von $\SI{440}{\milli\meter
 
 
 
-\begin{table}
-	\centering
-	\caption{Die gemessenen Daten der Stromstärke für die verschiedenen Winkel $\varphi$ des Polarisationsfilters .}
-	\input{build/tabpolarisation.tex}
-	\label{tab:polarisation}
-\end{table}
-\begin{table}
-	\centering
-	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{00}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
-	\input{build/tabT00.tex}
-	\label{tab:T00}
-\end{table}
-\begin{table}
-	\centering
-	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{01}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
-	\input{build/tabT011.tex}
-	\input{build/tabT012.tex}
-	\label{tab:T01}
-\end{table}
+
+
 %\begin{table}
 %	\centering
 %	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{01}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
