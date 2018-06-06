@@ -219,12 +219,12 @@ plt.savefig('build/'+'Polarisation')
 
 
 
-pos = np.genfromtxt('scripts/wellenlaengeneu.txt', unpack=True)
+pos = np.genfromtxt('scripts/wellenlaenge.txt', unpack=True)
 
 min = np.linspace(0,0,5)
 
 g=0.0125
-b=440
+b=55#440
 
 def wellenlaenge(x,n):
 	return g*np.sin(np.arctan(np.abs(x)/b))/n
@@ -237,7 +237,7 @@ def fitFunkt(x,pos0):
 	n = np.abs(indexall-index0)
 	print(n)
 	wellenlaenge2=wellenlaenge((x-pos0)[np.abs(x-pos0)>np.min(np.abs(x-pos0))],n)
-	return wellenlaenge2-np.mean(wellenlaenge2)
+	return wellenlaenge2
 
 def ErgebnisFunkt(x,pos0):
 	index0 = np.where(np.abs(x-pos0)==np.min(np.abs(x-pos0)))
@@ -248,7 +248,8 @@ def ErgebnisFunkt(x,pos0):
 	wellenlaenge2=wellenlaenge((x-pos0)[np.abs(x-pos0)>np.min(np.abs(x-pos0))],n)
 	return wellenlaenge2
 
-params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,p0=[69])
+wertBeiNull = 6
+params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,bounds=[wertBeiNull,wertBeiNull+0.00000001])
 print(unp.uarray(params, np.sqrt(np.diag(covar))))
 print(np.mean(ErgebnisFunkt(pos,*params)*10**6))
 
