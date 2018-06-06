@@ -255,14 +255,14 @@ print(np.mean(ErgebnisFunkt(pos,*params)*10**6))
 
 plt.cla()
 plt.clf()
-plt.plot((pos)[np.abs(pos-params[0])>np.min(np.abs(pos-params[0]))], ErgebnisFunkt(pos,*params)*10**6, 'g-', label='1')
+plt.plot((pos)[np.abs(pos-params[0])>np.min(np.abs(pos-params[0]))], ErgebnisFunkt(pos,*params)*10**6, 'rx', label='Die bestimmten Wellenlängen')
 
 # plt.xlim(0, t[-1]*100)
-# plt.xlabel(r'$v/\si{\centi\meter\per\second}$')
-# plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.xlabel(r'$x/\si{\milli\meter}$')
+plt.ylabel(r'$\lambda/\si{\nano\meter}$') 
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/'+'unnötigerKram2')
+plt.savefig('build/'+'welle')
 
 
 
