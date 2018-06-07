@@ -76,12 +76,12 @@ print("T01x:", T01x)
 print("T01I:", T01I)
 
 #hier tabellen erzeugen
-makeTable([Winkelpol,Intenspol], r'{$\text{Winkel}/ \si{\degree}$} & {$\text{I}/ \si{\micro\ampere}$}','tabpolarisation' , ['S[table-format=2.2]' , 'S[table-format=2.2]'] ,  ["%2.0f", "%1.2f"])
-makeTable([T00x,T00I*0.001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT00' , ['S[table-format=2.1]' , 'S[table-format=3.2]'] ,  ["%2.1f", "%3.2f"])
-makeTable([T01x[0:31],T01I[0:31]*0.0001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT011' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
-makeTable([T01x[31:61],T01I[31:61]*0.0001], r'{$\text{\Delta x}/ \si{\milli\meter}$} & {$\text{I}/ \si{\micro\ampere}$}','tabT012' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
-makeTable([wellenlaenge], r'{$\text{x}/ \si{\milli\meter}$}','tabwelle' , ['S[table-format=2.2]'] ,  ["%2.2f"])
-makeTable([wellenlaengeneu/10], r'{$\text{\Delta x}/ \si{\centi\meter}$}','tabwelleneu' , ['S[table-format=2.1]'] ,  ["%2.1f"])
+makeTable([Winkelpol*2*np.pi/360,Intenspol], r'{$\text{Winkel}/ \text{rad}$} & {$ I / \si{\micro\ampere}$}','tabpolarisation' , ['S[table-format=2.2]' , 'S[table-format=2.2]'] ,  ["%2.0f", "%1.2f"])
+makeTable([T00x,T00I*0.001], r'{$\Delta x/ \si{\milli\meter}$} & {$ I / \si{\micro\ampere}$}','tabT00' , ['S[table-format=2.1]' , 'S[table-format=3.2]'] ,  ["%2.1f", "%3.2f"])
+makeTable([T01x[0:31],T01I[0:31]*0.0001], r'{$ \Delta x / \si{\milli\meter}$} & {$ I/ \si{\micro\ampere}$}','tabT011' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
+makeTable([T01x[31:61],T01I[31:61]*0.0001], r'{$ \Delta x/ \si{\milli\meter}$} & {$ I/ \si{\micro\ampere}$}','tabT012' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
+makeTable([wellenlaenge], r'{$ \Delta x/ \si{\milli\meter}$}','tabwelle' , ['S[table-format=2.2]'] ,  ["%2.2f"])
+makeTable([wellenlaengeneu/10], r'{$ \Delta x/ \si{\centi\meter}$}','tabwelleneu' , ['S[table-format=2.1]'] ,  ["%2.1f"])
 
 #alle Angaben in si basiseinheiten, abhängigkeiten
 T00I = T00I/(T00I[0])
@@ -258,13 +258,15 @@ plt.clf()
 plt.plot((pos)[np.abs(pos-params[0])>np.min(np.abs(pos-params[0]))], ErgebnisFunkt(pos,*params)*10**6, 'rx', label='Die bestimmten Wellenlängen')
 
 # plt.xlim(0, t[-1]*100)
-plt.xlabel(r'$x/\si{\milli\meter}$')
+plt.xlabel(r'$ \Delta x/\si{\milli\meter}$')
 plt.ylabel(r'$\lambda/\si{\nano\meter}$') 
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'welle')
 
-
+#mittelwert
+mittel = unp.uarray(*avg_and_sem(ErgebnisFunkt(pos,*params)*10**6)))
+print('Mittelwert',mittel)
 
 
 
