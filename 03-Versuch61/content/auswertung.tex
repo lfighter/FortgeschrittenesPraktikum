@@ -20,12 +20,12 @@ Für die Resonatorkombination (flat,$\SI{140}{\centi\meter}$) ergibt sich nun au
 
 \subsection{Vermessung der $\text{TEM}_{00}$ Mode}
 Nun folgt die Vermessung der TEM Moden, welche sich im Resonator ausbilden. Für die nachfolgenden Messungen wurde die Resonatorkombination ($\SI{140}{\centi\meter}$,$\SI{140}{\centi\meter}$) verwendet.
-Für die $\text{TEM}_\text{00}$ Mode wurden die Daten in Tabelle \ref{tab:T00} gemessen. Der resultierende Fit der $\text{TEM}_\text{00}$ Mode in Abb. \ref{fig:T00} wird mit einer nicht linearen Ausgleichsrechnung der Form $\frac{I}{I_\text{min}} = a \exp \left( \frac{-2*(x-c)^2}{b^2}\right)$
+Für die $\text{TEM}_\text{00}$ Mode wurden die Daten in Tabelle \ref{tab:T00} gemessen. Der resultierende Fit der $\text{TEM}_\text{00}$ Mode in Abb. \ref{fig:T00} wird mit einer nicht linearen Ausgleichsrechnung der Form $\frac{I}{I_\text{min}} = a \exp \left( \frac{-2 (x-c)^2}{b^2}\right)$
 bestimmt. Dieser Fit wird aufgrund von Formel \eqref{eq:gaus} gewählt. Hierzu wird die Funktion curve\_fit aus der Numpy-Bibliothek Scipy \cite{scipy} gewählt. Für die Parameter des Fits ergibt sich:
 \begin{gather*}
 a = \num{1.45(4)e3}\\
-b = \num{3.5(1)}\\
-c = \num{5.28(6)}
+b = \SI{3.5(1)}{\milli\meter}\\
+c = \SI{5.28(6)}{\milli\meter}
 \end{gather*}
 Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\text{00}$ Mode gut durch Formel \eqref{eq:gaus} dargestellt werden kann. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
 
@@ -35,13 +35,13 @@ Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\te
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{build/T00.pdf}
-	\caption{Der gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke der $\text{TEM}_{00}$ Mode entlang der Horizontalen $x$ der Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\caption{Die gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke der $\text{TEM}_{00}$ Mode entlang der Horizontalen $x$ der Mode gegen den eingestellten Abstand an der Mikrometerschiene $\varDelta x$ aufgetragen.}
 	\label{fig:T00}
 \end{figure}
 
 \begin{table}
 	\centering
-	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{00}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{00}}$ Mode mit dem eingestellten Abstand an der Mikrometerschiene $\varDelta x$.}
 	\input{build/tabT00.tex}
 	\label{tab:T00}
 \end{table}
@@ -49,24 +49,24 @@ Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\te
 
 \subsection{Vermessung der $\text{TEM}_{01}$ Mode}
 Nun wird zusätzlich auch die Form der $\text{TEM}_\text{01}$ Mode betrachtet. Für diese wurden die Werte in Tabelle \ref{tab:T01} gemessen. 
-Der resultierende Fit der $\text{TEM}_\text{01}$ Mode in Abb. \ref{fig:T01} wird mit einer nicht linearen Ausgleichsrechnung der Form $\frac{I}{I_\text{min}} =  (x-c)^2 a \exp \left( \frac{-2*(x-c)^2}{b^2}\right)$. Dieser Fit wird aufgrund von Formel \eqref{eq:tem} gewählt. Auch hier wird die Funktion curve\_fit aus der Numpy-Bibliothek Scipy \cite{scipy} gewählt. Für die Parameter des Fits ergibt sich:
+Der resultierende Fit der $\text{TEM}_\text{01}$ Mode in Abb. \ref{fig:T01} wird mit einer nicht linearen Ausgleichsrechnung der Form $\frac{I}{I_\text{min}} =  (x-c)^2 a \exp \left( \frac{-2 (x-c)^2}{b^2}\right)$. Dieser Fit wird aufgrund von Formel \eqref{eq:tem} gewählt. Auch hier wird die Funktion curve\_fit aus der Numpy-Bibliothek Scipy \cite{scipy} gewählt. Für die Parameter des Fits ergibt sich:
 \begin{gather*}
 a = \num{18.(1)}\\
-b = \num{3.78(9)}\\
-c = \num{6.21(6)}
+b = \SI{3.78(9)}{\milli\meter}\\
+c = \SI{6.21(6)}{\milli\meter}
 \end{gather*}
 Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\text{01}$ Mode gut als entsprechender Fall der Formel \eqref{eq:tem} dargestellt werden kann. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{build/T01.pdf}
-	\caption{Der gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke der $\text{TEM}_{01}$ Mode entlang der Horizontalen $x$ der Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\caption{Die gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke der $\text{TEM}_{01}$ Mode entlang der Horizontalen $x$ der Mode gegen den eingestellten Abstand an der Mikrometerschiene $\varDelta x$ aufgetragen.}
 	\label{fig:T01}
 \end{figure}
 
 \begin{table}
 	\centering
-	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{01}}$ Mode. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Modenmusters gelegt.}
+	\caption{Die gemessenen Daten der Stromstärke entlang der Horizontalen der $\text{TEM}_{\text{01}}$ Mode mit dem eingestellten Abstand an der Mikrometerschiene $\varDelta x$}
 	\input{build/tabT011.tex}
 	\input{build/tabT012.tex}
 	\label{tab:T01}
@@ -77,7 +77,7 @@ Nach der Vermessung der Moden wurde zusätzlich noch die Polarisation des entsta
  aufgrund von Formel \eqref{eq:polar} ergibt sich der Graph in Abb. \ref{fig:polarisation}. Auch für diesen Fit wurde Scipy \cite{scipy} verwendet. Der Fit ergibt die folgenden Parameter:
  \begin{gather*}
 	a = \num{2.36(6)e2}\\
-	b = \num{1.00(1)}\\
+	b = \SI{1.00(1)}{\per\milli\meter}\\
 	c = \num{-1.20(4)}
 	\end{gather*}
 Es ist zu erkennen, dass der experimentelle Verlauf die theoretisch überlegte Form besitzt. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden. Die Polarisation des Strahles wird durch die im Versuchsaufbau verwendeten Brewsterfenster erzeugt. Diese lassen Laserstrahlen, welche parallel zur ihrer Einfallsebene liegen ohne Verluste hindurch, nicht parallele Strahlen werden jedoch zum Teil reflektiert. Daher erreicht das polarisierte Licht schneller den Schwellenwert, welcher für einen stabilen Strahl benötigt wird. 
@@ -85,7 +85,7 @@ Es ist zu erkennen, dass der experimentelle Verlauf die theoretisch überlegte F
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{build/Polarisation.pdf}
-	\caption{Der gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke in Abhängigkeit des Winkels des Polarisationsfilters.}
+	\caption{Der gemessenen Stromstärken im Verhältnis zur kleinsten gemessenen Stromstärke in Abhängigkeit des Winkels des Polarisationsfilters gegen den eingestellten Abstand an der Mikrometerschiene $\varDelta x$ aufgetragen.}
 	\label{fig:polarisation}
 \end{figure}
 
@@ -129,7 +129,7 @@ Zuletzt wurde die Wellenlänge des erzeugten Laserstrahles mithilfe eines Beugun
 
 \begin{table}
 	\centering
-	\caption{Die gemessenen Positionen, an denen sich Beugungsmaxima ausgebildet haben. Der Nullpunkt ist an die in Strahlrichtung linke Seite des Beugungsmusters gelegt.}
+	\caption{Die eingestellten Abstände an der Mikrometerschiene $\varDelta x$, an denen sich Beugungsmaxima ausgebildet haben.}
 	\input{build/tabwelle.tex}
 	\label{tab:tabwelle}
 \end{table}
