@@ -265,7 +265,7 @@ plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'welle')
 
 #mittelwert
-mittel = unp.uarray(*avg_and_sem(ErgebnisFunkt(pos,*params)*10**6)))
+mittel = unp.uarray(*avg_and_sem(ErgebnisFunkt(pos,*params)*10**6))
 print('Mittelwert',mittel)
 
 
