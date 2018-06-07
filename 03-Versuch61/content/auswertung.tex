@@ -6,7 +6,6 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 \subsection{Überprüfung der Stabilitätsbedingung des Lasers}
 Zunächst wird das in der Theorie angesprochene Stabilitätskriterium untersucht. Die Kriterien für einen stabilen Strahl im Experiment sind die sichtbare Streuung des Strahles an kleinen Staubkörnern in der Luft und die Stabilität des Strahles gegenüber kleinen Störungen des Aufbaus, zum Beispiel kleine Stöße gegen den Versuchstisch. Im folgenden wird ein planarer Spiegel durch "flat" ausgedrückt, für einen sphärischen Spiegel wird der Krümmungsradius angegeben. 
 Für die Resonatorkombination (flat,$\SI{140}{\centi\meter}$) ergibt sich nun auf Basis von \ref{eq:stabil} und dem zugehörigen Graphen in Abb. \ref{fig:stabilitat} eine theoretische maximale stabile Resonatorlänge $L$ von $\SI{140}{\centi\meter}$. Diese maximale Resonatorlänge konnte auch im Messaufbau nachgewiesen werden. Für einen Resonator vom Typ ($\SI{140}{\centi\meter}$,$\SI{140}{\centi\meter}$) konnte die theoretische maximale Länge von $\SI{280}{\centi\meter}$ nach Abb. \ref{fig:stabilitat} aufgrund der limitierenden Größe des Aufbaus jedochnicht nachgeprüft werden, es konnte allerdings ein stabiler Strahl bei einer Länge von $\SI{194}{\centi\meter}$ erzeugt werden. Daher ist zumindest der unterschiedliche Verlauf der Kurven der Stabilitätsbedingungen beider Resonatorkombinationen experimentell bestätigt worden.
-%erklärung, warum stabilität einbricht
 
 
 \begin{figure}
@@ -52,8 +51,8 @@ Anhand von Abb. \ref{fig:T00} ist zu erkennen, dass die Form der $\text{TEM}_\te
 Nun wird zusätzlich auch die Form der $\text{TEM}_\text{01}$ Mode betrachtet. Für diese wurden die Werte in Tabelle \ref{tab:T01} gemessen. 
 Der resultierende Fit der $\text{TEM}_\text{01}$ Mode in Abb. \ref{fig:T01} wird mit einer nicht linearen Ausgleichsrechnung der Form $\frac{I}{I_\text{min}} =  (x-c)^2 a \exp \left( \frac{-2*(x-c)^2}{b^2}\right)$. Dieser Fit wird aufgrund von Formel \eqref{eq:tem} gewählt. Auch hier wird die Funktion curve\_fit aus der Numpy-Bibliothek Scipy \cite{scipy} gewählt. Für die Parameter des Fits ergibt sich:
 \begin{gather*}
-a = \num{17.(1)}\\
-b = \num{3.78(8)}\\
+a = \num{18.(1)}\\
+b = \num{3.78(9)}\\
 c = \num{6.21(6)}
 \end{gather*}
 Anhand von Abb. \ref{fig:T01} ist zu erkennen, dass die Form der $\text{TEM}_\text{01}$ Mode gut als entsprechender Fall der Formel \eqref{eq:tem} dargestellt werden kann. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
@@ -79,10 +78,10 @@ Nach der Vermessung der Moden wurde zusätzlich noch die Polarisation des entsta
  \begin{gather*}
 	a = \num{2.36(6)e2}\\
 	b = \num{1.00(1)}\\
-	c = \num{1.20(4)}
+	c = \num{-1.20(4)}
 	\end{gather*}
-Es ist zu erkennen, dass der experimentelle Verlauf die theoretisch überlegte Form besitzt. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden.
-%was hat resonatorgestalt mit polarisation zu tun erklären
+Es ist zu erkennen, dass der experimentelle Verlauf die theoretisch überlegte Form besitzt. Die Abweichungen der experimentellen Daten bezüglich des Fittes müssen in der Diskussion geklärt werden. Die Polarisation des Strahles wird durch die im Versuchsaufbau verwendeten Brewsterfenster erzeugt. Diese lassen Laserstrahlen, welche parallel zur ihrer Einfallsebene liegen ohne Verluste hindurch, nicht parallele Strahlen werden jedoch zum Teil reflektiert. Daher erreicht das polarisierte Licht schneller den Schwellenwert, welcher für einen stabilen Strahl benötigt wird. 
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{build/Polarisation.pdf}

@@ -249,7 +249,7 @@ def ErgebnisFunkt(x,pos0):
 	return wellenlaenge2
 
 wertBeiNull = 6
-params, covar = curve_fit(fitFunkt,pos,min,maxfev=10000,bounds=[wertBeiNull,wertBeiNull+0.00000001])
+params, covar = curve_fit(fitFunkt,pos,min,max_nfev=10000,bounds=[wertBeiNull,wertBeiNull+0.00000001])
 print(unp.uarray(params, np.sqrt(np.diag(covar))))
 print(np.mean(ErgebnisFunkt(pos,*params)*10**6))
 
