@@ -76,7 +76,7 @@ print("T01x:", T01x)
 print("T01I:", T01I)
 
 #hier tabellen erzeugen
-makeTable([Winkelpol*2*np.pi/360,Intenspol], r'{$\text{Winkel}/ \text{rad}$} & {$ I / \si{\micro\ampere}$}','tabpolarisation' , ['S[table-format=2.2]' , 'S[table-format=2.2]'] ,  ["%2.0f", "%1.2f"])
+makeTable([Winkelpol,Winkelpol*2*np.pi/360,Intenspol], r'{$\varphi / \si{\degree} $} & {$\varphi / \text{rad} $} & {$ I / \si{\micro\ampere}$}','tabpolarisation' , ['S[table-format=2.2]','S[table-format=2.2]' , 'S[table-format=2.2]'] ,  ["%2.0f", "%2.2f", "%1.2f"])
 makeTable([T00x,T00I*0.001], r'{$\Delta x/ \si{\milli\meter}$} & {$ I / \si{\micro\ampere}$}','tabT00' , ['S[table-format=2.1]' , 'S[table-format=3.2]'] ,  ["%2.1f", "%3.2f"])
 makeTable([T01x[0:31],T01I[0:31]*0.0001], r'{$ \Delta x / \si{\milli\meter}$} & {$ I/ \si{\micro\ampere}$}','tabT011' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
 makeTable([T01x[31:61],T01I[31:61]*0.0001], r'{$ \Delta x/ \si{\milli\meter}$} & {$ I/ \si{\micro\ampere}$}','tabT012' , ['S[table-format=2.2]' , 'S[table-format=3.2]'] ,  ["%2.2f", "%3.2f"])
