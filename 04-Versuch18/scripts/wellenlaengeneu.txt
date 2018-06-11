@@ -1,7 +1,0 @@
-#abstände in mm || abstand gitter schirm 44 cm
-2
-26
-47
-69
-91
-113
