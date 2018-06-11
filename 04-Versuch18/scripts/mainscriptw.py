@@ -15,6 +15,7 @@ import scipy.constants as const
 from errorfunkt2tex import error_to_tex
 from errorfunkt2tex import scipy_to_unp
 from sympy import *
+import random
 # BackwardsVNominal = []
 # BackwardsVStd = []
 # for value in BackwardsV:
@@ -76,4 +77,58 @@ print(AktivitätEu)
 #E = np.genfromtxt('scripts/e.txt',unpack=True)
 
 
+def gaus(x, sigma, a, b):
+    return a* np.exp(-(x-b)**2/(2*sigma**2))
+
+xWerte = range(0,100)
+E = np.array(xWerte)+0.1
+E*=0
+bs=[]
+sigmas=[]
+for number in range(0,4):
+    sigma=(1+random.random())
+    sigmas.append(sigma)
+    a=random.random()*3+1
+    b=random.random()*xWerte[-1]+xWerte[0]
+    bs.append(b)
+    E2=[]
+    for i in xWerte:
+        E2.append((random.random()+8)/9*gaus(i,sigma,a,b))
+    E2=np.array(E2)
+    E+=E2
+sigmas=np.array(sigmas)
+bs=np.array(bs)
+print(E)
+
+def gausFitMitPlot(Werte, ranges, name):
+    AllParams = []
+    AllCovar = []
+    for rangeVar in ranges:
+        params, covar = curve_fit(gaus,range(rangeVar[0],rangeVar[1]),Werte[rangeVar[0]:rangeVar[1]],maxfev=10000,p0=[16,9,(rangeVar[1]-rangeVar[0])/2])
+        AllParams.append(params)
+        AllCovar.append(np.sqrt(np.diag(covar)))
+        plt.cla()
+        plt.clf()
+        x=np.linspace(rangeVar[0],rangeVar[1],200)
+        plt.plot(range(rangeVar[0],rangeVar[1]), Werte[rangeVar[0]:rangeVar[1]], 'gx', label='Werte')
+        plt.plot(x, gaus(x,*params), 'r-', label='Fit')
+
+        #plt.xlabel(r'$v$')
+        #plt.ylabel(r'$\Delta f / \si{\hertz}$')
+        plt.legend(loc='best')
+        plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+        plt.savefig('build/'+name+str((rangeVar[1]-rangeVar[0])/2)+'.pdf') 
+    
+    return unp.uarray(AllParams,AllCovar)
+
+
+#print(gausFitMitPlot(E,[[0,25]],'test'))
+
+for i in range(len(bs)):
+    print(bs[i])
+    print(sigmas[i])
+    print([np.max(int(bs[i]-sigmas[i]*5)-1,0),int(bs[i]+sigmas[i]*5)+1])
+    print(gausFitMitPlot(E,[[np.max(int(bs[i]-sigmas[i]*5)-1,0),int(bs[i]+sigmas[i]*5)+1]],'test'))
+
+#print(gausFitMitPlot(E,[[0,100]],'test'))
 
