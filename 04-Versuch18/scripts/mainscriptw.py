@@ -77,8 +77,8 @@ print(AktivitätEu)
 #E = np.genfromtxt('scripts/e.txt',unpack=True)
 
 
-def gaus(x, sigma, a, b):
-    return a* np.exp(-(x-b)**2/(2*sigma**2))
+def gaus(x, a, c,sigma,b):
+    return a* np.exp(-(x-b)**2/(2*sigma**2))+c
 
 xWerte = range(0,100)
 E = np.array(xWerte)+0.1
@@ -93,42 +93,68 @@ for number in range(0,4):
     bs.append(b)
     E2=[]
     for i in xWerte:
-        E2.append((random.random()+8)/9*gaus(i,sigma,a,b))
+        E2.append((random.random()+8)/9*gaus(i,a,0,sigma,b))
     E2=np.array(E2)
     E+=E2
 sigmas=np.array(sigmas)
 bs=np.array(bs)
-print(E)
+
+def Plot(Werte, ranges, name):
+    for rangeVar in ranges:
+        plt.cla()
+        plt.clf()
+        x=np.linspace(rangeVar[0],rangeVar[1],1000)
+        plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
+        #plt.xlabel(r'$v$')
+        #plt.ylabel(r'$\Delta f / \si{\hertz}$')
+        plt.legend(loc='best')
+        plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+        plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
 
 def gausFitMitPlot(Werte, ranges, name):
     AllParams = []
     AllCovar = []
     for rangeVar in ranges:
-        params, covar = curve_fit(gaus,range(rangeVar[0],rangeVar[1]),Werte[rangeVar[0]:rangeVar[1]],maxfev=10000,p0=[16,9,(rangeVar[1]-rangeVar[0])/2])
+        p0=[np.max(Werte[rangeVar[0]-1:rangeVar[1]])-np.min(Werte[rangeVar[0]-1:rangeVar[1]]),np.min(Werte[rangeVar[0]-1:rangeVar[1]]),(rangeVar[1]-rangeVar[0])/15,(rangeVar[1]+rangeVar[0])/2]
+        params, covar = curve_fit(gaus,range(rangeVar[0],rangeVar[1]+1),Werte[rangeVar[0]-1:rangeVar[1]],maxfev=10000,p0=p0)
         AllParams.append(params)
         AllCovar.append(np.sqrt(np.diag(covar)))
         plt.cla()
         plt.clf()
-        x=np.linspace(rangeVar[0],rangeVar[1],200)
-        plt.plot(range(rangeVar[0],rangeVar[1]), Werte[rangeVar[0]:rangeVar[1]], 'gx', label='Werte')
+        x=np.linspace(rangeVar[0],rangeVar[1],1000)
+        plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
         plt.plot(x, gaus(x,*params), 'r-', label='Fit')
-
+        plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
         #plt.xlabel(r'$v$')
         #plt.ylabel(r'$\Delta f / \si{\hertz}$')
         plt.legend(loc='best')
         plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-        plt.savefig('build/'+name+str((rangeVar[1]-rangeVar[0])/2)+'.pdf') 
+        plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
     
     return unp.uarray(AllParams,AllCovar)
 
 
 #print(gausFitMitPlot(E,[[0,25]],'test'))
 
-for i in range(len(bs)):
-    print(bs[i])
-    print(sigmas[i])
-    print([np.max(int(bs[i]-sigmas[i]*5)-1,0),int(bs[i]+sigmas[i]*5)+1])
-    print(gausFitMitPlot(E,[[np.max(int(bs[i]-sigmas[i]*5)-1,0),int(bs[i]+sigmas[i]*5)+1]],'test'))
+#for i in range(len(bs)):
+#    print(bs[i])
+#    print(sigmas[i])
+#    print([np.max(int(bs[i]-sigmas[i]*5)-1,0),int(bs[i]+sigmas[i]*5)+1])
+#    print(gausFitMitPlot(E,[[np.max(np.array([int(bs[i]-sigmas[i]*5)-1,1])),np.min(np.array([int(bs[i]+sigmas[i]*5)+1,len(E)]))]],'test'))
 
 #print(gausFitMitPlot(E,[[0,100]],'test'))
+
+ranges = [[100,115],[115,126],[205,230],[300,320],[605,625],[853,870],[910,930],[1020,1035],[1100,1118],[1700,1730],[1925,1950],[2145,2170],[2370,2425],[2480,2520],[2680,2720],[2740,2790],[3000,3030],[3200,3255],[3460,3540],[3605,3650]]
+EU152 = np.genfromtxt('scripts/EU152',unpack=True)
+print('EU152')
+Plot(EU152,[[1,8192],[1,2000],[2000,4000],[4000,8192]],'EU152')
+EU152Params=gausFitMitPlot(EU152,ranges,'EU152')
+print(EU152Params)
+
+
+
+Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
+ranges = [[1635,1660]]
+print('Cs137')
+print(gausFitMitPlot(Cs137,ranges,'Cs137'))
 
