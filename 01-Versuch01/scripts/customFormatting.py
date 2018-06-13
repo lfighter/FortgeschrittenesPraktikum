@@ -52,11 +52,13 @@ class unpFormat(object):
                 p=-e+0.5
             else:
                 p=0
+            addtostd=10**-p *0.5
             temp1 = (r'{:0.'+(r'{:1.0f}'.format(float(p)))+r'f}').format(float(unp.nominal_values(self.u)))
-            temp2 = (r'{:0.'+(r'{:1.0f}'.format(float(p)))+r'f}').format(float(unp.std_devs(self.u)))
+            temp2 = (r'{:0.'+(r'{:1.0f}'.format(float(p)))+r'f}').format(float(unp.std_devs(self.u)+addtostd))
         else:
+            addtostd=10**-int(self.p[self.p.find('.')+1:-1]) *0.5
             temp1 = (r'{:'+self.p+r'}').format(float(unp.nominal_values(self.u)))
-            temp2 = (r'{:'+self.p+r'}').format(float(unp.std_devs(self.u)))
+            temp2 = (r'{:'+self.p+r'}').format(float(unp.std_devs(self.u)+addtostd))
         if self.SI2:
             if(unp.std_devs(self.u)==0):
                 temp2=''
