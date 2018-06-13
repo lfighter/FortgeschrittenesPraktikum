@@ -70,12 +70,6 @@ AktivitätEu=unp.uarray(4130,60) #bq
 AktivitätEu=1/2**(AnzahlAnTagen/HalbwertsZeit) * AktivitätEu
 print(AktivitätEu)
 
-#Daten
-#A = np.genfromtxt('scripts/a.txt',unpack=True)
-#B = np.genfromtxt('scripts/b.txt',unpack=True)
-#D = np.genfromtxt('scripts/d.txt',unpack=True)
-#E = np.genfromtxt('scripts/e.txt',unpack=True)
-
 
 def gaus(x, a, c,sigma,b):
     return a* np.exp(-(x-b)**2/(2*sigma**2))+c
@@ -103,7 +97,6 @@ def Plot(Werte, ranges, name):
     for rangeVar in ranges:
         plt.cla()
         plt.clf()
-        x=np.linspace(rangeVar[0],rangeVar[1],1000)
         plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
         #plt.xlabel(r'$v$')
         #plt.ylabel(r'$\Delta f / \si{\hertz}$')
@@ -143,14 +136,31 @@ def gausFitMitPlot(Werte, ranges, name):
 #    print(gausFitMitPlot(E,[[np.max(np.array([int(bs[i]-sigmas[i]*5)-1,1])),np.min(np.array([int(bs[i]+sigmas[i]*5)+1,len(E)]))]],'test'))
 
 #print(gausFitMitPlot(E,[[0,100]],'test'))
-#             0         0         0        121       244       295       344        0         441         443         678         778         867         964        1005        1085        1112          0           0         1408         1457
-ranges = [[100,115],[115,126],[205,230],[300,320],[605,625],[743,753],[853,870],[910,930],[1020,1035],[1100,1118],[1700,1730],[1925,1950],[2145,2170],[2370,2425],[2480,2520],[2680,2720],[2740,2790],[3000,3030],[3200,3255],[3460,3540],[3605,3650]]
+#             0         0         0        121       244       295       344        0         411         443         678         778         867         964        1005        1085        1112        1212        1299        1408         1457
+ranges = [[100,115],[115,126],[205,230],[300,320],[605,625],[730,750],[853,870],[910,930],[1020,1035],[1100,1118],[1700,1730],[1925,1950],[2145,2170],[2370,2425],[2480,2520],[2680,2720],[2740,2790],[3000,3030],[3200,3255],[3460,3540],[3605,3650]]
+energies= unp.uarray([0,0,0,121.7817,244.6974,295.9387,344.2785,367.7891,411.1165,443.9606,678.623,778.9045,867.380,964.057,1005.27,1085.837,1112.076,1212.948,1299.142,1408.013,1457.643],[0,0,0,0.0003,0.0008,0.0017,0.0012,0.0020,0.0012,0.0016,0.005,0.0024,0.003,0.005,0.05,0.010,0.003,0.011,0.008,0.003,0.011])
+wahrscheinlichkeiten = unp.uarray([0,0,0,107.3,28.39,1.656,100.0,3.232,8.413,10.63,1.777,48.62,15.90,54.57,2.48,38.04,51.40,5.320,6.14,78.48,1.869],[0,0,0,0.4,0.10,0.015,0.6,0.015,0.026,0.03,0.012,0.22,0.09,0.13,0.04,0.10,0.23,0.021,0.03,0.13,0.014])
+wahrscheinlichkeiten*= unp.uarray(0.2659,0.0013)
 EU152 = np.genfromtxt('scripts/EU152',unpack=True)
 print('EU152')
 Plot(EU152,[[1,8192],[1,2000],[2000,4000],[1800,4000],[4000,8192]],'EU152')
 EU152Params=gausFitMitPlot(EU152,ranges,'EU152')
 print(EU152Params)
-
+pos=[]
+posStd=[]
+for params in EU152Params:
+    pos.append(unp.nominal_values(params[3]))
+    posStd.append(unp.std_devs(params[3]))
+pos=np.array(pos)
+posStd=np.array(posStd)
+plt.cla()
+plt.clf()
+plt.plot(pos, unp.nominal_values(energies), 'gx', label='Werte')  
+#plt.xlabel(r'$v$')
+#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/EnergieKali.pdf') 
 
 
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
@@ -158,3 +168,4 @@ ranges = [[1635,1660]]
 print('Cs137')
 print(gausFitMitPlot(Cs137,ranges,'Cs137'))
 
+#0.2659 13 
