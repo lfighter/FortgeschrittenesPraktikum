@@ -1,74 +1,70 @@
 
 \section{Theorie}
 \label{sec:Theorie}
+\subsection{Absorption von Gammastrahlung durch Materie}
+%erster satz gefällt mir vom anfang nich, besseren suchen
+Wird feste Materie mit Gammastrahlung bestrahlt  kommt es zu Wechselwirkungen der einzelnen Gammaquanten mit den Atomen und Elektronen des Festkörpers, wodurch die Intensität des Gammastrahles über den Flug durch den Festkörper reduziert wird. Die drei dominierenden Effekte sind dabei Photoeffekt, Comptoneffekt und Paarbildung. Die Wirkung auf die Intensität des Strahles jedes Effektes kann durch einen Wirkungsquerschnitt $\sigma$ dargestellt werden. Anschaulich lässt sich dieser wie die Größe einzelner Zielscheiben deuten, welche den Einfangsradius der Atome und Elektronen beschreiben.
+%wirkungsquerschnitt erläutern
 
-Ein Laser emittiert Licht, welches durch optische Verstärkung verstärkt wurde. Das emittiert Licht zeichnet sich durch die hohe Intensität, Kohärenz und Geradlinigkeit aus.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Images/schema.png}
-	\caption{Prinzipielle Funktionsweise eines Lasers \cite{V61}.}
-\end{figure}
-Ein Laser besteht im wesentlichen aus einem Resonator, einem Lasermedium und einer zugehörigen Pumpquelle. Das Lasermedium dient dabei zur Verstärkung des Lichtes, der Resonator sorgt für einen effektiv längeren Weg des Lichtes durch das Medium und die Pumpquelle versorgt das Lasermedium mit der für die Verstärkung notwendigen Energie. 
-
-\subsection{Der Resonator}
-Der Resonator wird durch zwei gegenüber stehende Spiegel realisiert. Mindestens einer der Spiegel lässt etwas Licht durch und sorgt somit dafür, dass das Licht den Resonator verlassen kann. Bei den Spiegeln kann es sich jeweils um einen plan-parallelen Spiegel oder einem sphärischen Spiegel handeln. Sind beide sphärisch wird der Resonator als sphärischer Resonator bezeichnet und wenn beide plan-parallel sind als plan-paralleler Resonator. Damit der Resonator optisch stabil ist müssen die Verluste geringer sein als die Verstärkung durch das Lasermedium. Dies kann eintreten, wenn die Bedingung
+\subsubsection{Photoeffekt}
+Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaquants durch ein Hüllenelektron des Absorbers, welches daraufhin genug Energie besitz um den Wirkungsbereich seines Kernes zu verlassen. Dafür muss die Energie des Gammaquants $E_\gamma$ größer sein als die Bindungsenergie $E_B$ des Elektrons. Aufgrund von Impulserhaltung liegen die beteiligten Elektronen meistens in der K-Schale. Die überschüssige Energie des Gammaquants wird in kinetische Energie des nun freien Elektrons umgewandelt. Der Photoeffekt lässt sich daher durch 
 \begin{equation}
-	0 \leq \frac{r_1 -L}{r_1} \cdot \frac{r_2 -L}{r_2} < 1 \label{eq:stabil}
+    \gamma + \text{Atom} \to \text{Atom^+} + e^-
 \end{equation}
-erfüllt ist. Hierbei sind $r_1$ und $r_2$ die Krümmungsradien der Spiegel und $L$ die Resonatorlänge, also der Abstand zwischen den Spiegeln. Damit sich die Stahlen optimal konstruktiv überlagern muss weiterhin die im Resonator zurückgelegte Strecke ein vielfaches von der halben Wellenlänge des Lichtes sein. Diese Bedingung wird auch Resonanzbedingung genannt. Ist diese erfüllt bildet sich eine stehende Welle aus und das Licht wird maximal verstärkt. Um eine nur bestimmte Frequenz zu verstärken kann der Spiegel beschichtet werden, sodass nur diese Frequenz gut reflektiert wird.
-
-\subsection{Das Lasermedium}
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Images/emission.png}
-	\caption{Schemata für die Absorption und Emission bei einem 2-Niveau System \cite{V61}.}
-\end{figure}
-Das Lasermedium hat im einfachsten Fall einen angeregten Zustand und einen Grundzustand. Ein Photon hat nun drei Möglichkeiten diese Zustände zu beeinflussen. Einmal indem ein Photon mit entsprechender Energie absorbiert wird und damit für einen Übergang auf das höhere Niveau sorgt (Absorption). Eine andere Möglichkeit besteht darin, dass das höhere Niveau spontan in das niedrigere Niveau übergeht und dabei ein Photon entsprechender Energie freigibt (spontane Emission). Jedoch ist es auch möglich, dass ein Photon mit der Energie der Energiedifferenz der Niveaus den Übergang vom höheren Niveau in das niedrigere Niveau stimuliert (indirekte Emission). 
-Das Besondere bei der indirekten Emission ist, dass das stimulierte Photon die selbe Ausbreitungsrichtung, Phase und Energie wie das stimulierende Photon besitzt. Dies ist der grundlegende Effekt der für einen Laser genutzt wird. In einem realen Lasermedium handelt es sich bei den verschiedenen Niveaus um die Besetzungsniveaus der Elektronenschalen der Atome. Damit es zu einer Verstärkung des Lichtes kommen kann, muss mehr indirekt emittiert werden als absorbiert wird. Da beide Prozesse bei gleicher Besetzung gleich Wahrscheinlich sind, kann dies durch eine höhere Besetzung des angeregten Zustandes als des Grundzustandes erreicht werden. Das höhere Niveau ist im thermischen Gleichgewicht allerdings immer weniger besetzt als das niedrigere Niveau, jedoch kann durch Pumpen eine solche Besetzungsinversion geschaffen werden.
-
-\subsection{Die Pumpquelle}
-\begin{figure}
-	\centering
-	\def\svgwidth{0.5\linewidth}
-	\import{content/Images/}{5074.pdf_tex}
-	\caption{Niveauschema eines Helium-Neon-Lasers \cite{VHeNeGoettingen}.}
-\end{figure}
-Das Pumpen kann auf verschieden Arten realisiert werden. Beim HeNe-Laser wird zum Pumpen das Helium durch Anlegen einer Hochspannung zur Gasentladung gebracht. Dadurch wird das Helium in einen relativ langlebigen angeregten Zustand gebracht. Durch Stöße des angeregten Heliums mit dem Neon wird die Anregung auf das Neon durch Stöße zweiter Art übertragen und sorgen somit für eine Besetzungsinversion des Neons. Es ist dabei zu beachten, dass das Lasermedium mindestens drei verschiedene Niveaus besitzen muss damit eine Besetzungsinversion durch Pumpen möglich ist.
-
-
-\subsection{TEM-Moden}
-Die Resonanzbedingung wird von mehreren Frequenzen erfüllt, sodass mehrere verschiedene Moden möglich sind. Die Moden werden bei einer zylindrischen Symmetrie werden mit $\text{TEM}_{plq}$-Mode ($\text{TEM}=\text{transverse electromagnetic}$) bezeichnet. Die Ordnung der Mode wird in radialer Richtung mit $p$, in Winkelrichtung mit $l$ und entlang der Symmetrieachse (in $z$-Richtung) mit $q$ bezeichnet. Für die Intensität der Moden gilt
+beschreiben. Das nun in der Schale entstandene Loch wird anschließend durch ein Elektron einer höheren Schale gefüllt, welche ihrerseits wieder aus noch höheren Schalen gefüllt werden.
+%auch noch nich so geil(satz links)
+Die dabei frei werdenden Energien werden in Form von Röntgenquanten abgegeben. Diese verlassen den Detektor im Normalfall nicht, wewegen die gesamte Energie des Gammaquants im Absorber bleibt.
+%satz sieht geklaut aus  
+Der Wirkungsquerschnitt des Photoeffektes lässt sich näherungsweise durch
 \begin{equation}
-	I_{plq} = I_0 \cos^2 (l \varphi) \rho^2 \left[L_{p}^q\left(\frac{(2 \rho)^2}{1+Z^2} \right)\right] ^2 \exp\left(-\rho \right),
+    \sigma_\text{ph} \propto z^\alpha E^\delta
 \end{equation}
-wobei $L_{p}^q$ ein Laguerre-Polynom, $\rho=2 r^2 / w^2$, $w=w_0 \sqrt{1+\left(\frac{z \lambda}{\pi w_0^2}\right)^2}$ und $w_0$ der minimale Strahlradius ist.
+beschreiben. Für die Energiebereiche natürliche Strahler lassen sich $\alpha$ und $\delta$ auf $4 < \alpha <5 $ und $\delta \approx -3.5$ eingrenzen. 
 
-Falls die Symmetrie durch z.B. Brewsterfenster gebrochen wird, um ein polarisiertes Licht zu erhalten, werden die Moden mit  $\text{TEM}_{mnq}$-Mode bezeichnet. Die Ordnung der Moden in $x$- und $y$-Richtung werden mit $m$ und $n$ bezeichnet. Für die Intensität der Moden gilt nun
+\subsubsection{Comptoneffekt}
+Der Comptoneffekt beschreibt die unelastische Streuung eines Gammaquants an einem freien Elektron, wobei der Gammaquant einen Teil seiner Energie an das Elektron abgibt und seine Bewegungsrichtung ändert. Das Elektron wird hierbei als ruhende, punktförmige Masse betrachtet. Daher lässt er sich durch
 \begin{equation}
-I_{mnq} = I_0 \left(\frac{w_0}{w}\right)^2 \left[H_m\left(\frac{\sqrt{2} x}{w}\right) \exp\left(\frac{-x^2}{w^2}\right) \right]^2 \left[H_n\left(\frac{\sqrt{2} y}{w}\right) \exp\left(\frac{-y^2}{w^2}\right) \right]^2, \label{eq:tem}
+    \gamma + e^- \to \gamma' + e^-
 \end{equation}
-wobei $H_m$ ein Hermitesches Polynom ist.
-
-
-In beiden Fällen gilt für die $\text{TEM}_{00q}$-Mode
+beschreiben mit $E_{\gamma'} < E_\gamma$.
+%Bild der comptonstreuung einfügen
+Mit der Abkürzung
 \begin{equation}
-I_{00q} = I_0 \exp\left(-\frac{2 r^2}{\omega ^2}\right). \label{eq:gaus}
+    \epsilon = \frac{E_\gamma}{m_e c^2}
+\end{equation}
+folgen für die kinetischen Energien des Gammaquants nach dem Stoß, beziehungsweise des gestoßenen Elektrons:
+\begin{equation}
+    \E_{\gamma'} =  E_\gamma \frac{1}{1+ \epsilon (1-\cos(\theta_\gamma))} \text{bzw.} \E_{e'} =  E_\gamma \frac{\epsilon (1-\cos(\theta_\gamma))}{1+ \epsilon (1-\cos(\theta_\gamma))} .
+\end{equation}
+Daraus ergibt sich unter einem Streuwinkel $\theta_\gamma$ von $\SI{180}{\degree}$ ein maximaler Energieübertrag auf das Elektron von
+\begin{equation}
+    E_{e,\text{max}} = \frac{2 \epsilon}{1 + 2 \epsilon} E_\gamma ,
+\end{equation}
+welcher weiterhin geringer ausfällt als die eigentliche Energie des Gammaquants. %klingt ziemlich ähnlich zur anleitung 
+Aufgrund der Winkelabhängigkeit der auftretenden Energieüberträge ist der Comptoneffekt für die Gammaspektroskopie ein unerwünschter Effekt. Es zeigt sich, dass die Strahlung der Comptonstreuung keine isotrope Winkelverteilung besitzt. Für niederenergetische Gammaquanten zeigt sie Ähnlichkeiten zu einer Dipolstrahlung, bei hohen Energien oberhalb der Ruheenergie von Elektronen findet die Streuung vornehmlich in Vorwärtsrichtung statt. Für den niederenergetischen Fall mit $E_gamma < \SI{10}{\kilo\electronvolt}$ kann der Wirkungsquerschnitt näherungsweise durch den Thomsonschen Wirkungsquerschnitt dargestellt werden und erhält
+\begin{equation}
+    \sigma_\text{Co} = 2 \pi r_e^2
+\end{equation}
+mit dem klassischen Elektronenradius $r_e$. Da der maximale Energieübertrag des Comptoneffektes geringer ausfällt als der Peak des zugehörigen Photoeffektes, kommt es hinter dem maximalen Energieübertrag, der Comptonkante zu einer Lücke im Spektrum. Da ein Strahler in der Regel mehrere Zerfallskanäle mit unterschiedlichen Peaks besitzt, sind die Lücken im Experiment oft ohne geeignete Auswertung nicht zu erkennen.  
+%vll bild von comptonkante +erklärung
+\subsubsection{Paarbildung}
+Im Falle hochenergetischer Gammaquanten mit $E_\gamma > 2 \m_e c^2$ können sich diese in ein Elektron und ein Positron umwandeln. Da jedoch Impulserhaltung gilt muss ein geeigneter Stoßpartner vorhanden sein, welcher den den Impuls des Gammaquants aufnimmt. Dies ist meistens ein Atom, Elektronen sind jedoch auch möglich. Bei letzteren fällt die Rückstoßenergie, welche mit $m^{-1}$ läuft, allerdings deutlich größer weshalb für die Paarbildung mit einem Elektron $E_\gamma > 4 \m_e c^2$ erfüllt sein muss. Die überschüssige Energie des Gammaquantes verteilt sich anschließend in Form von kinetischer Energie gleichmäßig auf Elektron und Positron. Auch für die Paarbildung lässt sich nur schwer ein allgemeiner Wirkungsquerschnitt abhängig von Kernladungszahl $Z$ und $E_\gamma$ angeben, da dieser aufgrund der auftretenden Coulombkräfte abhängig vom Ort in der Elektronenhülle ist, an welchem die Paarbildung stattgefunden hat. Es können jedoch Spezialfälle für verschwindende und vollständige Abschirmung der Kernkräfte angegeben werden. Für diese gilt:
+\begin{equation}
+    \sigma_\text{kernnah} = \alpha \r_e^2 Z^2 \left( \frac{28}{9}\ln(2) \epsilon - \frac{218}{27}\right) \text{mit} \SI{10}{\mega\electronvolt} < E_gamma \SI{25}{\mega\electronvolt}
 \end{equation}
 
-\subsection{Intensität von polarisierten Licht hinter einem Polarisationsfilter}
-Ein Polarisationsfilter lässt nur eine Polarisationsrichtung passieren. Falls das Licht vorher um einen um $\delta\phi$ verschiedenen Winkel polarisiert ist, als der Polarisationsfilter passieren lässt, gilt für die Intensität des Lichtes hinter diesem
 \begin{equation}
-	I=I_0 cos^2(\delta\phi), \label{eq:polar}
+    \sigma_\text{kernfern} = \alpha \r_e^2 Z^2 \left( \frac{28}{9}\ln\left(\frac{183}{\sqrt[3]{Z}}\right) \epsilon - \frac{218}{27}\right) \text{mit} \SI{500}{\mega\electronvolt} < E_gamma
 \end{equation}
-wobei $I_0$ die Intensität vor dem Polarisationsfilter bezeichnet.
-
-\subsection{Zusammenhang zwischen dem Beugungsmuster eines Gitters und der Wellenlänge des gebeugten Lichtes}
-Durch das Einbringen des Gitters in den Lichtstrahl wird dieser am Gitter gebeugt. Dies führt zu Interferenzeffekten hinter dem Gitter. Es bilden sich Intensitätsmaxima aus. Aus den Abständen zwischen diesen und dem Abstand zum Schirm kann die Wellenlänge des Lichtstrahles folgendermaßen bestimmt werden
-\begin{equation}
-	\lambda = \frac{g \sin(\arctan(x/b))}{n}, \label{eq:lambda}
-\end{equation}
-wobei $g$ die Gitterkonstante, $x$ den Abstand des Hauptmaxima der Ordnung $n$ zur optischen Achse des ursprünglichen Strahles und $b$ der Abstand zwischen dem Schirm und dem Gitter ist.
+Eine allgemeinere Form ist in Abb. \ref{fig:BILD EINFÜGEN} dargestellt.
+%mherer paeks bei paarbildung erklären
+Allerdings ist im 
+Da die entstandenen Positronen jedoch wieder mit Elektronen im Detektor annihilieren zu  Gammaquant ausbildet, welcher den Detektor wieder verlassen kann
 
 
+Zusammengefasst bilden die Wirkungsquerschnitte aller betrachteter Effekte im Falle vom Germanium einen Graphen proportional zu Abb. \ref{fig:BILD} aus. %Germaniumbild einfügen
 
+
+
+\subsection{Die Wirkungsweise eines Reinst-Germaniumdetektors}
+Der Kern des 
