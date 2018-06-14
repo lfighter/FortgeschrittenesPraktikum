@@ -15,6 +15,7 @@ import scipy.constants as const
 from errorfunkt2tex import error_to_tex
 from errorfunkt2tex import scipy_to_unp
 from sympy import *
+from matplotlib.legend_handler import (HandlerLineCollection,HandlerTuple)
 
 
 def line(x,a,b):
@@ -74,7 +75,7 @@ print('AnzahlAnEreignissenInsgesammt: ',AnzahlAnEreignissenInsgesammt)
 Erwartungswert = AnzahlAnEreignissenInsgesammt/gelaufeneZeitInSec*(10**-6)*20
 WahrscheinlichkeitnachfolgendesTeilchen = Erwartungswert*unp.exp(-Erwartungswert)
 AnzahlUntergrundEreignisse = WahrscheinlichkeitnachfolgendesTeilchen * AnzahlAnEreignissenInsgesammt
-AnzahlUntergrundProKanal = AnzahlUntergrundEreignisse /(20*EineMicroSekInChan)
+AnzahlUntergrundProKanal = AnzahlUntergrundEreignisse /((20-30*10**-3)*EineMicroSekInChan)
 print('Erwartungswert: ', Erwartungswert)
 print('WahrscheinlichkeitnachfolgendesTeilchen: ',WahrscheinlichkeitnachfolgendesTeilchen)
 print('AnzahlUntergrundEreignisse: ',AnzahlUntergrundEreignisse)
@@ -137,7 +138,7 @@ def constante(x,c):
 	return x*0+c
 
 koinz=np.genfromtxt('scripts/koinz',unpack=True)
-makeNewTable(convert([*koinz],floatFormat,[r'','3.0f',False]),r'{$\vardelta t/\si{\nano\second}$} & {$N$}','tab2', [r'S[table-format=3.0]', r'S[table-format=3.0]'])
+makeNewTable(convert([*koinz],floatFormat,[r'','3.0f',False]),r'{$\varDelta t/\si{\nano\second}$} & {$N$}','tab2', [r'S[table-format=3.0]', r'S[table-format=3.0]'])
 koinz1=[koinz[0][3:9],koinz[1][3:9]]
 koinz2=[koinz[0][11:17],koinz[1][11:17]]
 koinz3=[koinz[0][19:24],koinz[1][19:24]]
@@ -158,19 +159,19 @@ print('deltatk:',x2-x1-40)
 x=np.linspace(-30,30,1000)
 plt.cla()
 plt.clf()
-plt.plot(*koinz, 'yx', label='Wertepaare',linewidth='0.5')
-plt.plot(*koinz1, 'rx', label='Wertepaare',linewidth='0.5')
-plt.plot(*koinz2, 'bx', label='Wertepaare',linewidth='0.5')
-plt.plot(*koinz3, 'gx', label='Wertepaare',linewidth='0.5')
-plt.plot(x,line(x,*params1), 'r-', label='Fit',linewidth='0.5')
-plt.plot(x,constante(x,params2), 'b-', label='Fit',linewidth='0.5')
-plt.plot(x,constante(x,params2/2), 'k-', label='Fit',linewidth='0.5')
-plt.plot(x,line(x,*params3), 'g-', label='Fit',linewidth='0.5')
+mm1,=plt.plot(*koinz, 'yx', linewidth='0.5')
+mm2,=plt.plot(*koinz1, 'rx', linewidth='0.5')
+mm3,=plt.plot(*koinz2, 'bx', linewidth='0.5')
+mm4,=plt.plot(*koinz3, 'gx', linewidth='0.5')
+mm5,=plt.plot(x,line(x,*params1), 'r-', linewidth='0.5')
+mm6,=plt.plot(x,constante(x,params2), 'b-', linewidth='0.5')
+#plt.plot(x,constante(x,params2/2), 'k-', linewidth='0.5')
+mm7,=plt.plot(x,line(x,*params3), 'g-', label='Fit',linewidth='0.5')
 plt.xlim(-30, 30)
 plt.ylim(0, 300)
 #plt.yscale('log')
 plt.ylabel(r'$N$')
-plt.xlabel(r'$T/\si{\nano\second}$')
-plt.legend(loc='best')
+plt.xlabel(r'$\varDelta t/\si{\nano\second}$')
+plt.legend([(mm1, mm2, mm3, mm4), mm5, mm6, mm7], ['Wertepaare','Fit der linken Flanke','Fit des Plateaus','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/'+'koinz')
