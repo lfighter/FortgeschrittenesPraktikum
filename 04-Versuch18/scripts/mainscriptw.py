@@ -178,8 +178,8 @@ plt.cla()
 plt.clf()
 plt.plot(pos[wahrscheinlichkeiten!=0], unp.nominal_values(energies[wahrscheinlichkeiten!=0]), 'gx', label='Werte') 
 plt.plot(x, Line(x, *params), 'b-', label='Fit') 
-#plt.xlabel(r'$v$')
-#plt.ylabel(r'$\Delta f / \si{\hertz}$')
+plt.xlabel(r'Kanal')
+plt.ylabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/EnergieKali.pdf') 
@@ -227,27 +227,64 @@ plt.plot(x, polynom3(x, *params), 'r-', label='Fit')
 plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
 plt.xlim(150,1500)
 plt.ylim(0,0.3)
-plt.xlabel(r'$E_\gamma$/\si{\kilo\electronvolt}')
+plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.ylabel(r'$Q$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Q.pdf') 
 
-######################################################
-
-
-
-
-
-
-
+######################################################Cs137
 
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
 ranges = [[1635,1660]]
 print('Cs137')
-print(gausFitMitPlot(Cs137,ranges,'Cs137'))
+peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
 
-#0.2659 13 
+print(peakCs137)
+
+def diffWirkung(E,c,h):
+    Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
+    r=const.elementary_charge/(4*np.pi * const.epsilon_0 * const.electron_mass*const.c**2)
+    m0=const.electron_mass*const.c**2 / const.electron_volt
+    e=Egamma/m0
+    th=8/3 * np.pi * r**2
+    return 3/8 * th* 1/(m0*e**2) * (2+(E/(Egamma-E))**2 * (1/e**2 + (1-2/e)* (Egamma-E)/Egamma )) * c+h
+
+def Wirkung(E,c,h):
+    Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
+    r=const.elementary_charge/(4*np.pi * const.epsilon_0 * const.electron_mass*const.c**2)
+    m0=const.electron_mass*const.c**2 / const.electron_volt
+    e=Egamma/m0
+    th=8/3 * np.pi * r**2
+    return 3*E*th *(E**2 *(((Egamma-E)*(e-2)*e)+Egamma)/(Egamma*(E-Egamma)**2*e**2)+2)/(8*e**2 *m0)* c+h
+
+rangeVar=[640,1170]
+xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+yA=Cs137[rangeVar[0]-1:rangeVar[1]]
+params, covar = curve_fit(diffWirkung, xA, yA)
+params2, covar2 = curve_fit(Wirkung, xA, yA)
+paramsKon=unp.uarray(params, np.sqrt(np.diag(covar)))
+print(paramsKon)
+paramsKon2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
+print(paramsKon2)
+rangeVar=[1,1250]
+xA2=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+yA2=Cs137[rangeVar[0]-1:rangeVar[1]]
+x=np.linspace(rangeVar[0],rangeVar[1],1000)
+x=Line(x,*unp.nominal_values(umrechnungsParams))
+plt.cla()
+plt.clf()
+plt.plot(x, Wirkung(x, *params2), 'b-', label='Fit2') 
+plt.plot(x, diffWirkung(x, *params), 'r-', label='Fit') 
+plt.plot(xA2, yA2, 'gx', label='Werte') 
+plt.plot(xA, yA, 'bx', label='Werte fit')  
+plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+plt.ylabel(r'$N$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/Cs137Kon.pdf')
+
+
 
 ########################################################Ba
 ranges = [[1,8192]]
