@@ -67,4 +67,18 @@ Zusammengefasst bilden die Wirkungsquerschnitte aller betrachteter Effekte im Fa
 
 
 \subsection{Die Wirkungsweise eines Reinst-Germaniumdetektors}
-Der Kern des 
+Den Kern des Reinst-Germaniumdetektors bildet eine Halbleiterdiode. Diese besteht aus zwei unterschiedlich dotierten Materialien, welche an einer Grenzfläche aneinandertreffen. Die Außenseite besteht aus einer mit Lithium stark n-dotierten Oberfläche, die Innenseite aus einer mit Gold stark p-dotierten Oberfläche. Aufgrund der endlichen Temperaturen diffundieren die beweglichen Elektronen und Löcher durch die Grenzfläche zwischen beiden Bereichen hindurch und rekombinieren im Anschluss. Es verbleiben die Akzeptoren der im p-dotierten und die Donatoren im n-dotierten Bereich, welche eine positive bzw. negative Ladung ausbilden. Sie erzeugen ein elektrisches Feld, welches die Bewegung der Ladungsträger wieder verhindert. Um die Grenzfläche bildet sich dadurch eine Zone aus, welche arm an Ladungsträgern ist. Der ganze Vorgang kann durch ein Potentialbild nach Abb. \ref{fig:POTENTIAL} veranschaulicht werden. Gelangt nun ein Gammaquant in den Detektor und setzt ein hochenergetisches Elektron in der Verarmungszone frei, so stößt dieses auf seinem Weg durch die Verarmungszone weitere Elektronen und hebt so weitere Elektronen aus dem Valenzband ins Leitungsband. Die entstehenden Löcher verhalten sich dabei wie postive Ladungen. Aufgrund des in der Verarmungszone vorherrschenden elektrischen Feldes rekombinieren die Ladungsträger jedoch nicht, sondern werden anhand ihrer Ladung getrennt. Dies resultiert in einem Ladungsimpuls, welcher proportional zur Energie des gestreuten Gammaquants ist, da die Anzahl der gehobenen Elektron-Loch Paare von der Energie des Quants abhängt und die Höhe des Ladungsimpuls von der Anzahl der Elektron-Loch Paare.
+% diese sätze sind partiell echt mies     
+Da die Wahrscheinlichkeit einer Wechselwirkung des Gammaquants mit den Elektrone exponentiell von der Dicke des Materials abhängt ist es nötig die Breite der Verarmungszone zu maximieren. Diese hängt von mehreren Faktoren ab:
+\subsubsection{Möglichkeiten die Verarmungszone zu verbreitern}
+Die Breite der Verarmungszone ist abhängig von den Dotierungen beider Bereiche. Für sie gilt:
+\begin{equation}
+    d_\text{n}^2 = frac{2\epsilon\epsilon_0}{\text{e_0} (U_\text{D} + U) \frac{n_\text{A}}{n_\text{D}(n_\text{A}+n_\text{D})} bzw. d_\text{p}^2 = frac{2\epsilon\epsilon_0}{\text{e_0} (U_\text{D} + U) \frac{n_\text{D}}{n_\text{A}(n_\text{A}+n_\text{D})}
+\end{equation}
+ Um eine möglichst breite Verarmungszone zu erreichen wird daher eine sehr asymetrische Dotierung gewählt, weshalb die $d_\text{n}$ zwar nur sehr gering ausfällt, $d_\text{p}$ hingegen sehr groß. Näherungsweise verläuft die Breite dann mit $1/\sqrt{n_\text{A}}$. Daher wird ein hochreiner Germaniumkristall verwendet.
+
+
+\subsection{Probleme der Messung}
+
+\subsection{elektrische Komponenten}
+Die in der Verarmungszone entstandenen Ladungsimpulse gelangen anschließend in einen Integrator, in welchem ein zum Integral der Stromstärke proportionaler Strom erzeugt wird.
