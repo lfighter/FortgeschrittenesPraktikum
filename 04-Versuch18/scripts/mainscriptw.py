@@ -245,7 +245,7 @@ print(peakCs137)
 def diffWirkung(E,c,h):
     Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
     r=const.elementary_charge/(4*np.pi * const.epsilon_0 * const.electron_mass*const.c**2)
-    m0=const.electron_mass*const.c**2 / const.electron_volt
+    m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
     e=Egamma/m0
     th=8/3 * np.pi * r**2
     return 3/8 * th* 1/(m0*e**2) * (2+(E/(Egamma-E))**2 * (1/e**2 + (1-2/e)* (Egamma-E)/Egamma )) * c+h
@@ -253,12 +253,12 @@ def diffWirkung(E,c,h):
 def Wirkung(E,c,h):
     Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
     r=const.elementary_charge/(4*np.pi * const.epsilon_0 * const.electron_mass*const.c**2)
-    m0=const.electron_mass*const.c**2 / const.electron_volt
+    m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
     e=Egamma/m0
     th=8/3 * np.pi * r**2
     return 3*E*th *(E**2 *(((Egamma-E)*(e-2)*e)+Egamma)/(Egamma*(E-Egamma)**2*e**2)+2)/(8*e**2 *m0)* c+h
 
-rangeVar=[640,1170]
+rangeVar=[750,1170]
 xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
 yA=Cs137[rangeVar[0]-1:rangeVar[1]]
 params, covar = curve_fit(diffWirkung, xA, yA)
@@ -277,7 +277,13 @@ plt.clf()
 plt.plot(x, Wirkung(x, *params2), 'b-', label='Fit2') 
 plt.plot(x, diffWirkung(x, *params), 'r-', label='Fit') 
 plt.plot(xA2, yA2, 'gx', label='Werte') 
-plt.plot(xA, yA, 'bx', label='Werte fit')  
+plt.plot(xA, yA, 'bx', label='Werte fit')
+Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
+print('Egamma', Egamma)
+m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
+e=Egamma/m0
+Emax=Egamma * 2*e/(1+2*e)
+plt.plot(np.array([Emax,Emax]), np.array([0,100]), 'b-', label='Werte fit')  
 plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.ylabel(r'$N$')
 plt.legend(loc='best')
