@@ -3,11 +3,20 @@
 \label{sec:Theorie}
 \subsection{Absorption von Gammastrahlung durch Materie}
 %erster satz gefällt mir vom anfang nich, besseren suchen
-Wird feste Materie mit Gammastrahlung bestrahlt  kommt es zu Wechselwirkungen der einzelnen Gammaquanten mit den Atomen und Elektronen des Festkörpers, wodurch die Intensität des Gammastrahles über den Flug durch den Festkörper reduziert wird. Die drei dominierenden Effekte sind dabei Photoeffekt, Comptoneffekt und Paarbildung. Die Wirkung auf die Intensität des Strahles jedes Effektes kann durch einen Wirkungsquerschnitt $\sigma$ dargestellt werden. Anschaulich lässt sich dieser wie die Größe einzelner Zielscheiben deuten, welche den Einfangsradius der Atome und Elektronen beschreiben.
+Wird feste Materie mit Gammastrahlung bestrahlt  kommt es zu Wechselwirkungen der einzelnen Gammaquanten mit den Atomen und Elektronen des Festkörpers, wodurch die Intensität des Gammastrahles entlang seines Weges durch den Festkörper reduziert wird. Die drei dominierenden Effekte sind dabei Photoeffekt, Comptoneffekt und Paarbildung. Der Beitrag der jeweiligen Wechselwirkung an der gesamten Intensitätsabnahme wird durch den zugehörigen Wirkungsquerschnitt beschrieben. Anschaulich lässt sich dieser wie die Größe einzelner Zielscheiben deuten, welche den Einfangsradius der Atome und Elektronen beschreiben. Die Größe der Zielscheiben, also das $\sigma$ ist so gewählt, sodass es zu einer Wechselwirkung kommt falls ein Gammaquant die Scheibe trifft. Die Absorberdicke wird so klein gewählt, dass sich einzelne Scheiben nicht überlappen. Eine Skizze dieser Vorstellung ist in Abb. \ref{fig:sigma} dargestellt.
+Für die Anzahl der Wechselwirkungen $d\text{N}$ über eine Dicke $d\text{x}$ und bei $N_0$ aufgetroffenen Gammaquanten folgt damit:
+\begin{equation}
+    d\text{N} = n N_0 \sigma d\text{x}
+\end{equation}
+mit der Elektronendichte des Absorbers $n$. Daraus ergeben sich für einen Absorber der Dicke $D$ mit
+\begin{equation}
+N(D) = N_0 \exp(-n \sigma D) \text{bzw.}  N_2(D) = N_0 (1 - \exp(-n \sigma D))
+\end{equation}
+die Anzahl der wechselgewirkten Quanten $N(D)$ bzw. die Anzahl der noch verbliebenen Quanten $N_2(D)$. Die Konstante $ \mu = n \sigma$ wird auch als Extinktionskoeffizient bezeichnet und ihr Kehrwert liefert die mittlere Reichweite der quanten im Absorber.
 %wirkungsquerschnitt erläutern
 
 \subsubsection{Photoeffekt}
-Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaquants durch ein Hüllenelektron des Absorbers, welches daraufhin genug Energie besitz um den Wirkungsbereich seines Kernes zu verlassen. Dafür muss die Energie des Gammaquants $E_\gamma$ größer sein als die Bindungsenergie $E_B$ des Elektrons. Aufgrund von Impulserhaltung liegen die beteiligten Elektronen meistens in der K-Schale. Die überschüssige Energie des Gammaquants wird in kinetische Energie des nun freien Elektrons umgewandelt. Der Photoeffekt lässt sich daher durch 
+Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaquants durch ein Hüllenelektron des Absorbers, welches daraufhin genug Energie besitz um den Wirkungsbereich seines Kernes zu verlassen. Dafür muss die Energie des Gammaquants $E_\gamma$ größer sein als die Bindungsenergie $E_\text{B}$ des Elektrons. Aufgrund von Impulserhaltung liegen die beteiligten Elektronen meistens in der K-Schale. Die überschüssige Energie des Gammaquants wird in kinetische Energie des nun freien Elektrons umgewandelt. Der Photoeffekt lässt sich daher durch 
 \begin{equation}
     \gamma + \text{Atom} \to \text{Atom}^+ + e^-
 \end{equation}
@@ -73,12 +82,24 @@ Da die Wahrscheinlichkeit einer Wechselwirkung des Gammaquants mit den Elektrone
 \subsubsection{Möglichkeiten die Verarmungszone zu verbreitern}
 Die Breite der Verarmungszone ist abhängig von den Dotierungen beider Bereiche. Für sie gilt:
 \begin{equation}
-    d_\text{n}^2 = frac{2\epsilon\epsilon_0}{\text{e_0} (U_\text{D} + U) \frac{n_\text{A}}{n_\text{D}(n_\text{A}+n_\text{D})} bzw. d_\text{p}^2 = frac{2\epsilon\epsilon_0}{\text{e_0} (U_\text{D} + U) \frac{n_\text{D}}{n_\text{A}(n_\text{A}+n_\text{D})}
+    d_\text{n}^2 = \frac{2 \epsilon \epsilon_0}{\text{e}_0} (U_\text{D} + U) \frac{n_\text{A}}{n_\text{D}(n_\text{A}+n_\text{D})} bzw. d_\text{p}^2 = \frac{2\epsilon \epsilon _0}{\text{e}_0} (U_\text{D} + U) \frac{n_\text{D}}{n_\text{A}(n_\text{A}+n_\text{D})}
 \end{equation}
- Um eine möglichst breite Verarmungszone zu erreichen wird daher eine sehr asymetrische Dotierung gewählt, weshalb die $d_\text{n}$ zwar nur sehr gering ausfällt, $d_\text{p}$ hingegen sehr groß. Näherungsweise verläuft die Breite dann mit $1/\sqrt{n_\text{A}}$. Daher wird ein hochreiner Germaniumkristall verwendet.
+ Um eine möglichst breite Verarmungszone zu erreichen wird daher eine sehr asymetrische Dotierung gewählt, weshalb die $d_\text{n}$ zwar nur sehr gering ausfällt, $d_\text{p}$ hingegen sehr groß, womit die ganze Zone allein durch $d_\text{p}$ angenähert werden kann. Da die Breite nun proportional zu $\frac{1}{sqrt{N_\text{A}}}$ verläuft wird ein hochreiner germaniumkristall verwendet. Eine zweite Möglichkeit die Breite zu vergrößern liegt darin, die anliegende Sperrspannung $U$ zu erhöhen. Hier wächst die Breite mit $\sqrt{U}$. Allerdings kann die Spannung nicht beliebig erhöht werden. Grund hierfür Elektronen die durch die endliche Temperatur thermisch gelöst werden und anschließend im anliegende Feld beschleunigt werden. Die entstehenden Ströme verschlechtern die Eigenschaften des Detektors. Um die thermischen Elektronen zu reduzieren werden der Detektor und die anliegenden Komponenten auf ca. $\SI{77}{\kelvin}$ abgekühlt. Unter dieser Temperatur kann eine Spannung von $5-\SI{6}{\kilo\volt}$ angelegt werden. Mit diesen Maßnahmen wird eine Verarmungsbreite von ca. $\SI{3}{\centi\meter}$ erreicht.
+ 
+ 
+\subsection{Die Eigenschaften eines Halbleiterdetektors}%nich mehr ganz so mist
+Eine wichtige Detektorkenngröße für die Spektroskopie von Gammaquanten ist sein Auflösungsvermögen. Dieses wird im wesentlichen aus der Halbwertsbreite aufgenommener Peaks einer monochromatischen Gammastrahlung bestimmt. Die Peaks werden hierzu durch Gausskurven approximiert. Ist der Abstand der Mittelwerte zweier benachbarter Peaks mindestens so groß wie die Halbwertsbreite, so können beide Peaks unterschieden werden. Ein weiterern Aspekt bildet die Höhe der Peaks. Unter der Annahme, dass ein Gammaquant der in der Verarmungszone wechselwirkt in dieser auch seine gesamte Energie abgibt, so folgt die Höhe des Peaks aus der Bindungsenergie und der Anzahl der erzeugten Elektron-Loch Paare. Es zeigt sich jedoch, dass diese nur unter Mitwirkung von Phononen entstehen und sich ein Teil der Energie somit auch auf die Phononen verteilt. Daher kann nicht mehr von unkorrelierten seltenen Ereignissen ausgegangen werden und für die Standardabweichung der resultierende Verteilung folgt.
+\begin{equation}
+\sigma = \sqrt{F \frac{E_\gamma}{E_\text{B}} }
+\end{equation}
+mit dem die Korrekturfaktor $F$. Da die Fluktuationen aufgrund der Elektron-Loch Paar Erzeugung jedoch teilweise wieder durch die Fluktuationen der Phononen kompensiert werden gilt $F < 1$. Im Fall von Germanium gilt $F \approx 0.1$. Bei Betrachtung großer Zählraten kann wieder eine Gaussverteilung angenommen werden und die Halbwertsbreite bestimmt sich zu:
+\begin{equation}
+\Delta E_\text{1/2} = \sqrt{8 \ln(2) F E_\gamma E_\text{B}}
+\end{equation}
+Die Halbwertsbreite wird jedoch durch weitere Rauscheffekte erhöht. Dazu gehören Rauschen aufgrund von Restverunreinigungen im Detektorkristall, aufgrund der angeschlossenen Verstärker und aufgrund von Feldimhomogenitäten, welche der aus der Bauweise des Detektors folgen. Die Effekte haben nur sehr schwache Korrelationen, sodass ihre zusätzlichen Halbwertsbreiten quadratisch zur Ursprünglichen addiert werden können. Auch in diesem Fall können die Rauscheffekte durch geringe Temperaturen minimiert werden. Im Fall der spannung müssen kompromisse eingegangen werden, da da Rauscheffekte unter beiden extremen auftreten.
 
+Eine letzte wichtige Kenngröße ist die Effizienz eines Detektors. Sie gibt die Energieabhängigkeit für die Wahrscheinlichkeit eines erfolgreichen Nachweis eines Gammaquants an. Aufgrund des kontinuierlichen Spektrums des Comptoneffekts ist im Energiebereich unterhalb von $\SI{3}{\mega\electronvolt}$ nur der Photoeffekt von Relevanz. Für diesen zeigen sich theoretisch jedoch insbesondere bei hohen Energien nur geringe Nachweiswahrscheinlichkeiten. Im experiment fallen diese allerdings höher aus. 
 
-\subsection{Probleme der Messung}
 
 \subsection{elektrische Komponenten}
 Die in der Verarmungszone entstandenen Ladungsimpulse gelangen anschließend in einen Integrator, in welchem ein zum Integral der Stromstärke proportionaler Strom erzeugt wird.
