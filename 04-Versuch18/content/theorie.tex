@@ -20,13 +20,13 @@ die Anzahl der wechselgewirkten Quanten $N(D)$ und die Anzahl der noch verbliebe
 %wirkungsquerschnitt erläutern
 
 \subsubsection{Photoeffekt}
-Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaquants durch ein Hüllenelektron des Absorbers, welches daraufhin genug Energie besitz um den Wirkungsbereich seines Kernes zu verlassen. Dafür muss die Energie des Gammaquants $E_\gamma$ größer sein als die Bindungsenergie $E_\text{B}$ des Elektrons. Aufgrund von Impulserhaltung liegen die beteiligten Elektronen meistens in der K-Schale. Die überschüssige Energie des Gammaquants wird in kinetische Energie des nun freien Elektrons umgewandelt. Der Photoeffekt lässt sich daher durch 
+Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaquants durch ein Hüllenelektron des Absorbers, welches daraufhin genug Energie besitzt um den Wirkungsbereich seines Kernes zu verlassen. Dafür muss die Energie des Gammaquants $E_\gamma$ größer sein als die Bindungsenergie $E_\text{B}$ des Elektrons. Aufgrund von Impulserhaltung liegen die beteiligten Elektronen meistens in der K-Schale. Die überschüssige Energie des Gammaquants wird in kinetische Energie des nun freien Elektrons umgewandelt. Der Photoeffekt lässt sich durch 
 \begin{equation}
     \gamma + \text{Atom} \to \text{Atom}^+ + e^-
 \end{equation}
-beschreiben. Das nun in der Schale entstandene Loch wird anschließend durch ein Elektron einer höheren Schale gefüllt, welche ihrerseits wieder aus noch höheren Schalen gefüllt werden.
+beschreiben. Das in der Schale entstandene Loch wird anschließend durch ein Elektron einer höheren Schale gefüllt. Dieser Vorgang wiederholt sich entlang der höheren Schalen.
 %auch noch nich so geil(satz links)
-Die dabei frei werdenden Energien werden in Form von Röntgenquanten abgegeben. Diese verlassen den Detektor im Normalfall nicht, wewegen die gesamte Energie des Gammaquants im Absorber bleibt.
+Die dabei frei werdenden Energien werden in Form von Röntgenquanten abgegeben. Sie verlassen den Detektor im Normalfall nicht, weswegen auch die gesamte Energie des Gammaquants im Absorber verbleibt.
 %satz sieht geklaut aus  
 Der Wirkungsquerschnitt des Photoeffektes lässt sich näherungsweise durch
 \begin{equation}
@@ -35,11 +35,11 @@ Der Wirkungsquerschnitt des Photoeffektes lässt sich näherungsweise durch
 beschreiben. Für die Energiebereiche natürliche Strahler lassen sich $\alpha$ und $\delta$ auf $4 < \alpha <5 $ und $\delta \approx -3.5$ eingrenzen. 
 
 \subsubsection{Comptoneffekt}
-Der Comptoneffekt beschreibt die unelastische Streuung eines Gammaquants an einem freien Elektron, wobei der Gammaquant einen Teil seiner Energie an das Elektron abgibt und seine Bewegungsrichtung ändert. Das Elektron wird hierbei als ruhende, punktförmige Masse betrachtet. Daher lässt er sich durch
+Der Comptoneffekt beschreibt die unelastische Streuung eines Gammaquants an einem freien Elektron, wobei der Gammaquant einen Teil seiner Energie an das Elektron abgibt und seine Bewegungsrichtung ändert. Das Elektron wird näherungsweise als ruhende, punktförmige Masse angenommen. Daher lässt sich der Vorgang durch
 \begin{equation}
     \gamma + e^- \to \gamma' + e^-
 \end{equation}
-beschreiben mit $E_{\gamma'} < E_\gamma$.
+beschreiben. Für die Energien gilt $E_{\gamma'} < E_\gamma$.
 %Bild der comptonstreuung einfügen
 Mit der Abkürzung
 \begin{equation}
@@ -53,12 +53,19 @@ Daraus ergibt sich unter einem Streuwinkel $\theta_\gamma$ von $\SI{180}{\degree
 \begin{equation}
     E_{e,\text{max}} = \frac{2 \epsilon}{1 + 2 \epsilon} E_\gamma ,
 \end{equation}
-welcher weiterhin geringer ausfällt als die eigentliche Energie des Gammaquants. %klingt ziemlich ähnlich zur anleitung 
-Aufgrund der Winkelabhängigkeit der auftretenden Energieüberträge ist der Comptoneffekt für die Gammaspektroskopie ein unerwünschter Effekt. Es zeigt sich, dass die Strahlung der Comptonstreuung keine isotrope Winkelverteilung besitzt. Für niederenergetische Gammaquanten zeigt sie Ähnlichkeiten zu einer Dipolstrahlung, bei hohen Energien oberhalb der Ruheenergie von Elektronen findet die Streuung vornehmlich in Vorwärtsrichtung statt. Für den niederenergetischen Fall mit $E_gamma < \SI{10}{\kilo\electronvolt}$ kann der Wirkungsquerschnitt näherungsweise durch den Thomsonschen Wirkungsquerschnitt dargestellt werden und erhält
+welcher geringer als die Energie des Gammaquants ausfällt. %klingt ziemlich ähnlich zur anleitung 
+Aufgrund der Winkelabhängigkeit der auftretenden Energieüberträge ist der Comptoneffekt für die Gammaspektroskopie ein unerwünschter Effekt. Es zeigt sich, dass die Strahlung der Comptonstreuung keine isotrope Winkelverteilung besitzt. Für niederenergetische Gammaquanten zeigen sich Ähnlichkeiten zu einer Dipolstrahlung, bei hohen Energien oberhalb der Ruheenergie von Elektronen findet die Streuung vornehmlich in Vorwärtsrichtung statt. Für den niederenergetischen Fall mit $E_gamma < \SI{10}{\kilo\electronvolt}$ kann der Wirkungsquerschnitt näherungsweise durch den Thomsonschen Wirkungsquerschnitt dargestellt werden und erhält
 \begin{equation}
     \sigma_\text{Co} = 2 \pi r_e^2
 \end{equation}
-mit dem klassischen Elektronenradius $r_e$. Da der maximale Energieübertrag des Comptoneffektes geringer ausfällt als der Peak des zugehörigen Photoeffektes, kommt es hinter dem maximalen Energieübertrag, der Comptonkante zu einer Lücke im Spektrum. Da ein Strahler in der Regel mehrere Zerfallskanäle mit unterschiedlichen Peaks besitzt, sind die Lücken im Experiment oft ohne geeignete Auswertung nicht zu erkennen.  
+mit dem klassischen Elektronenradius $r_e$. Da der maximale Energieübertrag des Comptoneffektes geringer ausfällt als der Peak des zugehörigen Photoeffektes, kommt es hinter dem maximalen Energieübertrag, der Comptonkante zu einer Lücke im Spektrum. Da ein Strahler in der Regel mehrere Zerfallskanäle mit unterschiedlichen Peaks besitzt, sind die Lücken im Experiment oft ohne geeignete Auswertung nicht zu erkennen.%wertend ?
+
+Der differentielle Wirkungsquerschnitt $\frac{d\text{\Omega}}{d\text{E}}$ des Comptoneffekts besitzt die Form gemäß Abb. \ref{fig:compton} und lässt sich mit
+\begin{equation}
+
+\end{equation}
+
+
 %vll bild von comptonkante +erklärung
 \subsubsection{Paarbildung}
 Im Falle hochenergetischer Gammaquanten mit $E_\gamma > 2 m_e c^2$ können sich diese in ein Elektron und ein Positron umwandeln. Da jedoch Impulserhaltung gilt muss ein geeigneter Stoßpartner vorhanden sein, welcher den den Impuls des Gammaquants aufnimmt. Dies ist meistens ein Atom, Elektronen sind jedoch auch möglich. Bei letzteren fällt die Rückstoßenergie, welche mit $m^{-1}$ läuft, allerdings deutlich größer weshalb für die Paarbildung mit einem Elektron $E_\gamma > 4 m_e c^2$ erfüllt sein muss. Die überschüssige Energie des Gammaquantes verteilt sich anschließend in Form von kinetischer Energie gleichmäßig auf Elektron und Positron. Auch für die Paarbildung lässt sich nur schwer ein allgemeiner Wirkungsquerschnitt abhängig von Kernladungszahl $Z$ und $E_\gamma$ angeben, da dieser aufgrund der auftretenden Coulombkräfte abhängig vom Ort in der Elektronenhülle ist, an welchem die Paarbildung stattgefunden hat. Es können jedoch Spezialfälle für verschwindende und vollständige Abschirmung der Kernkräfte angegeben werden. Für diese gilt:
