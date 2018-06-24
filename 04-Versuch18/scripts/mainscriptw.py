@@ -10,7 +10,7 @@ from scipy import stats
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import uncertainties.unumpy as unp
-from uncertainties import ufloat
+import uncertainties 
 import scipy.constants as const
 from errorfunkt2tex import error_to_tex
 from errorfunkt2tex import scipy_to_unp
@@ -50,6 +50,7 @@ import random
 
 # a = unp.uarray(params[0], np.sqrt(covar[0][0]))
 # params = unp.uarray(params, np.sqrt(np.diag(covar)))
+# params =  uncertainties.correlated_values(params, covar)
 # makeNewTable([convert((r'$c_\text{1}$',r'$c_\text{2}$',r'$T_{\text{A}1}$',r'$T_{\text{A}2}$',r'$\alpha$',r'$D_1$',r'$D_2$',r'$A_1$',r'$A_2$',r'$A_3$',r'$A_4$'),strFormat),convert(np.array([paramsGes2[0],paramsGes1[0],deltat2*10**6,deltat1*10**6,-paramsDaempfung[0]*2,4.48*10**-6 *paramsGes1[0]/2*10**3, 7.26*10**-6 *paramsGes1[0]/2*10**3, (VierteMessung-2*deltat2*10**6)[0]*10**-6 *1410 /2*10**3, unp.uarray((VierteMessung[1]-VierteMessung[0])*10**-6 *1410 /2*10**3, 0), unp.uarray((VierteMessung[2]-VierteMessung[1])*10**-6 *2500 /2*10**3, 0),unp.uarray((VierteMessung[3]-VierteMessung[2])*10**-6 *1410 /2*10**3, 0)]),unpFormat,[[r'\meter\per\second',"",True],[r'\meter\per\second',"",True],[r'\micro\second',"",True],[r'\micro\second',"",True],[r'\per\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',"",True],[r'\milli\meter',r'1.3f',True],[r'\milli\meter',r'1.3f',True],[r'\milli\meter',r'2.2f',True]]),convert(np.array([2730,2730]),floatFormat,[r'\meter\per\second','1.0f',True])+convert((r'-',r'-'),strFormat)+convert(unp.uarray([57,6.05,9.9],[2.5,0,0]),unpFormat,[[r'\per\meter',"",True],[r'\milli\meter',r'1.2f',True],[r'\milli\meter',r'1.2f',True]])+convert((r'-',r'-',r'-',r'-'),strFormat),convert(np.array([(2730-paramsGes2[0])/2730*100,(2730-paramsGes1[0])/2730*100]),unpFormat,[r'\percent','',True])+convert((r'-',r'-'),strFormat)+convert(np.array([(-paramsDaempfung[0]*2-unp.uarray(57,2.5))/unp.uarray(57,2.5)*100,(4.48*10**-6 *paramsGes1[0]/2*10**3-6.05)/6.05*100, (-7.26*10**-6 *paramsGes1[0]/2*10**3+9.90)/9.90*100]),unpFormat,[r'\percent','',True])+convert((r'-',r'-',r'-',r'-'),strFormat)],r'{Wert}&{gemessen}&{Literaturwert\cite{cAcryl},\cite{alphaAcryl}}&{Abweichung}','Ergebnisse', ['c ','c',r'c','c'])
 
 #A, B, C = symbols('A B C')
@@ -93,33 +94,33 @@ def Plot(Werte, ranges, name):
         plt.cla()
         plt.clf()
         plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
-        #plt.xlabel(r'$v$')
-        #plt.ylabel(r'$\Delta f / \si{\hertz}$')
+        plt.xlabel(r'Kanal')
+        plt.ylabel(r'$N$')
         plt.legend(loc='best')
         plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
         plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
 
-def gausFitMitPlot(Werte, ranges, name):
+def gausFitMitPlot(Werte, ranges, name, plotF=False):
     AllParams = []
-    AllCovar = []
     for rangeVar in ranges:
         p0=[np.max(Werte[rangeVar[0]-1:rangeVar[1]])-np.min(Werte[rangeVar[0]-1:rangeVar[1]]),np.min(Werte[rangeVar[0]-1:rangeVar[1]]),(rangeVar[1]-rangeVar[0])/15,(rangeVar[1]+rangeVar[0])/2]
         params, covar = curve_fit(gaus,range(rangeVar[0],rangeVar[1]+1),Werte[rangeVar[0]-1:rangeVar[1]],maxfev=10000,p0=p0)
-        AllParams.append(params)
-        AllCovar.append(np.sqrt(np.diag(covar)))
-        plt.cla()
-        plt.clf()
-        x=np.linspace(rangeVar[0],rangeVar[1],1000)
-        plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
-        plt.plot(x, gaus(x,*params), 'r-', label='Fit')
-        plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
-        #plt.xlabel(r'$v$')
-        #plt.ylabel(r'$\Delta f / \si{\hertz}$')
-        plt.legend(loc='best')
-        plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-        plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
+        AllParams.append(uncertainties.correlated_values(params, covar))
+        if plotF:
+            plt.cla()
+            plt.clf()
+            x=np.linspace(rangeVar[0]-0.02*(rangeVar[1]-rangeVar[0]),rangeVar[1]+0.02*(rangeVar[1]-rangeVar[0]),1000)
+            plt.plot(range(rangeVar[0],rangeVar[1]+1), Werte[rangeVar[0]-1:rangeVar[1]], 'gx', label='Werte')  
+            plt.plot(x, gaus(x,*params), 'r-', label='Fit')
+            #plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
+            plt.xlim(x[0],x[-1]) 
+            plt.xlabel(r'Kanal')
+            plt.ylabel(r'$N$')
+            plt.legend(loc='best')
+            plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+            plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
     
-    return unp.uarray(AllParams,AllCovar)
+    return np.array(AllParams)
 
 
 #######################
@@ -147,37 +148,35 @@ Plot(EU152,[[1,8192],[1,2000],[2000,4000],[1800,4000],[4000,8192]],'EU152')
 EU152Params=gausFitMitPlot(EU152,ranges,'EU152')
 print(EU152Params)
 pos=[]
-posStd=[]
 sigma=[]
-sigmaStd=[]
 a=[]
-aStd=[]
 for params in EU152Params:
-    pos.append(unp.nominal_values(params[3]))
-    posStd.append(unp.std_devs(params[3]))
-    sigma.append(unp.nominal_values(params[2]))
-    sigmaStd.append(unp.std_devs(params[2]))
-    a.append(unp.nominal_values(params[0]))
-    aStd.append(unp.std_devs(params[0]))
+    pos.append(params[3])
+    sigma.append(params[2])
+    a.append(params[0])
 
-pos=np.array(pos)
-posStd=np.array(posStd)
-posU=unp.uarray(pos,posStd)
-sigma=np.array(sigma)
-sigmaStd=np.array(sigmaStd)
-sigmaU=unp.uarray(sigma,sigmaStd)
-a=np.array(a)
-aStd=np.array(aStd)
-aU=unp.uarray(a,aStd)
+posU=np.array(pos)
+pos=unp.nominal_values(pos)
+posStd=unp.std_devs(pos)
+sigmaU=np.array(sigma)
+sigma=unp.nominal_values(sigma)
+sigmaStd=unp.std_devs(sigma)
+aU=np.array(a)
+a=unp.nominal_values(a)
+aStd=unp.std_devs(a)
+
 
 x=np.linspace(1,8192,1000)
-params, error, sigmay = linregress(pos[wahrscheinlichkeiten!=0], unp.nominal_values(energies[wahrscheinlichkeiten!=0]))
-umrechnungsParams=unp.uarray(params,error)
+params, covar = curve_fit(Line,pos[wahrscheinlichkeiten!=0], unp.nominal_values(energies[wahrscheinlichkeiten!=0]))
+umrechnungsParams=uncertainties.correlated_values(params, covar)
 print(umrechnungsParams)
 plt.cla()
 plt.clf()
-plt.plot(pos[wahrscheinlichkeiten!=0], unp.nominal_values(energies[wahrscheinlichkeiten!=0]), 'gx', label='Werte') 
-plt.plot(x, Line(x, *params), 'b-', label='Fit') 
+xA=posU[wahrscheinlichkeiten!=0]
+yA=energies[wahrscheinlichkeiten!=0]
+plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
+plt.plot(x, Line(x, *params), 'r-', label='Fit')
+plt.xlim(x[0],x[-1]) 
 plt.xlabel(r'Kanal')
 plt.ylabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.legend(loc='best')
@@ -200,6 +199,9 @@ def polynom3(x,a,b,c,d,f):
 def expC(x,a,b):
     return a*np.exp(-(x/1000-b))
 
+def potenzFunktion(x, a, b, p, h):
+    return a*(x-b)**p+h
+
 a=7.31 #cm
 r=2.25 #cm
 print('omega/4pi')
@@ -218,12 +220,12 @@ xA=posU[wahrscheinlichkeiten!=0]
 yA=inhalt[wahrscheinlichkeiten!=0]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[wahrscheinlichkeiten!=0])
 xA=Line(xA[1:],*unp.nominal_values(umrechnungsParams))
 yA=yA[1:]
-params, covar = curve_fit(polynom3, unp.nominal_values(xA), unp.nominal_values(yA),sigma=unp.std_devs(yA))
-paramsEQU=unp.uarray(params, np.sqrt(np.diag(covar)))
+params, covar = curve_fit(potenzFunktion, unp.nominal_values(xA), unp.nominal_values(yA),maxfev=10000,sigma=unp.std_devs(yA))
+paramsEQU=uncertainties.correlated_values(params, covar)
 print(paramsEQU)
 plt.cla()
 plt.clf()
-plt.plot(x, polynom3(x, *params), 'r-', label='Fit') 
+plt.plot(x, potenzFunktion(x, *params), 'r-', label='Fit') 
 plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
 plt.xlim(150,1500)
 plt.ylim(0,0.3)
@@ -239,8 +241,56 @@ Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
 ranges = [[1635,1660]]
 print('Cs137')
 peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
-
 print(peakCs137)
+A0=(range(1635,1660+1),Cs137[1635-1:1660])
+A1=(range(1642,1644+1),Cs137[1642-1:1644])
+A2=(range(1644,1647+1),Cs137[1644-1:1647])
+A3=(range(1649,1652+1),Cs137[1649-1:1652])
+A4=(range(1652,1654+1),Cs137[1652-1:1654])
+print('paramsHalb')
+params, covar = curve_fit(Line, *A1,maxfev=10000)
+params1=uncertainties.correlated_values(params, covar)
+print(params1)
+params, covar = curve_fit(Line, *A2,maxfev=10000)
+params2=uncertainties.correlated_values(params, covar)
+print(params2)
+params, covar = curve_fit(Line,*A3,maxfev=10000)
+params3=uncertainties.correlated_values(params, covar)
+print(params3)
+params, covar = curve_fit(Line, *A4,maxfev=10000)
+params4=uncertainties.correlated_values(params, covar)
+print(params4)
+x=np.linspace(1635,1660)
+plt.cla()
+plt.clf()
+plt.plot(*A0, 'gx', label='Werte0')  
+plt.plot(*A1, 'bx', label='Werte1')  
+plt.plot(*A4, 'yx', label='Werte4') 
+plt.plot(x, x*0+np.max(Cs137[1635-1:1660])/10, 'r-', label='Fit')
+plt.plot(x, Line(x,*unp.nominal_values(params1)), 'b-', label='Fit')
+plt.plot(x, Line(x,*unp.nominal_values(params4)), 'y-', label='Fit')
+plt.ylim(0,max(Cs137[1635-1:1660])/4)
+#plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
+plt.xlabel(r'Kanal')
+plt.ylabel(r'$N$')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/Cs137Zehntel.pdf') 
+
+plt.cla()
+plt.clf()
+plt.plot(*A0, 'gx', label='Werte0') 
+plt.plot(*A2, 'yx', label='Werte2') 
+plt.plot(*A3, 'rx', label='Werte3') 
+plt.plot(x, x*0+np.max(Cs137[1635-1:1660])/2, 'b-', label='Fit')
+plt.plot(x, Line(x,*unp.nominal_values(params2)), 'y-', label='Fit')
+plt.plot(x, Line(x,*unp.nominal_values(params3)), 'r-', label='Fit')
+plt.ylim(0,max(Cs137[1635-1:1660])+100)
+plt.xlabel(r'Kanal')
+plt.ylabel(r'$N$')
+plt.savefig('build/Cs137Halb.pdf') 
+
+##########################################################add
 
 def diffWirkung(E,c,h):
     Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
@@ -250,27 +300,28 @@ def diffWirkung(E,c,h):
     th=8/3 * np.pi * r**2
     return 3/8 * th* 1/(m0*e**2) * (2+(E/(Egamma-E))**2 * (1/e**2 + (1-2/e)* (Egamma-E)/Egamma )) * c+h
 
-def Wirkungin(E,c,h):
+def Wirkungin(c,h):
     Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
     r=const.elementary_charge/(4*np.pi * const.epsilon_0 * const.electron_mass*const.c**2)
     m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
     e=Egamma/m0
     th=8/3 * np.pi * r**2
-    return 3*E*th *(E**2 *(((Egamma-E)*(e-2)*e)+Egamma)/(Egamma*(E-Egamma)**2*e**2)+2)/(8*e**2 *m0)* c+h
+    term1 = 3*Egamma*c*th
+    term2 = 2*e*(2+e*(8+e*(11+e)))
+    term3 = (1+2*e)**2 * ((e-2)*e-2)*np.log(1+2*e)
+    term4 = 8*e**4* (1+2*e)**2 *m0
+    term5 = (2*e*Egamma*h)/(1+2*e)
+    return term1*(term2+term3)/term4 + term5
 
-def Wirkung(E,c,h):
-    return Wirkungin(E,c,h)
+
 
 rangeVar=[640,1170]
 rangeVar=[750,1170]
 xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
 yA=Cs137[rangeVar[0]-1:rangeVar[1]]
 params, covar = curve_fit(diffWirkung, xA, yA)
-params2, covar2 = curve_fit(Wirkung, xA, yA)
-paramsKon=unp.uarray(params, np.sqrt(np.diag(covar)))
+paramsKon=uncertainties.correlated_values(params, covar)
 print(paramsKon)
-paramsKon2=unp.uarray(params2, np.sqrt(np.diag(covar2)))
-print(paramsKon2)
 rangeVar=[1,1250]
 xA2=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
 yA2=Cs137[rangeVar[0]-1:rangeVar[1]]
@@ -278,21 +329,27 @@ x=np.linspace(rangeVar[0],rangeVar[1],1000)
 x=Line(x,*unp.nominal_values(umrechnungsParams))
 plt.cla()
 plt.clf()
-plt.plot(x, Wirkung(x, *params2), 'b-', label='Fit2') 
 plt.plot(x, diffWirkung(x, *params), 'r-', label='Fit') 
 plt.plot(xA2, yA2, 'gx', label='Werte') 
 plt.plot(xA, yA, 'bx', label='Werte fit')
-Egamma=Line(unp.nominal_values(peakCs137[0][3]),*unp.nominal_values(umrechnungsParams))
+Egamma=Line(unp.nominal_values(peakCs137[0][3]),*umrechnungsParams)
 print('Egamma', Egamma)
+print('Integral', Wirkungin(*paramsKon)/unp.nominal_values(umrechnungsParams[0]))
+print('IntegralPeak', peakCs137[0][0]*(np.sqrt(2*np.pi)*peakCs137[0][2]))
+
 m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
 e=Egamma/m0
-Emax=Egamma * 2*e/(1+2*e)
+Emax=unp.nominal_values(Egamma * 2*e/(1+2*e))
 plt.plot(np.array([Emax,Emax]), np.array([0,100]), 'b-', label='Werte fit')  
 plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.ylabel(r'$N$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Kon.pdf')
+
+
+
+
 
 
 
