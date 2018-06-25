@@ -2,4 +2,59 @@
 \label{sec:Auswertung}
 Die Graphen wurden sowohl mit Matplotlib \cite{matplotlib} als auch NumPy \cite{numpy} erstellt. Die
 Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgeführt.
+\subsection{Die Bestimmung der Detektorkenngrößen mithilfe des Spektrums von $^{152}$Eu} 
+\subsubsection{Bestimmung der Energiekalibrierung des Spektrometers}
+Zunächst wird den einzelnen Kanälen mithilfe einer Energiekalibrierung eine zugehörige Energie zugeordnet. Um eine möglichst exakte Kalibrierung vornehmen zu können wird $^{152}$Eu als Kalibrationsstrahler verwendet, da dieser ein reichhaltiges Spektrum besitzt. Zur Kalibrierung werden zunächst die einzelnen Vollenergiepeaks des Spektrums herausgesucht und jeweils mit einem Fit der Form
+\begin{equation}
+    a * \exp(\frac{1}{2} \frac{x-b}{\sigma}^2) +c
+\end{equation}
+gefittet. Es ergeben sich die Werte in Tabelle \ref{tab:TABELLE KALIBRIERUNG}. Die Maxima der ermittelten Gausskurven $b$ werden anschließend mit den Literaturwerten der Vollenergiepeaks von $^{152}$Eu\cite{Eu152} verglichen um an die zugehörigen Energien der Peaks zu gelangen. Anschließend wird die Energieabhängigkeit der Kanäle über einen linearen Fit der Form $a \cdot x+b $mit curvefit \cite{scipy} bestimmt. Es ergibt sich ein Graph gemäß Abb. \ref{fig:BILD VON ENERGIEKALIBRIERUNGGRAPH}. Für die bestimmten Parameter $a$ und $b$ folgt:
+\begin{equation}
+a = \si{0.4031(6)} \text{ bzw. } b = \si{-4(2)}
+\end{equation}
 
+\subsubsection{Bestimmung der Aktivität der kalibrierten $^{152}$Eu Probe}
+Nun wird die Aktivität der kalibrierten $^{152}$Eu bestimmt. Hierzu wird von einer ursprünglichen Aktivität von $\SI{413(6)e1}{\becquerel}$ am 01.10.2000 und einer Halbwertszeit von $\SI{4943(5)}{\day}$ \cite{V18} ausgegangen. zwischen diesem Datum und der Versuchsdurchführung am 11.06.2018 liegen $\SI{6462(1)}{\day}$. Mithilfe von Formel \ref{eq:AKTIV} berechnet sich die zum Zeitpunkt der Versuchsdurchführung aktuelle Aktivität zu $\SI{167(3)e1}{\becquerel}$.
+\subsubsection{Bestimmung des Raumwinkels des Detektors}
+Im Anschluss folgt die Berechnung des Raumwinkels $\Omega$. Hierzu wurde die Länge $a$ zu $\SI{7.31}{\centi\meter}$ bestimmt, der Radius des Detektors $r$ liegt gemäß Anleitung bei $\SI{2.25}{\centi\meter}$ \cite{V18}. Mithilfe von Formel \eqref{eq:omega} folgt der Raumwinkel $\frac{\Omega}{4 \pi}$ mit $0.022$.
+\subsubsection{Bestimmung der Effizienz des Detektors}
+Zuletzt wird die Effizienz $Q$ des Detektors mit den bisher bestimmten Kenngrößen ermittelt. Dazu werden die Flächeninhalte $Z$ der bestimmte Gausskurven mit der Formel 
+\begin{equation}
+    Z = a \cdot \sqrt{2 *pi} \cdot \sigma \label{eq:flach}
+\end{equation}
+und den bereits bestimmten Parametern $a$ und $\sigma$.. Auf Basis von Formel \eqref{eq:ZZZ} und bei einer Messzeit von $\SI{4740}{\second}$ sowie den aus der Literatur entnommenen Wechselwirkungswahrscheinlichkeiten\cite{Eu152} folgen die in Abb. \ref{fig:EFIZZIENZBILDEINFÜGEN} eingetragenen Y-Werte. Die zugehörigen Energie-Werte auf der X-Achse werden mithilfe der bereits bestimmten Energiekalibrierung aus den zu den Peaks zugehörigen Kanäle bestimmt. Mittels eines nicht linearen Fits der Form $a \cdot (x-b)^p$ mittels curvefit \cite{scipy} ergeben sich die Parameter:
+\begin{gather*}
+    a = \si{56 \pm 68}
+    b = \si{1\pm 81}
+    c = \si{-1.0 \pm 0.2}
+\end{gather*}
+
+\subsection{Die Untersuchung des Spektrums von $^137$Cs}
+Nun wird das Spektrum auf Basis der nun kalibrierten Kenngrößen des Detektors bestimmt. Es wird mit der Lage des Vollenergiepeaks begonnen. Dazu wird dieser mithilfe Gausskurvenförmigen Fittes mittels curvefit \cite{scipy} gefittet. Daraus ergeben sich die Parameter:
+\begin{gather*}
+a = \si{298(3)e1}
+c = \si{18 \pm 12}
+\sigma = \si{2.17(3)}
+b = \si{1648.03(2)}
+\end{gather*}
+ Die Energie des Vollenergiepeaks ergibt sich über die Kalibrierung aus dem Parameter $b$ zu $\SI{660.9(6)}{\kilo\electronvolt}$.
+ Als nächstes wird die Halbwertsbreite bestimmt. Hierzu werden die Daten um den Peak mithilfe von zwei linearen Fits der Form $ a \cdot x + b$ mit curvefit\cite{scipy} approximiert. Die Halbwertsbreite wird über eine zusätzliche Konstante, die sich auf halber Höhe des Maximums befindet, bestimmt. Aus den Parametern der Fits und der aus den Geraden folgenden Gleichung
+\begin{equation}
+    \Delta E_\text{1/2} = \frac{-H_{0.5}-b_1}{a_1} + \frac{-H_{0.5}-b_2}{a_2} \label{eq:Z}
+\end{equation}
+mit den Steigungen der Geraden $a_1$ und $a_2$ , den zugehörigen Achsenabschnitten $b_1$ und $b_2$ und der halben Peakhöhe $H_{0.5}$, ergibt sich die Halbwertsbreite zu $\si{5.30(8)}$ Kanälen. Umgerechnet liefert es eine Energiedifferenz von $\SI{2.14(3)}{\kilo\electronvolt}$.
+Im Vergleich liegt die theoretische Halbwertsbreite nach Formel \eqref{eq:deltE} bei einer Energiedifferenz von $\SI{1.0309(5)}{\kilo\electronvolt}$. Die Differenzen zwischen gemessener und berechneter Halbwertbreite müssen in der Diskussion geklärt werden. 
+Im Anschluss wird die zusätzlich die Zehntelbreite bestimmt. Hierzu wird dassselbe Verfahren wie bereits bei den Halbwertsbreiten verwendet, die betrachteten Messpunkte wurden jedoch auf den Bereich um die vermutete Zehntelbreite angepasst. Das verfahren liefert eine Zehntelbreite von $\si{10.0(4)}$ Kanälen bzw. von $\SI{4.0(2)}{\kilo\electronvolt}$. Daraus ergibt sich ein Verhältnis von Zehntelbreite zur Halbwertsbreite von $1.89(7)$. Dieses liegt in der Nähe des aus einer Gaussverteilung bestimmbaren Verhältnis von $\si{1.823}$\cite{V18}. Die theoretische Comptonkante berechnet sich mit der ermittelten Energie des Photopeaks gemäß Formel \eqref{eq:emaxcomp} zu $\SI{476.6(6)}{\kilo\electronvolt}$. Der experimentelle Wert für die Comptonkante wird bestimmt, indem der Bereich um die Kante durch zwei Geraden mit curvefit\cite{V18} approximiert wird. Aus dem Schnittpunkt beider Geraden ergibt sich der experimentelle Wert zu $\SI{}{\kilo\electronvolt}$. Der theoretische Wert des Rückstreupeaks lässt sich über die Differenz zwischen Photopeak und der Comptonkante berechnen. Er ergibt sich zu $\SI{184.3(6)}{\kilo\electronvolt}$. Experimentell wird der Rückstreupeak wieder über einen gaussförmigen Fit mittels Curvefit bestimmt. Hier ergibt sich ein Wert von $\SI{190(1)}{\kilo\electronvolt}$. Nun werden noch die Inhalte des Photopeaks und des Comptonkontinuums ermittelt. Dazu wird die Fläche unter dem Photopeak durch einen gaussförmigen Fit approximiert, dessen Fläche sich anschließend gemäß Formel \eqref{eq:flach} zu $\si{1.625(2)e4}$ berechnet. Sie gibt die Gesamtzahl der Ereignisse im Bereich des Photopeaks an, welche während der Messung aufgetreten sind. Danach wird die Anzahl der Ereignisse im Bereich des Comptonkontinuums ermittelt. Hierzu werden die Daten im Compton-Kontinuum durch einen Fit nach Formel \eqref{eq:sigmacompdiff}, welcher um einen Streckungsfaktor und einen Achsenabschnitt ergänzt wurde, approximiert, wie in Abb. \ref{fig:COMPTON} dargestellt. Aus der anschließenden Integration der Kurve bestimmt sich die Zahl der Ereignisse zu $\si{5.99(5)e4}$. Zuletzt wird aus den bestimmten Daten 
+
+
+
+
+
+
+
+\subsection{Bestimmung der Aktivität und des Ursprungs einer Probe, deren Substanz nicht eindeutig bestimmt ist}
+Nun wird die Aktivität einer weiteren Proben bestimmt. Diese besteht entweder um $^{125}$Sb oder um $^{133}$Ba. Auch worum sich nun genau handelt, soll geklärt werden. Dazu werden wieder die einzelnen Peaks aus den gemessenen Daten ermittelt und jeweils wieder gaussförmig mittels curvefit\cite{scipy} gefittet. Die bestimmten Parameter befinden sich in Tabelle \ref{tab:GHGJ}. Die bestimmten Energien der Peaks werden anschließend mit der Literatur\cite{V18} verglichen. Daraus ergibt sich, dass es sich bei der Probe um $^{133}$Ba handelt. Nun wird die zugehörige Aktivität bestimmt. Diese berechnet gemäß Formel \eqref{eq:ZZZ}. Hierzu wird die Fläche unter den einzelnen Peaks wieder mit Formel \eqref{eq:flach} bestimmt. Der ungewichtete Mittelwert der Aktivitäten der einzelnen Peaks ergibt sich $A = \SI{}{\becquerel}$.
+
+
+\subsection{Bestimmung der Aktivität und des Materials eines unbekannten Gammastrahlers}
+Zuletzt wird versucht anhand der Gestalt des ermittelten Spektrums Rückschlüsse auf das vermessene Element zu ziehen und es dadurch zu bestimmen. Zusätzlich soll auch die Aktivität der Probe bestimmt werden. Dazu werden die gleichen Methoden wie bei der Untersuchung von $^{133}$Ba verwendet. Die Betrachtung des Spektrums in Abb. \ref{fig:UNBEKANNTEPROBESPEKTRUM} ergibt beim Vergleich mit der Literatur, dass es sich bei der Probe um $^{60}$Co handelt. Die Aktivität bestimmt sich zu $A = \SI{}{\becquerel}$.
