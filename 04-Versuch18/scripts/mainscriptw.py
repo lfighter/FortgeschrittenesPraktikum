@@ -200,8 +200,8 @@ def polynom3(x,a,b,c,d,f):
 def expC(x,a,b):
     return a*np.exp(-(x/1000-b))
 
-def potenzFunktion(x, a, b, p, h):
-    return a*(x-b)**p+h
+def potenzFunktion(x, a, b, p):
+    return a*(x-b)**p
 
 a=7.31 #cm
 r=2.25 #cm
@@ -241,7 +241,7 @@ plt.savefig('build/Q.pdf')
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
 ranges = [[1635,1660],[400,550]]
 print('Cs137')
-peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137',True)
+peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
 print(peakCs137)
 A0=(range(1635,1660+1),Cs137[1635-1:1660])
 A1=(range(1642,1644+1),Cs137[1642-1:1644])
@@ -366,15 +366,35 @@ plt.savefig('build/Cs137Kon.pdf')
 
 
 ########################################################Ba
+print('Ba')
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/D',unpack=True)
-print(Plot(D,ranges,'D'))
+Plot(D,ranges,'D')
+ranges = [[200,215],[650,740],[750,770],[880,900],[950,970]]
+DParams=gausFitMitPlot(D,ranges,'D',True)
+print(DParams)
+print('E1', Line(DParams[0][3],*umrechnungsParams))
+print('E2', Line(DParams[1][3],*umrechnungsParams))
+print('E3', Line(DParams[2][3],*umrechnungsParams))
+print('E4', Line(DParams[3][3],*umrechnungsParams))
+print('E5', Line(DParams[4][3],*umrechnungsParams))
+Pos=[]
+for param in DParams:
+    Pos.append(param[3])
+Pos=np.array(Pos)
+Pos=Pos[1:]
+print(potenzFunktion(Line(Pos,*umrechnungsParams),*paramsEQU)*)
+
 
 
 ########################################################?c060?
+
+print('c060')
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/unbekannt',unpack=True)
 Plot(D,ranges,'unbekannt')
 ranges = [[2900,2930],[3280,3340]]
-DParams=gausFitMitPlot(D,ranges,'unbekannt',True)
+DParams=gausFitMitPlot(D,ranges,'unbekannt')
 print(DParams)
+print('E1', Line(DParams[0][3],*umrechnungsParams))
+print('E2', Line(DParams[1][3],*umrechnungsParams))
