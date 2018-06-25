@@ -230,6 +230,7 @@ plt.ylabel(r'$Q$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Q.pdf') 
+
 range1=[]
 range2=[]
 for rangew in ranges:
@@ -237,15 +238,64 @@ for rangew in ranges:
     range2.append(rangew[1])
 range1=np.array(range1)
 range2=np.array(range2)
-
 makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+
+rangeVar=[1,8192]
+xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+yA=EU152[rangeVar[0]-1:rangeVar[1]]
+plt.cla()
+plt.clf()
+plt.plot(xA, yA, 'gx', label='Werte') 
+plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+plt.ylabel(r'$N$')
+#plt.ylim(0,175)
+#plt.xlim(0,500)
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/EU152.pdf')
 
 ######################################################Cs137
 
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
+rangeVar=[1,8192]
+xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+yA=Cs137[rangeVar[0]-1:rangeVar[1]]
+plt.cla()
+plt.clf()
+plt.plot(xA, yA, 'gx', label='Werte') 
+plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+plt.ylabel(r'$N$')
+#plt.ylim(0,175)
+#plt.xlim(0,500)
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/Cs137.pdf')
 ranges = [[1635,1660],[400,550]]
 print('Cs137')
 peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
+range1=[]
+range2=[]
+aU=[]
+posU=[]
+sigmaU=[]
+hU=[]
+for rangew in ranges:
+    range1.append(rangew[0])
+    range2.append(rangew[1])
+for param in peakCs137:
+    aU.append(param[0])
+    posU.append(param[3])
+    sigmaU.append(param[2])
+    hU.append(param[1])
+
+aU=np.array(aU)
+posU=np.array(posU)
+sigmaU=np.array(sigmaU)
+hU=np.array(hU)
+range1=np.array(range1)
+range2=np.array(range2)
+#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+
 print(peakCs137)
 A0=(range(1635,1660+1),Cs137[1635-1:1660])
 A1=(range(1642,1644+1),Cs137[1642-1:1644])
@@ -417,7 +467,30 @@ ranges = [[1,8192]]
 D = np.genfromtxt('scripts/D',unpack=True)
 Plot(D,ranges,'D')
 ranges = [[200,215],[650,740],[750,770],[880,900],[950,970]]
-DParams=gausFitMitPlot(D,ranges,'D',True)
+DParams=gausFitMitPlot(D,ranges,'D')
+range1=[]
+range2=[]
+aU=[]
+posU=[]
+sigmaU=[]
+hU=[]
+for rangew in ranges:
+    range1.append(rangew[0])
+    range2.append(rangew[1])
+for param in DParams:
+    aU.append(param[0])
+    posU.append(param[3])
+    sigmaU.append(param[2])
+    hU.append(param[1])
+
+aU=np.array(aU)
+posU=np.array(posU)
+sigmaU=np.array(sigmaU)
+hU=np.array(hU)
+range1=np.array(range1)
+range2=np.array(range2)
+#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+
 print(DParams)
 print('E1', Line(DParams[0][3],*umrechnungsParams))
 print('E2', Line(DParams[1][3],*umrechnungsParams))
@@ -466,6 +539,28 @@ D = np.genfromtxt('scripts/unbekannt',unpack=True)
 Plot(D,ranges,'unbekannt')
 ranges = [[2900,2930],[3280,3340]]
 DParams=gausFitMitPlot(D,ranges,'unbekannt')
+range1=[]
+range2=[]
+aU=[]
+posU=[]
+sigmaU=[]
+hU=[]
+for rangew in ranges:
+    range1.append(rangew[0])
+    range2.append(rangew[1])
+for param in DParams:
+    aU.append(param[0])
+    posU.append(param[3])
+    sigmaU.append(param[2])
+    hU.append(param[1])
+
+aU=np.array(aU)
+posU=np.array(posU)
+sigmaU=np.array(sigmaU)
+hU=np.array(hU)
+range1=np.array(range1)
+range2=np.array(range2)
+#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 print(DParams)
 print('E1', Line(DParams[0][3],*umrechnungsParams))
 print('E2', Line(DParams[1][3],*umrechnungsParams))
