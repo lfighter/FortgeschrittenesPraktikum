@@ -141,7 +141,7 @@ Eine wichtige Detektorkenngröße für die Spektroskopie von Gammaquanten ist da
 \begin{equation}
 \sigma = \sqrt{F \frac{E_\gamma}{E_\text{B}} }
 \end{equation}
-mit dem Korrekturfaktor $F$. Da die aufgrund der Elektron-Loch Paar Erzeugung hervorgerufenen Fluktuationen jedoch teilweise wieder durch Fluktuationen der Phononen kompensiert werden gilt $F < 1$. Im Fall von Germanium gilt $F \approx 0.1$. Bei Betrachtung großer Zählraten kann in Näherung wieder eine Gaussverteilung angenommen werden und die Halbwertsbreite bestimmt sich zu:
+mit dem Korrekturfaktor $F$. Da die aufgrund der Elektron-Loch Paar Erzeugung hervorgerufenen Fluktuationen jedoch teilweise wieder durch Fluktuationen der Phononen kompensiert werden gilt $F < 1$. Im Fall von Germanium gilt $F \approx 0.1$ \cite{V18}. Bei Betrachtung großer Zählraten kann in Näherung wieder eine Gaussverteilung angenommen werden und die Halbwertsbreite bestimmt sich zu:
 \begin{equation}
 \Delta E_\text{1/2} = \sqrt{8 \ln(2) F E_\gamma E_\text{B}} \label{eq:deltE}
 \end{equation}
@@ -160,10 +160,10 @@ Eine letzte wichtige Kenngröße ist die Effizienz eines Detektors. Sie gibt die
 
 Das aufgenommene Spektrum eines Gammastrahlers besteht selbst im einfachsten Fall eines Strahlers mit nur einem Zerfallskanal nicht nur aus einen Peak, sondern besitzt eine Form gemäß Abb.\ref{fig:spektrum}. Da die Energien des Strahlers in Abb.\ref{fig:spektrum} unterhalb der Schwelle zur Paarerzeugung liegen wird der Peak am oberen Ende der Energieskala durch den Photoeffekt hervorgerufen. Etwas unterhalb des Peak beginnt das Compton Kontinuum, welche aufgrund des Comptoneffekts auftritt. Das obere Ende des Kontinuums wird durch die Comptonkante beschrieben. Bei dieser Energie wird der Gammaquant unter einem Winkel von $\SI{180}{\degree}$ gestreut. Zusätzlich ist etwa in der Mitte des Comptonkontinuums ein weiterer Peak zu erkennen. Dieser wird Rückstreupeak genannt und entsteht, indem Elektronen die den Detektor eigentlich schon verlassen hatten unter einem Winkel von $\SI{180}{\degree}$ zurück in den Detektor gestreut werden und dort ihre nun geringere Energie mithilfe eines Photoeffekts abgeben. Der Abfall des Graphen am unteren Ende der Energieskala folgt aus der endlichen Nachweisgrenze des Detektors. Wird ein Gammastrahler mit verschiedenen Zerfallskanälen untersucht, so kommt es zur Überlagerung der Graphen aller Kanäle. Aufgrunddessen liegen die Photopeaks der niederenergetischen Übergänge im Bereich des Compton Kontinuums der höheren Übergänge und erscheinen daher größer, weshalb der Begriff des Vollenergiepeaks passender ist. Desweiteren besitzt jeder Kanal eine unterschiedliche Zerfallswahrscheinlichkeit, was zu unterschiedlich hohen Peaks führt. Zuletzt ist auch die Effizienz des Detektors von der betrachteten Energie abhängig. All diese Aspekte verändern die Form des aufgenommenen Spektrums und sind bei einer Analyse entsprechend zu berücksichtigen. Das Zählergebnis $Z$ eines Kanals ist durch
 \begin{equation}
-    Z = \frac{\Omega}{4 \pi}\cdot A \cdot W \cdot Q
+    Z = \frac{\Omega}{4 \pi}\cdot A \cdot W \cdot Q t \label{eq:ZZZ}
 \end{equation}
-gegeben mit dem Raumwinkel $\Omega$, der Probenaktivität $A$, der jeweiligen Emissionenwahrscheinlichkeit eines Übergangs und der energieabhängigen Effizienz $Q$. Sind $Z,\Omega,A$ und $W$ bekannt so lässt sich daraus $Q$ ermitteln. Für $\Omega$ gilt näherungsweise
+gegeben mit dem Raumwinkel $\Omega$, der Probenaktivität $A$, der jeweiligen Emissionenwahrscheinlichkeit eines Übergangs und der energieabhängigen Effizienz $Q$ und der Messzeit $t$. Sind $Z,\Omega,A,t$ und $W$ bekannt so lässt sich daraus $Q$ ermitteln. Für $\Omega$ gilt näherungsweise
 \begin{equation}
-    \frac{\Omega}{4 \pi} = 0.5 \left( 1- \frac{a}{\sqrt{a^2 + r^2}}\right) ,
+    \frac{\Omega}{4 \pi} = 0.5 \left( 1- \frac{a}{\sqrt{a^2 + r^2}}\right) ,\label{eq:omega}
 \end{equation}
 mit dem Radius des Detektors $r$ und dem Abstand der Probe zum Detektor $a$.  
