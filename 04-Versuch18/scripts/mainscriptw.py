@@ -379,11 +379,22 @@ print('E3', Line(DParams[2][3],*umrechnungsParams))
 print('E4', Line(DParams[3][3],*umrechnungsParams))
 print('E5', Line(DParams[4][3],*umrechnungsParams))
 Pos=[]
+Sigma=[]
+a=[]
 for param in DParams:
     Pos.append(param[3])
+    Sigma.append(param[2])
+    a.append(param[0])
 Pos=np.array(Pos)
 Pos=Pos[1:]
-print(potenzFunktion(Line(Pos,*umrechnungsParams),*paramsEQU)*)
+Sigma=np.array(Sigma)
+Sigma=Sigma[1:]
+a=np.array(a)
+a=a[1:]
+inhalt=a*(np.sqrt(2*np.pi)*Sigma)
+t=3669
+wahrscheinlichkeitenBa=
+print(inhalt/potenzFunktion(Line(Pos,*umrechnungsParams),*paramsEQU))
 
 
 
