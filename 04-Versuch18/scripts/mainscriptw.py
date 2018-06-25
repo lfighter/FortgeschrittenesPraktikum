@@ -14,6 +14,7 @@ import uncertainties
 import scipy.constants as const
 from errorfunkt2tex import error_to_tex
 from errorfunkt2tex import scipy_to_unp
+from matplotlib.legend_handler import (HandlerLineCollection,HandlerTuple)
 #from sympy import *
 import random
 # BackwardsVNominal = []
@@ -238,9 +239,9 @@ plt.savefig('build/Q.pdf')
 ######################################################Cs137
 
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
-ranges = [[1635,1660]]
+ranges = [[1635,1660],[400,550]]
 print('Cs137')
-peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
+peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137',True)
 print(peakCs137)
 A0=(range(1635,1660+1),Cs137[1635-1:1660])
 A1=(range(1642,1644+1),Cs137[1642-1:1644])
@@ -250,44 +251,52 @@ A4=(range(1652,1654+1),Cs137[1652-1:1654])
 print('paramsHalb')
 params, covar = curve_fit(Line, *A1,maxfev=10000)
 params1=uncertainties.correlated_values(params, covar)
-print(params1)
 params, covar = curve_fit(Line, *A2,maxfev=10000)
 params2=uncertainties.correlated_values(params, covar)
-print(params2)
 params, covar = curve_fit(Line,*A3,maxfev=10000)
 params3=uncertainties.correlated_values(params, covar)
-print(params3)
 params, covar = curve_fit(Line, *A4,maxfev=10000)
 params4=uncertainties.correlated_values(params, covar)
-print(params4)
+
+halbeHöhe=np.max(Cs137[1635-1:1660])/2
+zehntelHöhe=np.max(Cs137[1635-1:1660])/10
+zehntelBreite=-(zehntelHöhe-params1[1])/params1[0]+(zehntelHöhe-params4[1])/params4[0]
+halbeBreite=-(halbeHöhe-params2[1])/params2[0]+(halbeHöhe-params3[1])/params3[0]
+print('zehntelBreite', zehntelBreite*umrechnungsParams[0])
+print('halbeBreite', halbeBreite*umrechnungsParams[0])
+print('jk', zehntelBreite/halbeBreite)
+print('halbeBreiteBerrechnet', unp.sqrt(np.log(2)*8 *0.1 * Line(peakCs137[0][3],*umrechnungsParams)* 0.0029))
+
 x=np.linspace(1635,1660)
 plt.cla()
 plt.clf()
-plt.plot(*A0, 'gx', label='Werte0')  
-plt.plot(*A1, 'bx', label='Werte1')  
-plt.plot(*A4, 'yx', label='Werte4') 
-plt.plot(x, x*0+np.max(Cs137[1635-1:1660])/10, 'r-', label='Fit')
-plt.plot(x, Line(x,*unp.nominal_values(params1)), 'b-', label='Fit')
-plt.plot(x, Line(x,*unp.nominal_values(params4)), 'y-', label='Fit')
+mm1, = plt.plot(*A0, 'gx', label='Werte0')  
+mm2, = plt.plot(*A1, 'bx', label='Werte1')  
+mm3, = plt.plot(*A4, 'yx', label='Werte4') 
+mm4, = plt.plot(x, x*0+zehntelHöhe, 'r-', label='Fit')
+mm5, = plt.plot(x, Line(x,*unp.nominal_values(params1)), 'b-', label='Fit')
+mm6, = plt.plot(x, Line(x,*unp.nominal_values(params4)), 'y-', label='Fit')
 plt.ylim(0,max(Cs137[1635-1:1660])/4)
 #plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
 plt.xlabel(r'Kanal')
 plt.ylabel(r'$N$')
-plt.legend(loc='best')
+plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Zehntel der Höhe','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Zehntel.pdf') 
 
 plt.cla()
 plt.clf()
-plt.plot(*A0, 'gx', label='Werte0') 
-plt.plot(*A2, 'yx', label='Werte2') 
-plt.plot(*A3, 'rx', label='Werte3') 
-plt.plot(x, x*0+np.max(Cs137[1635-1:1660])/2, 'b-', label='Fit')
-plt.plot(x, Line(x,*unp.nominal_values(params2)), 'y-', label='Fit')
-plt.plot(x, Line(x,*unp.nominal_values(params3)), 'r-', label='Fit')
+mm1, = plt.plot(*A0, 'gx', label='Werte0') 
+mm2, = plt.plot(*A2, 'yx', label='Werte2') 
+mm3, = plt.plot(*A3, 'rx', label='Werte3') 
+mm4, = plt.plot(x, x*0+halbeHöhe, 'b-', label='Fit')
+mm5, = plt.plot(x, Line(x,*unp.nominal_values(params2)), 'y-', label='Fit')
+mm6, = plt.plot(x, Line(x,*unp.nominal_values(params3)), 'r-', label='Fit')
 plt.ylim(0,max(Cs137[1635-1:1660])+100)
 plt.xlabel(r'Kanal')
 plt.ylabel(r'$N$')
+plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Hälfte der Höhe','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Halb.pdf') 
 
 ##########################################################add
@@ -334,15 +343,18 @@ plt.plot(xA2, yA2, 'gx', label='Werte')
 plt.plot(xA, yA, 'bx', label='Werte fit')
 Egamma=Line(unp.nominal_values(peakCs137[0][3]),*umrechnungsParams)
 print('Egamma', Egamma)
+print('ERück', Line(unp.nominal_values(peakCs137[1][3]),*umrechnungsParams))
 print('Integral', Wirkungin(*paramsKon)/unp.nominal_values(umrechnungsParams[0]))
 print('IntegralPeak', peakCs137[0][0]*(np.sqrt(2*np.pi)*peakCs137[0][2]))
 
 m0=const.electron_mass*const.c**2 / (1000*const.electron_volt)
 e=Egamma/m0
 Emax=unp.nominal_values(Egamma * 2*e/(1+2*e))
-plt.plot(np.array([Emax,Emax]), np.array([0,100]), 'b-', label='Werte fit')  
+plt.plot(np.array([Emax,Emax]), np.array([0,180]), 'y-', label='Komptenkante')  
 plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.ylabel(r'$N$')
+plt.ylim(0,175)
+plt.xlim(0,500)
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Kon.pdf')
@@ -362,4 +374,7 @@ print(Plot(D,ranges,'D'))
 ########################################################?c060?
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/unbekannt',unpack=True)
-print(Plot(D,ranges,'unbekannt'))
+Plot(D,ranges,'unbekannt')
+ranges = [[2900,2930],[3280,3340]]
+DParams=gausFitMitPlot(D,ranges,'unbekannt',True)
+print(DParams)
