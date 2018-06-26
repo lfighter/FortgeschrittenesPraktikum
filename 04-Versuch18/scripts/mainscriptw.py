@@ -238,7 +238,8 @@ for rangew in ranges:
     range2.append(rangew[1])
 range1=np.array(range1)
 range2=np.array(range2)
-makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([posU[3:]],unpFormat,[r'','3.1f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.1f',True])+convert([aU[3:]],unpFormat,[r'','4.0f',True])+convert([hU[3:]],unpFormat,[r'','3.1f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+#makeNewTable(convert([energies[3:]],unpFormat,[r'','',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','',True])+convert([posU[3:]],unpFormat,[r'','',True])+convert([sigmaU[3:]],unpFormat,[r'','',True])+convert([aU[3:]],unpFormat,[r'','',True])+convert([hU[3:]],unpFormat,[r'','',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 
 rangeVar=[1,8192]
 xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
@@ -294,7 +295,7 @@ sigmaU=np.array(sigmaU)
 hU=np.array(hU)
 range1=np.array(range1)
 range2=np.array(range2)
-#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','4.1f',True])+convert([posU],unpFormat,[r'','5.1f',True])+convert([sigmaU],unpFormat,[r'','3.1f',True])+convert([aU],unpFormat,[r'','4.0f',True])+convert([hU],unpFormat,[r'','2.0f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','b',['S[table-format=3.1]','S[table-format=4.1]','S[table-format=2.1]','S[table-format=4.0]','S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 
 print(peakCs137)
 A0=(range(1635,1660+1),Cs137[1635-1:1660])
@@ -354,6 +355,8 @@ plt.ylabel(r'$N$')
 plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Hälfte der Höhe','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Halb.pdf') 
+
+makeNewTable(convert([np.array([params1[0],params2[0],params3[0],params4[0]])],unpFormat,[r'','2.2f',True])+convert([np.array([params1[1],params2[1],params3[1],params4[1]])],unpFormat,[r'','2.2f',True]),r'{$a$} & {$b$}','geraden1',['S[table-format=4.2]','S[table-format=4.2]'])
 
 ##########################################################add
 
@@ -450,6 +453,7 @@ plt.xlim(400,500)
 plt.legend([(mm1, mm2, mm3), mm4, mm5], ['Wertepaare','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Emax.pdf')
+makeNewTable(convert([np.array([paramsEmax1[0],paramsEmax2[0]])],unpFormat,[r'','2.2f',True])+convert([np.array([paramsEmax1[1],paramsEmax2[1]])],unpFormat,[r'','2.2f',True]),r'{$a$} & {$b$}','geraden2',['S[table-format=4.2]','S[table-format=4.2]'])
 
 
 
@@ -489,7 +493,7 @@ sigmaU=np.array(sigmaU)
 hU=np.array(hU)
 range1=np.array(range1)
 range2=np.array(range2)
-#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','1.1f',True])+convert([posU],unpFormat,[r'','1.2f',True])+convert([sigmaU],unpFormat,[r'','1.2f',True])+convert([aU],unpFormat,[r'','1.0f',True])+convert([hU],unpFormat,[r'','1.1f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','D',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 
 print(DParams)
 print('E1', Line(DParams[0][3],*umrechnungsParams))
@@ -560,7 +564,7 @@ sigmaU=np.array(sigmaU)
 hU=np.array(hU)
 range1=np.array(range1)
 range2=np.array(range2)
-#makeNewTable(convert([energies[3:]],unpFormat,[r'','1.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','1.2f',True])+convert([posU[3:]],unpFormat,[r'','1.2f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.2f',True])+convert([aU[3:]],unpFormat,[r'','1.2f',True])+convert([hU[3:]],unpFormat,[r'','1.2f',True])+convert([range1[3:],range2[3:]],floatFormat,[r'','1.2f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b/\si{\percent}$} & {$a/\si{\percent}$} & {$\sigma/\si{\percent}$} & {$c/\si{\percent}$} & {$Wert1/\si{\percent}$} & {$Wert2/\si{\percent}$}','a',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0],S[table-format=2.0],S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','1.1f',True])+convert([posU],unpFormat,[r'','1.2f',True])+convert([sigmaU],unpFormat,[r'','1.2f',True])+convert([aU],unpFormat,[r'','1.0f',True])+convert([hU],unpFormat,[r'','1.0f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','unbekannt',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 print(DParams)
 print('E1', Line(DParams[0][3],*umrechnungsParams))
 print('E2', Line(DParams[1][3],*umrechnungsParams))
