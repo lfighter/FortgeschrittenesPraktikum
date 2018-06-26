@@ -356,7 +356,7 @@ plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Hälfte der Höhe','
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Halb.pdf') 
 
-makeNewTable(convert([np.array([params1[0],params2[0],params3[0],params4[0]])],unpFormat,[r'','2.2f',True])+convert([np.array([params1[1],params2[1],params3[1],params4[1]])],unpFormat,[r'','2.2f',True]),r'{$a$} & {$b$}','geraden1',['S[table-format=4.2]','S[table-format=4.2]'])
+makeNewTable(convert([np.array([params1[0],params2[0],params3[0],params4[0]])],unpFormat,[r'','2.0f',True])+convert([np.array([params1[1],params2[1],params3[1],params4[1]])],unpFormat,[r'','2.0f',True]),r'{$a$} & {$b$}','geraden1',['S[table-format=4.2]','S[table-format=4.2]'])
 
 ##########################################################add
 
@@ -453,7 +453,7 @@ plt.xlim(400,500)
 plt.legend([(mm1, mm2, mm3), mm4, mm5], ['Wertepaare','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 plt.savefig('build/Cs137Emax.pdf')
-makeNewTable(convert([np.array([paramsEmax1[0],paramsEmax2[0]])],unpFormat,[r'','2.2f',True])+convert([np.array([paramsEmax1[1],paramsEmax2[1]])],unpFormat,[r'','2.2f',True]),r'{$a$} & {$b$}','geraden2',['S[table-format=4.2]','S[table-format=4.2]'])
+makeNewTable(convert([np.array([paramsEmax1[0],paramsEmax2[0]])],unpFormat,[r'','2.2f',True])+convert([np.array([paramsEmax1[1],paramsEmax2[1]])],unpFormat,[r'','2.0f',True]),r'{$a$} & {$b$}','geraden2',['S[table-format=4.2]','S[table-format=4.2]'])
 
 
 
