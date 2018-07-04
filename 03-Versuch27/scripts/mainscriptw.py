@@ -78,8 +78,8 @@ def BvonI(x,a,b):
 	
 
 params, covariance_matrix = curve_fit(BvonI,I,B)
-errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
-#errors =  unp.uarray(uncertainties.correlated_values(params, covariance_matrix))
+#errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
+errors = uncertainties.correlated_values(params, covariance_matrix)
 print('Die Parameter der B feld kalibrierung:')
 print('a =' , errors[0])
 print('b =',  errors[1])
@@ -101,7 +101,7 @@ plt.savefig('build/'+'Bfeldkali')
 
 #konstanten
 lambdan = ufloat(643.8*10**(-9),0)
-lambdaa = 480*10**(-9)
+lambdaa = ufloat(480*10**(-9),0)
 lambdaDn = 4.89*10**(-11)
 lambdaDa = 2.695*10**(-11)
 h = const.h
@@ -128,7 +128,7 @@ print("delta:", delta_sn)
 
 #berechne delta lambda
 
-def sigmalambda(sigma_s,delta_s,deltalambda):
+def sigmalambda(delta_s,sigma_s,deltalambda):
 	return 0.5*(sigma_s / delta_s)*deltalambda
 
 
@@ -139,14 +139,15 @@ print()
 #mittlere sigmalambda
 
 def C(x,c):
-	return c
-x = range(0,10)
+	return c+0*x
+x = np.linspace(1,10,10)
 params, covariance_matrix = curve_fit(C,x,sigmalambdan)
-errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
+#errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
+errors =  uncertainties.correlated_values(params, covariance_matrix)[0]
 sigmalambdanm = errors
-#errors2 =  ufloat(uncertainties.correlated_values(params, covariance_matrix))
 print('sigmalamdanm:')
 print('sigmalambdanm =' , sigmalambdanm)
+
 
 #hilfsplot der sigmalambdas
 
@@ -155,6 +156,7 @@ plt.clf()
 plt.plot(x, sigmalambdan, 'rx', label='Die Messdaten')
 #plt.ylim(0, line(t[-1], *params)+0.1)
 #plt.xlim(0, t[-1]*100)
+plt.plot(x, C(x,unp.nominal_values(sigmalambdanm)), '-', label='Die gefittete Kurve')
 plt.xlabel(r'$I/\si{\ampere}$')
 plt.ylabel(r'$B /\si{\tesla} $')
 plt.legend(loc='best')
@@ -164,7 +166,52 @@ plt.savefig('build/'+'normal')
 
 
 #berechne g faktor von nomalem zeeman
-g = ((h*clight /lambdan) -(h*clight /(lambdan+sigmalambdanm)))
-
-#1/(ub* BvonI(9.5,tesla[0],tesla[1]))
+g = ((h*clight /lambdan) -(h*clight /(lambdan+sigmalambdanm)))*1/(ub* BvonI(9.5,tesla[0],tesla[1]))
 print('g =' , g)
+
+
+g2 = (h*clight/lambdan**2)*sigmalambdanm*1/(ub* BvonI(9.5,tesla[0],tesla[1]))
+print('g2 =' , g2)
+print('B(9.5ampoere) =',BvonI(9.5,tesla[0],tesla[1]))
+
+#mögliche ursache: b feld größer als das was gemessen wurde
+
+
+#annormaler zeemaneffekt sigmalinien
+la1, ra1 = np.genfromtxt('scripts/anormalB11.txt',unpack=True)
+ma1 = np.genfromtxt('scripts/anormalB01.txt',unpack=True)
+
+sigma_sa1 = ra1 - la1
+delta_sa1 =[]
+i = 0
+while i < len(mn)-1:
+	delta_sa1.append(ma1[i+1]-ma1[i])
+	i = i+1
+
+sigmalambdaa1 = sigmalambda(delta_sa1,sigma_sa1,lambdaDa)
+
+x = np.linspace(1,10,10)
+params, covariance_matrix = curve_fit(C,x,sigmalambdaa1)
+#errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
+errors =  uncertainties.correlated_values(params, covariance_matrix)[0]
+sigmalambdaa1m = errors
+print('sigmalamdaa1m:')
+print('sigmalambdaa1m =' , sigmalambdaa1m)
+
+
+#hilfsplot der sigmalambdas
+
+plt.cla()
+plt.clf()
+plt.plot(x, sigmalambdaa1, 'rx', label='Die Messdaten')
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+plt.plot(x, C(x,unp.nominal_values(sigmalambdaa1m)), '-', label='Die gefittete Kurve')
+plt.xlabel(r'$I/\si{\ampere}$')
+plt.ylabel(r'$B /\si{\tesla} $')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'anormal1')
+
+ga1 = ((h*clight /lambdaa) -(h*clight /(lambdaa+sigmalambdaa1m)))*1/(ub* BvonI(5.9,tesla[0],tesla[1]))
+print('ga1 =' , ga1)
