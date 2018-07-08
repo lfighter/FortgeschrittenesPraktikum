@@ -23,7 +23,7 @@ und somit für die Umrechnung von Kanal $K$ in \si{\micro\second}:
 \begin{equation}
 T(K)=a K + b. \label{eq:umrechnung}
 \end{equation}
-Da der Doppelimpulsgenerator Impulse mit einem maximalen Abstand von $\SI{9.9}{\micro\second}$ liefern kann, liegen nur bis zu dieser Zeit Werte vor. Dies kann dazu führen, dass für höhere Kanalnummern $K$ die bestimmten Zeiten $T$ stärker abweichen.
+Da der Doppelimpulsgenerator Impulse mit einem maximalen Abstand von $\SI{9.9}{\micro\second}$ liefern kann, liegen nur bis zu dieser Zeit Werte vor. Dies kann dazu führen, dass für Kanalnummern $K$, die außerhalb dieses Bereiches liegen, die bestimmten Zeiten $T$ mehr von den tatsächlichen Zeiten abweichten, als innerhalb des Bereiches.
 \begin{table}
 	\centering
 	\caption{Die Kanäle mit der jeweils zugeordneten Zeit $T$, wobei die Werte mit Unsicherheit durch einen gewichteten Mittelwert zustande kommen.}
@@ -31,22 +31,22 @@ Da der Doppelimpulsgenerator Impulse mit einem maximalen Abstand von $\SI{9.9}{\
 \end{table}
 \subsection{Berechnung des Untergrundes mit Hilfe der gesamten Anzahl von Start-Ereignissen}
 \label{subsec:Berechnung}
-Mit der gesamten Anzahl $S$ von $\num{2.213(2)e6}$ Start-Ereignissen in $T_\text{ges}=\SI{92164}{\second}$ ergibt ein Erwartungswert $\lambda=S T_\text{S}/T_\text{ges}=\num{4.802(4)e-4}$ für die Anzahl an Start-Ereignissen in $T_\text{S}=\SI{20}{\micro\second}$. Die Standardabweichung für $S$ kommt aus der Annahme, dass diese Größe einer Poisson-Verteilung unterliegt. Mit dieser Annahme ergibt sich für die Wahrscheinlichkeit, das genau $x$ Myonen einem vorherigem in der maximalen Messzeit von $T_\text{S}=\SI{20}{\micro\second}$ folgen: 
+Mit der gesamten Anzahl $S$ von $\num{2.213(2)e6}$ Start-Ereignissen in $T_\text{ges}=\SI{92164}{\second}$ ergibt ein Erwartungswert $\lambda=S \cdot T_\text{S}/T_\text{ges}=\num{4.802(4)e-4}$ für die Anzahl an Start-Ereignissen in $T_\text{S}=\SI{20}{\micro\second}$. Die Standardabweichung für $S$ kommt aus der Annahme, dass diese Größe einer Poisson-Verteilung unterliegt. Mit dieser Annahme ergibt sich für die Wahrscheinlichkeit, das genau $x$ Myonen einem vorherigem in der maximalen Messzeit von $T_\text{S}=\SI{20}{\micro\second}$ folgen: 
 \begin{displaymath}
 f(x)=\frac{\lambda^x}{x!}\exp(-\lambda).
 \end{displaymath}
 Für genau ein nachfolgendes Myon folgt:
 \begin{displaymath}
-f=\lambda\exp(-\lambda)=\num{4800(4)e-4}.
+f=\lambda\exp(-\lambda)=\num{4.800(4)e-4}.
 \end{displaymath}
 Damit folgt für die erwartete Anzahl an Untergrund-Ereignissen:
 \begin{displaymath}
 U_\text{ges}=S \cdot f =\num{1062(2)}.
 \end{displaymath}
-Mit dem zuvor bestimmten Umrechnungsformel \eqref{eq:umrechnung} lässt sich die Anzahl der verwendeten Kanäle mit $K_\text{max}-K_\text{min}=(T_\text{S}/a -b/a)-(T_\text{?}/a-b/a)= (T_\text{S}-T_\text{?})/a$ berechnen.
+Mit dem zuvor bestimmten Umrechnungsformel \eqref{eq:umrechnung} lässt sich die Anzahl der verwendeten Kanäle mit $K_\text{max}-K_\text{min}=(T_\text{S}/a -b/a)-(T_\text{min}/a-b/a)= (T_\text{S}-T_\text{min})/a$ berechnen. In der bisherigen Rechnung für den Untergrund wurde allerdings angenommen, dass $T_\text{min} = \SI{0}{\second}$ ist. Es folgt für die Anzahl der für die Rechnung relevante Anzahl an Kanälen $K_\text{rel}=K_\text{max}-K_0= T_\text{S}/a=\num{441.8(3)}$.
 Somit ergibt sich für die Anzahl der Untergrund-Ereignisse pro Kanal:
 \begin{displaymath}
-U_\text{ber}=\frac{U_\text{ges}}{K_\text{max}-K_\text{min}} =\num{2.408(4)}.
+U_\text{ber}=\frac{U_\text{ges}}{K_\text{rel}} =\num{2.408(4)}.
 \end{displaymath}
 
 \subsection{Bestimmung der Koinzidenz-Zeit}
@@ -54,12 +54,12 @@ U_\text{ber}=\frac{U_\text{ges}}{K_\text{max}-K_\text{min}} =\num{2.408(4)}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/koinz.pdf}
-	\caption{Die gemessene Anzahl an Impulsen hinter der Koinzidenzschaltung mit Fits der Flanken sowie des Plateaus gegen die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen aufgetragen.}
+	\caption{Die über $\SI{10}{\second}$ gemittelte Zählrate $A$ in hinter der Koinzidenzschaltung mit Fits der Flanken sowie des Plateaus gegen die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen aufgetragen.}
 	\label{fig:zweite}
 \end{figure}
 \begin{table}
 	\centering
-	\caption{Die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen mit der gemessenen Anzahl an Impulsen hinter der Koinzidenzschaltung.}
+	\caption{Die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen mit der über $\SI{10}{\second}$ gemittelte Zählrate $A$ in hinter der Koinzidenzschaltung.}
 	\input{build/tab2.tex}
 \end{table}
 
@@ -71,18 +71,18 @@ U_\text{ber}=\frac{U_\text{ges}}{K_\text{max}-K_\text{min}} =\num{2.408(4)}.
 	\caption{Die Anzahl der gemessenen Ereignisse mit einer zeitlichen Differenz $T$ zum vorherigen.}
 	\label{fig:zweite}
 \end{figure}
-Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung wurde mit der Funktion curve\_fit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Als Gewichte wurden die Wurzeln der jeweiligen Anzahl an Ereignissen genommen, da bei dieser von einer Poisson-Verteilung ausgegangen wird. Die ersten $9$ und letzten $37$ Wertepaare wurden für den Fit ignoriert. Dies wird in der Diskussion begründet. Um den Fit so möglich zu machen wurden jeweils zwei Kanäle zu einem zusammengefasst, wobei die Anzahl an Ereignissen von beiden Kanälen addiert und die mittlere Kanalnummer von beiden genommen wird. %Die ursprünglichen Messwertepaare sind in der Tabelle \ref{tab:tab2} zu finden. 
+Die für den Fit in Abbildung \ref{fig:zweite} nötige nicht lineare Ausgleichsrechnung wurde mit der Funktion curve\_fit aus der python-Bibliothek scipy \cite{scipy} durchgeführt. Die gefittete Funktion besitzt die Form $f(x)=\exp(-a x +b)+c$. Als Unsicherheit auf die gemessenene Anzahl von Ereignissen $N$ in den zusammengefassten Kanälen wurde $\sqrt{N}$ genommen, da von einer Poisson-Verteilung ausgegangen wird. Der Fit jedoch berücksichtigt diese Unsicherheiten nicht. Die ersten $9$ und letzten $37$ Wertepaare wurden für den Fit ignoriert. Dies wird in der Diskussion begründet. Um den Fit so möglich zu machen wurden jeweils zwei Kanäle zu einem zusammengefasst, wobei die Anzahl an Ereignissen von beiden Kanälen addiert und die mittlere Kanalnummer von beiden genommen wird. %Die ursprünglichen Messwertepaare sind in der Tabelle \ref{tab:tab2} zu finden. 
 Für die Parameter ergibt sich somit
 \begin{gather*}
-a=\SI{0.473(7)}{\per\micro\second}\\
-b=\num{6.41(2)}\\
-c=\num{3.8(3)}.
+a=\SI{0.486(6)}{\per\micro\second}\\
+b=\num{6.43(1)}\\
+c=\num{5.4(7)}.
 \end{gather*}
 Für den aus dem Fit ermittelten Untergrund pro Kanal ergibt sich somit:
 \begin{displaymath}
-	U_\text{fit}=\frac{c}{2}=\num{1.9(2)}
+	U_\text{fit}=\frac{c}{2}=\num{2.7(4)}
 \end{displaymath}
 und für die Lebensdauer des Myons:
 \begin{displaymath}
-	\tau=\frac{1}{a}=\SI{2.11(3)}{\micro\second}.
+	\tau=\frac{1}{a}=\SI{2.06(3)}{\micro\second}.
 \end{displaymath}
