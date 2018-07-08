@@ -215,3 +215,43 @@ plt.savefig('build/'+'anormal1')
 
 ga1 = ((h*clight /lambdaa) -(h*clight /(lambdaa+sigmalambdaa1m)))*1/(ub* BvonI(5.9,tesla[0],tesla[1]))
 print('ga1 =' , ga1)
+
+
+
+la2, ra2 = np.genfromtxt('scripts/anormalB12.txt',unpack=True)
+ma2 = np.genfromtxt('scripts/anormalB02.txt',unpack=True)
+
+sigma_sa2 = ra2 - la2
+delta_sa2 =[]
+i = 0
+while i < len(mn)-1:
+	delta_sa2.append(ma2[i+1]-ma2[i])
+	i = i+1
+
+sigmalambdaa2 = sigmalambda(delta_sa2,sigma_sa2,lambdaDa)
+
+x = np.linspace(1,10,10)
+params, covariance_matrix = curve_fit(C,x,sigmalambdaa2)
+#errors = unp.uarray(params, np.sqrt(np.diag(covariance_matrix)))
+errors =  uncertainties.correlated_values(params, covariance_matrix)[0]
+sigmalambdaa2m = errors
+print('sigmalamdaa2m:')
+print('sigmalambdaa2m =' , sigmalambdaa2m)
+
+
+#hilfsplot der sigmalambdas
+
+plt.cla()
+plt.clf()
+plt.plot(x, sigmalambdaa2, 'rx', label='Die Messdaten')
+#plt.ylim(0, line(t[-1], *params)+0.1)
+#plt.xlim(0, t[-1]*100)
+plt.plot(x, C(x,unp.nominal_values(sigmalambdaa2m)), '-', label='Die gefittete Kurve')
+plt.xlabel(r'$I/\si{\ampere}$')
+plt.ylabel(r'$B /\si{\tesla} $')
+plt.legend(loc='best')
+plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+plt.savefig('build/'+'anormal2')
+
+ga2 = ((h*clight /lambdaa) -(h*clight /(lambdaa+sigmalambdaa2m)))*1/(ub* BvonI(16.25,tesla[0],tesla[1]))
+print('ga2 =' , ga2)
