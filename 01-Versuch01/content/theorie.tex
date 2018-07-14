@@ -2,28 +2,31 @@
 \section{Theorie}
 \label{sec:Theorie}
 \subsection{Die Eigenschaften der  Myonen}
-Nach heutigem Wissensstand besteht die bekannte Materie aus kleinsten Teilchen, den Elementarteilchen. Diese werden im Standardmodell der Elementarteilchen in Hadronen mit ganzzahligem Spin und Leptonen mit halbzahligem Spin eingeteilt. Zu den Leptonen gehören Elektronen, Myonen und Tauonen sowie ihre entsprechenden Antiteilchen. Zusätzlich besitzt jedes Lepton ein zugehöriges Neutrino. Diese sind aufgrund ihrer schwachen Wechselwirkung mit Materie jedoch nur schwer nachzuweisen. Die Leptonen unterscheiden sich hauptsächlich in ihrer Masse. Ein Myon wiegt $206 \cdot m_\text{e}$, ein Tauon $3491 \cdot m_\text{e}$. Die Myonen besitzen aufgrund ihrer im Vergleich zum Elektron ungleich höheren Masse in ihrem Ruhesystem nur eine sehr begrenzte Lebensdauer. Ein Zerfall kann meistens durch
+Nach heutigem Wissensstand besteht die bekannte Materie aus kleinsten Teilchen, den Elementarteilchen. Diese werden im Standardmodell der Elementarteilchen in Hadronen mit ganzzahligem Spin und Leptonen mit halbzahligem Spin eingeteilt. Zu den Leptonen gehören Elektronen, Myonen und Tauonen sowie ihre entsprechenden Antiteilchen. Zusätzlich besitzt jedes Lepton ein zugehöriges Neutrino bzw. Antineutrino. Diese sind aufgrund ihrer schwachen Wechselwirkung mit Materie jedoch nur schwer nachzuweisen. Die einzelnen Leptonen unterscheiden sich in ihrer Masse und ihrer Stabilität. Das leichteste der Leptonen, das Elektron, ist stabil. Im Gegensatz dazu besitzen die schwereren Myonen mit einer Masse von $206 \cdot m_\text{e}$ bzw. die Tauonen mit einer Masse von $3491 \cdot m_\text{e}$ in ihrem Ruhesystem nur eine begrenzte Lebensdauer. Für den Fall der untersuchten Myonen kann ein Zerfall durch
 \begin{equation}
     %wie setzt man den \text befehl in der equation umgebung ein, lukas fragen, antiteilchen fehlen noch 
     \mu^- \to e^- + \bar{\nu_e} + \nu_{\mu} \text{ bzw. } \mu^+ \to e^+ + \nu_e + \bar{\nu_{\text{\mu}}}   \label{eq:zerfall}
 \end{equation}
-beschrieben werden. Im Experiment werden Myonen kosmischen Ursprungs betrachtet. Diese sind ein Produkt von Pionenzerfällen, welche ca. in einer  Höhe \SI{10}{\kilo\meter} über der Erdoberfläche stattfinden. Da sich die Myonen jedoch mit beinahe Lichtgeschwindigkeit bewegen, gelangen sie bis zur Erde. Die Pionen stammen ihrerseits aus Kollisionen hoch relativistischer Protonen mit einzelnen Luftmolekülen der Atmosphäre. 
+beschrieben werden. Im Experiment werden Myonen kosmischen Ursprungs betrachtet. Diese sind ein Produkt von Pionenzerfällen, welche ca. in einer  Höhe \SI{10}{\kilo\meter} über der Erdoberfläche stattfinden. Da sich die Myonen jedoch mit beinahe Lichtgeschwindigkeit bewegen, gelangen sie bis zur Erde. Die Pionen stammen ihrerseits aus Kollisionen hoch relativistischer Protonen mit einzelnen Luftmolekülen der Atmosphäre. Die Protonen stammen aus dem Weltall, beispielsweise aus einer Supernova.
 
 \subsection{Die statistische Verteilung der Myonenlebensdauern}
-Der Zerfall von Myonen ist ein statistischer Prozess. Daher sind die Lebensdauern einzelner Teilchen nicht gleich, sondern über eine Verteilung bestimmt. Deswegen wird eine verallgemeinerte Lebensdauer über den Erwartungswert der Verteilung definiert. Aus der Überlegung, dass die Zerfallswahrscheinlichkeit nicht vom individuellen Alter einzelner Teilchen abhängt, folgt:
+Der Zerfall von Myonen ist ein statistischer Prozess. Daher sind die Lebensdauern einzelner Teilchen nicht gleich, sondern über eine Verteilung bestimmt. Deswegen wird die charakteristische Lebensdauer über den Erwartungswert der Verteilung definiert. Aus der Überlegung, dass die Zerfallswahrscheinlichkeit nicht vom individuellen Alter einzelner Teilchen abhängt, folgt:
 \begin{equation}
-    \text{dN} = -N \text{dW} = - \lambda N \text{dt} \text{.} \label{eq:stat}
+    \text{dN} = -N \text{dW} = - \lambda N \text{dt} \text{.} \label{eq:stat},
+\end{equation}
+mit der Teilchenzahl $N$ und der Zerfallskonstante $\lambda$. Aus dieser Differenzialgleichung ergibt sich $N(t)$ zu:
+\begin{equation}
+    N(t) = N_0  \cdot \text{e}^{-\lambda t}
 \end{equation}
 Damit lässt sich die Verteilung der Myonenlebensdauern
 \begin{equation}
     \frac{\text{dN(t)}}{N_0} = \lambda \text{e}^{-\lambda t} \text{d}t  \label{eq:stat2}
 \end{equation}
 bestimmen.
-Sie wird als Exponential-Verteilung bezeichnet. Der Erwartungswert liefert die verallgemeinerte Lebensdauer:
+Sie wird als Exponential-Verteilung bezeichnet. Der Erwartungswert liefert charakteristische Lebensdauer:
 \begin{equation}
     \tau = \frac{1}{\lambda}\text{.} \label{eq:stat3}
 \end{equation}
-Die Größe $\lambda$ wird auch als Zerfallskonstante bezeichnet.
 
 \subsection{Statistische Methoden der Auswertung}
-In der Realität wird im Experiment nur ein endlicher Datensatz gewonnen. Da dieser aufgrund von technischen Limitationen in der Regel zusätzlichen Verzerrungen unterworfen ist, weil zum Beispiel sehr kleine oder sehr große Werte nicht erfasst werden können, bildet auch das arithmetische Mittel keine adäquate Lösung. Um die Parameter dennoch optimal anzupassen wird die Methode der kleinsten Quadrate verwendet.
+In der Realität wird im Experiment nur ein endlicher Datensatz gewonnen. Dieser ist aufgrund von bewussten Einschränkungen, wie der Eingrenzung der Suchzeit, aber auch technischen Limitationen, weil zum Beispiel sehr kleine oder sehr große Werte nicht erfasst werden können, zusätzlichen Verzerrungen unterworfen. Daher bildet auch das arithmetische Mittel keine adäquate Lösung. Um die Parameter dennoch optimal anzupassen wird die Methode der kleinsten Quadrate verwendet.
