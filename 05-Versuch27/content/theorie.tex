@@ -24,21 +24,60 @@ gegeben.
 
 \subsection{Kopplung von Drehimpuls und Spin zum Gesamtdrehimpuls}
 
-Wie die Drehimpulse und Spins in einem Mehrelektronensystem zum Gesamtdrehimpuls koppeln ist von System zu System verschieden und nur schwer zu behandeln. Es können jedoch zwei wichtige Grenzfälle relativ einfach behandelt werden. Der eine Grenzfall ist die LS- oder auch Russell-Saunders-Kopplung. Dies ist der Grenzfall für Atome mit kleiner Kernladungszahl. Hierbei setzen sich die die Drehimpulse und Spins jeweils sich zu einem Drehimpuls \[\vec{L}=\sum_i \vec{l}_i\] und einem Spin \[\vec{S}=\sum_i \vec{s}_i\] der gesammten Elektronenhülle zusammen. Der Drehimpuls und Spin wird dabei durch die Drehimpulse und Spins in den unabgeschlossenen Schalen zusammengesetzt, da sich diese in den abgeschlossenen Schalen gegenseitig aufheben. Der Gesamtdrehimpuls der Elektronenhülle ergibt sich zu \[\vec{J}=\vec{L}+\vec{S}.\] Für die jeweiligen magnetischen Momente gilt:
+Wie die Drehimpulse und Spins in einem Mehrelektronensystem zum Gesamtdrehimpuls koppeln ist von System zu System verschieden und nur schwer zu behandeln. Es können jedoch zwei wichtige Grenzfälle relativ einfach behandelt werden. Der eine Grenzfall ist die LS- oder auch Russell-Saunders-Kopplung. Dies ist der Grenzfall für Atome mit kleiner Kernladungszahl. Hierbei setzen sich die Drehimpulse und Spins jeweils sich zu einem Drehimpuls \[\vec{L}=\sum_i \vec{l}_i\] und einem Spin \[\vec{S}=\sum_i \vec{s}_i\] der gesammten Elektronenhülle zusammen. Der Drehimpuls und Spin wird dabei durch die Drehimpulse und Spins in den unabgeschlossenen Schalen zusammengesetzt, da sich die Drehimpulse und Spins jeweils in den abgeschlossenen Schalen gegenseitig aufheben. Der Gesamtdrehimpuls der Elektronenhülle ergibt sich zu \[\vec{J}=\vec{L}+\vec{S}.\] Für die jeweiligen magnetischen Momente gilt:
 \begin{gather*}
 	\vec{\mu}_L=-  \mu_\text{B} \frac{\vec{L}}{\hbar}=- \mu_\text{B} \sqrt{L(L+1)} \vec{L}_e\\
 	\vec{\mu}_S=- g_\text{s} \mu_\text{B} \frac{\vec{S}}{\hbar}=- g_\text{s} \mu_\text{B} \sqrt{S(S+1)} \vec{S}_e\\
 	\vec{\mu}_J=\vec{\mu}_L+\vec{\mu}_S.
 \end{gather*}
 
-Der andere Grenzfall wird als $j-j$-Kopplung bezeichnet. Bei dies ist der Grenzfall für Atome mit hoher Kernladungszahl.
+Der andere Grenzfall wird als $jj$-Kopplung bezeichnet. Dies ist der Grenzfall für Atome mit hoher Kernladungszahl. Hier koppeln die Drehimpulse und Spins der Elektronen einzeln zu den Gesamtdrehimpulsen der einzelnen Elektronen \[\vec{j}_i=\vec{l}_i+\vec{s}_i.\] Diese addieren sich zum Gesamtdrehimpuls der Elektronenhülle \[\vec{J}=\sum_i \vec{j}_i .\]
 
 
 
 \subsection{Aufspaltung im Magnetfeld}
+Es wird im Folgendem die Aufspaltung im Magnetfeld für den Grenzfall kleiner Kernladungszahlen betrachtet. Von Bedeutung für diese ist die parallel zum Magnetfeld ausgerichtete Komponente des magnetischen Momentes des Gesamtdrehimpuls der Elektronenhülle. Das gesamte magnetische Moment ergibt sich wie im vorherigem Kapitel beschrieben. Die parallel zum Gesamtdrehimpuls ausgerichtete Komponente wird mit $\vec{\mu}_J$ bezeichnet. Die senkrechte Komponente ist hier nur von geringer Bedeutung, da sie im zeitlichen Mittel verschwindet. Für den Betrag von $\vec{\mu}_J$ gilt:
+\begin{align*}
+	|\vec{\mu}_J|&=\mu_B \sqrt{J(J+1)} \cdot \frac{(1+g_S) J (J+1) + (g_S-1)\{S(S+1)-L(L+1)\}}{2 J (J+1)}\\
+	&= \mu_B\cdot g_J \cdot\sqrt{J(J+1)},
+\end{align*}
+wobei der Faktor 
+\begin{align*}
+	g_J&=\frac{(1+g_S) J (J+1) + (g_S-1)\{S(S+1)-L(L+1)\}}{2 J (J+1)}\\
+	&\approx \frac{3 J (J+1) + S(S+1)-L(L+1)}{2 J (J+1)}
+\end{align*}
+als Landé-Faktor bezeichnet wird. Aufgrund des Phänomens der Richtungsquantelung kann $\vec{\mu}_J$ nur Richtungen annehmen, bei welchen die Komponente $\mu_{J_{||}}$ in Entlang der Feldlinen ein ganzes Vielfaches von $\mu_B \cdot g_J$ ist. Es gilt also:
+\begin{align*}
+	\mu_{J_{||}}=-\mu_B g_J  \cdot m & \text{ mit } m=-J,-(J-1), \hdots, J.
+\end{align*}
+Es kann $|m|$ nicht größer als $J$ werden, da der Betrag vom Gesamtdrehimpuls immer größer als der Betrag einer Komponente ist. Damit gibt es $2 J +1 $ verschiedene mögliche Einstellungen des Gesamtdrehimpuls bezüglich des Magnetfeldes. Jede Einstellung im Magnetfeld entspricht einer potentiellen Energie. Es gilt:
+\begin{gather*}
+	E_{pot}=-\vec{\mu_{J}} \cdot \vec{B} = -\mu_{J_{||}} \cdot B= \mu_B g_J B \cdot m.
+\end{gather*}
+Es ergibt sich im Magnetfeld die in Abbildung \ref{fig:generelleAufspaltung} dargestellte Aufspaltung der Energieniveaus.
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-250pt,height=\textheight-250pt,keepaspectratio]{content/Images/generelleAufspaltung.png}
     \caption{Theoretische Aufspaltung eines Enegieniveaus eines Atoms mit $J=2$ im Magnetfeld \cite{V27}.}
-    \label{fig:aborb}
+    \label{fig:generelleAufspaltung}
+\end{figure}
+
+\subsection{Auswahlregeln für Übergänge zwischen Zuständen}
+Zwischen den aufgespaltenen Energieniveaus kann es zu Übergängen kommen. Es sind jedoch nicht alle Übergänge gleich wahrscheinlich. So gibt es verbotene Übergänge, die stark unterdrückt sind. Aus der Lösung der zeitabhängigen Schrödinger-Gleichung ergibt sich folgende Regel: 
+\begin{gather*}
+	\Delta m =0, \pm 1,
+\end{gather*}
+wobei sich für $\Delta m=0$ linear zum Magnetfeld und für $\Delta m=\pm 1$ zirkular um die Magnetfeldrichtung polarisierte Strahlung ausbildet. Die linear polarisierte Strahlung wird als $\sigma$-Komponente und die linear zur Feldrichtung polarisierte Strahlung als $\pi$-Komponente bezeichnet. Die $\sigma$-Komponente besitzt demnach eine longitudinale und eine transversale Komponente, wobei die transversale Komponente senkrecht auf der transversalen Komponente der $\pi$-Komponente steht. Es ergibt sich folgend die in Abbildung \ref{fig:linien} dargestellten Linien bei longitudinaler und transversaler Beobachtung.
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-250pt,height=\textheight-250pt,keepaspectratio]{content/Images/linien.png}
+    \caption{Theoretische Spektrallinien ohne und mit Magnetfeld für den in Abbildung \ref{fig:normaleAufspaltung} dargestellten Fall in longitudinaler und transversaler Beobachtung \cite{V27}.}
+    \label{fig:linien}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth-250pt,height=\textheight-250pt,keepaspectratio]{content/Images/normaleAufspaltung.png}
+    \caption{??? \cite{V27}.}
+    \label{fig:normaleAufspaltung}
 \end{figure}
