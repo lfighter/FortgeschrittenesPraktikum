@@ -46,7 +46,7 @@ U_\text{ges}\approx S \cdot f(1) =\num{1062(2)}.
 Mit dem zuvor bestimmten Umrechnungsformel \eqref{eq:umrechnung} lässt sich die Anzahl der verwendeten Kanäle mit $K_\text{max}-K_\text{min}=(T_\text{S}/a -b/a)-(T_\text{min}/a-b/a)= (T_\text{S}-T_\text{min})/a$ berechnen. In der bisherigen Rechnung für den Untergrund wurde allerdings angenommen, dass $T_\text{min} = \SI{0}{\second}$ ist. Es folgt für die Anzahl der für die Rechnung relevante Anzahl an Kanälen $K_\text{rel}=K_\text{max}-K_0= T_\text{S}/a=\num{441.8(3)}$.
 Somit ergibt sich für die Anzahl der Untergrund-Ereignisse pro Kanal:
 \begin{gather*}
-U_\text{ber}=\frac{U_\text{ges}}{K_\text{rel}} =\num{2.408(4)}.
+U_\text{th}=\frac{U_\text{ges}}{K_\text{rel}} =\num{2.408(4)}.
 \end{gather*}
 
 \subsection{Bestimmung der Koinzidenz-Zeit}
@@ -54,12 +54,12 @@ U_\text{ber}=\frac{U_\text{ges}}{K_\text{rel}} =\num{2.408(4)}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/koinz.pdf}
-	\caption{Die über $\SI{10}{\second}$ gemittelte Zählrate $A$ in hinter der Koinzidenzschaltung mit Fits der Flanken sowie des Plateaus gegen die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen aufgetragen.}
+	\caption{Die über $\SI{10}{\second}$ gemittelte Zählrate $A$ hinter der Koinzidenzschaltung mit Fits der Flanken sowie des Plateaus gegen die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen aufgetragen.}
 	\label{fig:zweite}
 \end{figure}
 \begin{table}
 	\centering
-	\caption{Die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen mit der über $\SI{10}{\second}$ gemittelte Zählrate $A$ in hinter der Koinzidenzschaltung.}
+	\caption{Die eingestellte Verzögerungszeit $\varDelta t$ zwischen den eingehenden Impulsen mit der über $\SI{10}{\second}$ gemittelte Zählrate $A$ hinter der Koinzidenzschaltung.}
 	\input{build/tab2.tex}
 \end{table}
 Die lineare Ausgleichsrechnung der Form $f(x)=ax +b$ für die beiden Flanken wird mit der Funktion curve\_fit aus der Python-Bibliothek SciPy \cite{scipy} durchgeführt. Für den Fit der liken Flanke wurden nur die Wertepaare $4$ bis $9$ verwendet. Es ergibt sich für die Parameter:

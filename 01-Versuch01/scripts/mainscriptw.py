@@ -40,10 +40,10 @@ for i in range(0,len(CountsKallibrierung)):
         nom,std=weighted_avg_and_sem(Kanaele,np.array(samePeak))
         peakPosnom.append(nom)
         peakPosstd.append(std)
-          
+
 peakPosnom=np.array(peakPosnom)
 peakPosstd=np.array(peakPosstd)
-peakPos=unp.uarray(peakPosnom,peakPosstd)  
+peakPos=unp.uarray(peakPosnom,peakPosstd)
 time=np.linspace(0.9,0.9+len(peakPosnom)-1,len(peakPosnom)) #in microsek
 makeNewTable([convert(peakPos,unpFormat,[r'','1.2f',True]),time],r'\multicolumn{1}{c}{Kanal} & {T/\si{\micro\second}}','tab1', [r'S', r'S'])
 params, covar = curve_fit(line,peakPosnom,time)
@@ -109,6 +109,10 @@ fitparamsLebens3=uncertainties.correlated_values(params4, covar4)
 print('Parameter Lebensdauer:')
 print(fitparamsLebens1)
 print('Lebensdauer in microsekunden:', 1/fitparamsLebens1[0])
+print('Lebensdauer Abweichung:', (lambdasTheorie-1/fitparamsLebens1[0])/lambdasTheorie)
+UntergrundFit1 = fitparamsLebens1[2]/2;
+print('Untergund:', UntergrundFit1)
+print('Untergund Abweichung:', (UntergrundFit1-AnzahlUntergrundProKanal)/AnzahlUntergrundProKanal)
 print('Parameter Lebensdauer gewichtet:')
 print(fitparamsLebens2)
 print('Lebensdauer gewichtet in microsekunden:', 1/fitparamsLebens2[0])
