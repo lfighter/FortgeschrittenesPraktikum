@@ -260,5 +260,5 @@ print('ga2 =' , ga2)
 
 makeTable([delta_sn,delta_sa1,delta_sa2], r'{$ \Delta s_{\text{norm},\sigma}/ px$} & {$ \Delta s_{\text{anorm},\sigma/}/ px$} & {$ \Delta s_{\text{anorm},\pi}/ px$}','tabdelta' , ['S[table-format=3.0]' , 'S[table-format=3.0]' , 'S[table-format=3.0]'] ,  ["%3.0f", "%3.0f", "%3.0f"])
 makeTable([sigma_sn,sigma_sa1,sigma_sa2], r'{$ \delta s_{\text{norm},\sigma} / px$} & {$ \delta s_{\text{anorm},\sigma}/ px $} & {$  \delta s_{\text{anorm},\pi}/ px $}','tabsigma' , ['S[table-format=3.0]' , 'S[table-format=3.0]' , 'S[table-format=3.0]'] ,  ["%3.0f", "%3.0f", "%3.0f"])
-makeTable([sigmalambdan*10**10,sigmalambdaa1*10**10,sigmalambdaa2*10**10], r'{$ \Delta\lambda s_{\text{norm},\sigma}/ \si{\angstrom}$} & {$  \Delta\lambda s_{\text{anorm},\sigma}/ \si{\angstrom}$} & {$  \Delta\lambda s_{\text{norm},\pi}/ \si{\angstrom}$}','deltalambda' , ['S[table-format=0.3]' , 'S[table-format=0.3]' , 'S[table-format=0.3]'] ,  ["%0.3f", "%0.3f", "%0.3f"])
+makeTable([sigmalambdan*10**12,sigmalambdaa1*10**12,sigmalambdaa2*10**12], r'{$ \delta\lambda s_{\text{norm},\sigma}/ \si{\pico\meter}$} & {$  \delta\lambda s_{\text{anorm},\sigma}/ \si{\pico\meter}$} & {$  \delta\lambda s_{\text{norm},\pi}/ \si{\pico\meter}$}','deltalambda' , ['S[table-format=2.1]' , 'S[table-format=2.1]' , 'S[table-format=2.1]'] ,  ["%2.1f", "%2.1f", "%2.1f"])
 
