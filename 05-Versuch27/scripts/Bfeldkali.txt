@@ -1,4 +1,4 @@
-#stromstärke in Ampere || B feld in tesla
+#stromstaerke in Ampere || B feld in tesla
 0 0.004
 0.5 0.038
 1 0.058
