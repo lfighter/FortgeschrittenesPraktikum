@@ -1,7 +1,7 @@
 \section{Auswertung}
 \label{sec:Auswertung}
 Die Graphen wurden sowohl mit Matplotlib \cite{matplotlib} als auch NumPy \cite{numpy} erstellt. Die
-Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgeführt. Die Vermessung der Photographien wurde mit Gimp durchgeführt. Um die einzelnen Linien der Spektren besser zu erkennen wurden Kontrast, Helligkeit, Sättigung und Farbtiefe der Photographien für die Auswertung modifiziert.%cite gimp angeben
+Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgeführt. Die Vermessung der Photographien wurde mit Gimp \cite{gimp} durchgeführt. Um die einzelnen Linien der Spektren besser zu erkennen wurden Kontrast, Helligkeit, Sättigung und Farbtiefe der Photographien für die Auswertung modifiziert.%cite gimp angeben
 
 
 
@@ -14,13 +14,13 @@ Für die Aufspaltung der blauen Linien des anormalen Zeemanneffektes wird der Ü
 	1.5 (\sigma)\\
 	2 (\sigma)
 \end{gather}
-Da die $\pi$ Linie nur einen geringen Landefaktor besitzt ist ein größeres Magnetfeld notwendig um die Aufspaltung sichtbar zu machen. Die beiden $\sigma$ Linie besitzen hingegen sehr ähnliche Landefaktoren, sodass experimentell eine gemeinsame Linie mit $g= 1.75$ zu erwarten ist.
+Da die $\pi$ Linie nur einen geringen Landefaktor besitzt ist, ein größeres Magnetfeld notwendig um die Aufspaltung sichtbar zu machen. Die beiden $\sigma$ Linie besitzen hingegen sehr ähnliche Landefaktoren, sodass experimentell eine gemeinsame Linie mit $g= 1.75$ zu erwarten ist.
 
 \subsection{Kalibrierung des angelegten B-Feldes}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{build/Bfeldkali.pdf}
+	\includegraphics[width=\linewidth-130pt,height=\textheight-130pt,keepaspectratio]{build/Bfeldkali.pdf}
 	\caption{Die Kalibrationskurve des B-Feldes in Abhängigkeit der Stromstärke.}
 	\label{fig:BvonI}
 \end{figure}
@@ -33,13 +33,13 @@ Da die $\pi$ Linie nur einen geringen Landefaktor besitzt ist ein größeres Mag
 	\label{tab:BvonI}
 \end{table}
 
-Zunächst wird die Stärke des B-Feld des Helmholtzspulenpaares, in dessen Zentrum sich die Cadmiumlampe befindet, in Abhängigkeit der angelegten Stromstärke vermessen. Es ergaben sich die Werte in Tabelle \ref{tab:BvonI}. Mithilfe einer lineare Ausgleichsrechnung der Form $a*x+b$ ergibt sich der Graph in Abb. \ref{fig:BvonI}. Für die beiden Konstanten $a$ und $b$ folgt: 
+Zunächst wird die Stärke des B-Feld des Helmholtzspulenpaares, in dessen Zentrum sich die Cadmiumlampe befindet, in Abhängigkeit der angelegten Stromstärke vermessen. Es ergeben sich die Werte in Tabelle \ref{tab:BvonI}. Mithilfe einer lineare Ausgleichsrechnung der Form $a*x+b$ ergibt sich der Graph in Abb. \ref{fig:BvonI}. Für die beiden Konstanten $a$ und $b$ folgt: 
 \begin{gather}
 	a = \SI{0.0523(5)}{\tesla\per\ampere}\\%werte einfügen
 	b = \SI{0.019(5)}{\tesla}
 \end{gather}
 
-\subsection{Vermessung des normalen Zeemanneffekts an der roten SIGMA Cadmiumlinie}
+\subsection{\texorpdfstring{Vermessung des normalen Zeemanneffekts an dem $\sigma$ Übergang der roten Cadmiumlinie}{Vermessung des normalen Zeemanneffekts an dem sigma Übergang der roten Cadmiumlinie}}
 
 \begin{figure}
 	\centering
@@ -48,35 +48,36 @@ Zunächst wird die Stärke des B-Feld des Helmholtzspulenpaares, in dessen Zentr
 	\label{fig:normal}
 \end{figure}
 
-Nun wird der Landefaktor der roten $\sigma$ Cadmiumlinie bestimmt. Hierzu wurden die Photographien des Interferenzmusters mit und ohne B-Feld in Abb. \ref{fig:normal} aufgenommen. In diesem werden die Abstände zwischen den Ordnungen $\Delta s$und die Abstände der Aufspaltungen der einzelnen Ordnungen $\sigma s$ vermessen. Es ergeben sich die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas}
+Nun wird der Landefaktor der $\sigma$ Übergänge der roten Cadmiumlinie bestimmt. Hierzu wurden die Photographien des Interferenzmusters mit und ohne B-Feld in Abb. \ref{fig:normal} aufgenommen. In diesem werden die Abstände zwischen den Ordnungen $\Delta s$und die Abstände der Aufspaltungen der einzelnen Ordnungen $\delta s$ vermessen. Es ergeben sich die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas}
 
-Auf Basis von Formel \eqref{eq:disGebiet} und Formel \eqref{eq:deltaLambda} mit den Konstanten$\lambda = \SI{643.8}{\nano\meter}$ und $n = 1.4567$ ergeben sich die einzelnen $\sigma\lambda_\text{norm,\sigma}$ in Tabelle \ref{tab:deltsigmas}. Ein mittleres $\sigma\lambda$ wird über eine konstante Ausgleichsrechnung der Form $c$ zu $\SI{11.7(1)}{\pico\meter}$ bestimmt. Der Landefaktor berechnet sich mithilfe von Formel \eqref{eq:exgj} und bei einer angelegten Stromstärke von $\SI{9.5}{\ampere}$ %konstanten angeben
+Auf Basis von Formel \eqref{eq:disGebiet} und Formel \eqref{eq:deltaLambda} mit den Konstanten $\lambda = \SI{643.8}{\nano\meter}$ und $n = 1.4567$ ergeben sich die einzelnen $\Delta\lambda_{\text{norm,}\sigma}$ in Tabelle \ref{tab:deltsigmas}. Ein mittleres $\sigma\lambda_{\text{norm,}\sigma}$ wird über eine konstante Ausgleichsrechnung der Form $c$ zu $\SI{11.7(1)}{\pico\meter}$ bestimmt. Der Landefaktor berechnet sich mithilfe von Formel \eqref{eq:exgj} und bei einer angelegten Stromstärke von $\SI{9.5}{\ampere}$ %konstanten angeben
 zu $\num1.17(1) $. Zur Bestimmung des Magnetfeldes wurde die Kalibrierung verwendet, die Werte für $h$, $\mu_\text{B}$ und $c$ stammen aus \cite{scipy}% sind die konstanten auch von scipy?
 
 
-\subsection{Vermessung des anormalen Zeemanneffekts an der blauen SIGMA Cadmiumlinie }
+
+\subsection{\texorpdfstring{Vermessung des normalen Zeemanneffekts an dem $\sigma$ Übergang der blauen Cadmiumlinie}{Vermessung des normalen Zeemanneffekts an dem sigma Übergang der blauen Cadmiumlinie}}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{./content/Images/annormalsigmab0und1.png}
+	\includegraphics[width=\linewidth-300pt,height=\textheight-300pt,keepaspectratio]{./content/Images/annormalsigmab0und1.png}
 	\caption{Die Aufspaltung der Spektrallinien der blauen $\sigma$ Cadmiumlinie.}
 	\label{fig:anormal1}
 \end{figure}
 
 
-Der bereits für den normalen Zeemanneffekt beschriebene Vorgang wird nun für die blaue $\sigma$ Cadmiumlinie wiederholt. Aus der Photographie \ref{fig:fig:anormal1} konnten die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas} bestimmt werden. Zur Bestimmung von $\delta\lambda_\text{anorm,\sigma}$ werden diesmal die Konstanten $\SI{480}{\nano\meter}$ und $n = 1.4635$ verwendet. Es ergeben sich die Werte in Tabelle \ref{tab:deltsigmas}. Das mittlere $\delta\lambda_\text{anorm,\sigma}$ wird zu $\SI{6.96(4)}{\pico\meter}$ bestimmt. Der Landefaktor berechnet sich bei einer angelegten Stromstärke von $\SI{5.9}{\ampere}$ %konstanten angeben
+Der bereits für den normalen Zeemanneffekt beschriebene Vorgang wird nun für die anormalen $\sigma$ Übergänge der blauen Cadmiumlinie wiederholt. Aus der Photographie \ref{fig:anormal1} konnten die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas} bestimmt werden. Zur Bestimmung von $\delta\lambda_{\text{anorm,}\sigma}$ werden diesmal die Konstanten $\SI{480}{\nano\meter}$ und $n = 1.4635$ verwendet. Es ergeben sich die Werte in Tabelle \ref{tab:deltsigmas}. Das mittlere $\delta\lambda_{\text{anorm,}\sigma}$ wird zu $\SI{6.96(4)}{\pico\meter}$ bestimmt. Der Landefaktor berechnet sich bei einer angelegten Stromstärke von $\SI{5.9}{\ampere}$ %konstanten angeben
 zu $\num{1.97(2)}$.
 
 
 
-\subsection{Vermessung des anormalen Zeemanneffekts an der blauen PI Cadmiumlinie}
+\subsection{\texorpdfstring{Vermessung des normalen Zeemanneffekts an dem $\pi$ Übergang der blauen Cadmiumlinie}{Vermessung des normalen Zeemanneffekts an dem pi Übergang der blauen Cadmiumlinie}}
 
-Das Verfahren wird ein letztes Mal für die blaue $\pi$ Cadmiumlinie angewendet. Aus der Photographie \ref{fig:anormal2} konnten die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas} bestimmt werden. Daraus folgen die $\delta\lambda_\text{anorm,\pi}$ in Tabelle \ref{tab:deltsigmas} mit dem Mittelwert $\SI{6.1(2)}{\pico\meter}$. Die Konstanten bleiben diesselben wie bei den anormalen $\sigma$ Linien. Der Landefaktor berechnet sich bei einer angelegten Stromstärke von $\SI{16.25}{\ampere}$ %konstanten angeben
+Das Verfahren wird ein letztes Mal für die blaue $\pi$ Cadmiumlinie angewendet. Aus der Photographie \ref{fig:anormal2} konnten die Abstände in den Tabellen \ref{tab:Deltas} und \ref{tab:sigmas} bestimmt werden. Daraus folgen die $\delta\lambda_{\text{anorm,}\pi}$ in Tabelle \ref{tab:deltsigmas} mit dem Mittelwert $\SI{6.1(2)}{\pico\meter}$. Die Konstanten bleiben diesselben wie bei den anormalen $\sigma$ Linien. Der Landefaktor berechnet sich bei einer angelegten Stromstärke von $\SI{16.25}{\ampere}$ %konstanten angeben
 zu $\num{0.65(2)}$ .
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth-70pt,height=\textheight-70pt,keepaspectratio]{./content/Images/pianormalB0und1.JPG}
+	\includegraphics[width=\linewidth-130pt,height=\textheight-130pt,keepaspectratio]{./content/Images/pianormalB0und1.JPG}
 	\caption{Die Aufspaltung der Spektrallinien der blauen $\pi$ Cadmiumlinie.}
 	\label{fig:anormal2}
 \end{figure}
