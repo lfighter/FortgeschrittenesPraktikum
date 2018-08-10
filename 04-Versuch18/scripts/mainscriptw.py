@@ -175,18 +175,20 @@ aU=np.array(a)
 a=unp.nominal_values(a)
 aStd=unp.std_devs(a)
 wahrscheinlichkeitenN=unp.nominal_values(wahrscheinlichkeiten)
-nurUeberProzent=0.01
+nurUeberProzent=0.02
+GenommeneWerteEu=wahrscheinlichkeitenN>nurUeberProzent
 
 x=np.linspace(1,8192,1000)
-params, covar = curve_fit(Line,pos[wahrscheinlichkeitenN>nurUeberProzent], unp.nominal_values(energies[wahrscheinlichkeitenN>nurUeberProzent]))
+params, covar = curve_fit(Line,pos[GenommeneWerteEu], unp.nominal_values(energies[GenommeneWerteEu]))
 umrechnungsParams=uncertainties.correlated_values(params, covar)
 print(umrechnungsParams)
 plt.cla()
 plt.clf()
-xA=posU[wahrscheinlichkeitenN>nurUeberProzent]
-yA=energies[wahrscheinlichkeitenN>nurUeberProzent]
+xA=posU[GenommeneWerteEu]
+yA=energies[GenommeneWerteEu]
 plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
 plt.plot(x, Line(x, *params), 'r-', label='Fit')
+print('x0:',x[0])
 plt.xlim(x[0],x[-1]) 
 plt.xlabel(r'Kanal')
 plt.ylabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
@@ -221,8 +223,8 @@ print(AktivitätEu)
 print(np.sum(EU152)/(AktivitätEu*omegaDurch4PI*4740))
 x=np.linspace(0,3700,1000)
 inhalt=aU*(np.sqrt(2*np.pi)*sigmaU)
-xA=posU[wahrscheinlichkeitenN>nurUeberProzent]
-yA=inhalt[wahrscheinlichkeitenN>nurUeberProzent]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[wahrscheinlichkeitenN>nurUeberProzent])
+xA=posU[GenommeneWerteEu]
+yA=inhalt[GenommeneWerteEu]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[GenommeneWerteEu])
 xA=Line(xA[1:],*unp.nominal_values(umrechnungsParams))
 yA=yA[1:]
 params, covar = curve_fit(potenzFunktion, unp.nominal_values(xA), unp.nominal_values(yA),maxfev=10000,sigma=unp.std_devs(yA))
@@ -247,8 +249,8 @@ for rangew in ranges:
     range2.append(rangew[1])
 range1=np.array(range1)
 range2=np.array(range2)
-makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([posU[3:]],unpFormat,[r'','3.1f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.1f',True])+convert([aU[3:]],unpFormat,[r'','4.0f',True])+convert([hU[3:]],unpFormat,[r'','3.1f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
-#makeNewTable(convert([energies[3:]],unpFormat,[r'','',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','',True])+convert([posU[3:]],unpFormat,[r'','',True])+convert([sigmaU[3:]],unpFormat,[r'','',True])+convert([aU[3:]],unpFormat,[r'','',True])+convert([hU[3:]],unpFormat,[r'','',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([posU[3:]],unpFormat,[r'','3.1f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.1f',True])+convert([aU[3:]],unpFormat,[r'','4.0f',True])+convert([hU[3:]],unpFormat,[r'','3.1f',True]),r'{$E_\gamma^\text{lit}/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([Line(posU[3:],*umrechnungsParams)],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([inhalt[3:]],unpFormat,[r'','5.0f',True])+convert([inhalt[3:]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[3:])],unpFormat,[r'','0.3f',True]),r'{$E_\gamma^\text{lit}/\si{\kilo\electronvolt}$} & {$E_\gamma$} & {$W/\si{\percent}$} & {$Z$} & {$Q$}','a2',['S[table-format=4.2]','S[table-format=4.2]','S[table-format=2.2]','S[table-format=5.0]','S[table-format=0.3]'])
 
 #rangeVar=[1,8192]
 #xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
