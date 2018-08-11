@@ -529,14 +529,18 @@ for param in DParams:
     Sigma.append(param[2])
     a.append(param[0])
 Pos=np.array(Pos)
-Pos=Pos[2:]
+Pos=Pos
 Sigma=np.array(Sigma)
-Sigma=Sigma[2:]
+Sigma=Sigma
 a=np.array(a)
-a=a[2:]
+a=a
 inhalt=a*(np.sqrt(2*np.pi)*Sigma)
 t=3669
-wahrscheinlichkeitenBa=np.array([18.3,62.1,8.9])/100
+wahrscheinlichkeitenBa=unp.uarray([53.1,11.54,29.55,100,14.41],[0.5,0.07,0.18,0,0.09])*unp.uarray(0.6205,0.0019)/100
+EnergieBaLit=unp.uarray([80.9979,276.3989,302.8508,356.0129,383.8485],[0.0011,0.0012,0.0005,0.0007,0.0012])
+print(EnergieBaLit)
+print(wahrscheinlichkeitenBa)
+#wahrscheinlichkeitenBa=np.array([34.1,18.3,62.1,8.9])/100
 A=inhalt/(potenzFunktion(Line(Pos,*umrechnungsParams),*paramsEQU)*wahrscheinlichkeitenBa*omegaDurch4PI*t)
 print('A',A)
 print('A', *weighted_avg_and_sem(unp.nominal_values(A), 1/unp.std_devs(A) * 3/np.sum(1/unp.std_devs(A))))
@@ -554,13 +558,15 @@ Plot(D,[rangeVar],'D', unp.nominal_values(umrechnungsParams), True, r'$E_\gamma$
 #plt.legend(loc='best')
 #plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 #plt.savefig('build/D.pdf')
-
+makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','1.1f',True])+convert([posU],unpFormat,[r'','1.2f',True])+convert([sigmaU],unpFormat,[r'','1.2f',True])+convert([aU],unpFormat,[r'','1.0f',True])+convert([hU],unpFormat,[r'','1.1f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','D',['S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]','S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 
 ########################################################?c060?
 
 print('c060')
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/unbekannt',unpack=True)
+wahrscheinlichkeitenCo=unp.uarray([99.85, 99.9826],[0.03, 0.0006])
+EnergieCoLit=unp.uarray([1173.228,1332.492],[0.003,0.004])
 #Plot(D,ranges,'unbekannt')
 ranges = [[2900,2930],[3280,3340]]
 DParams=gausFitMitPlot(D,ranges,'unbekannt')
