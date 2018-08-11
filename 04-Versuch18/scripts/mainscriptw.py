@@ -91,12 +91,12 @@ for number in range(0,4):
 sigmas=np.array(sigmas)
 bs=np.array(bs)
 
-def Plot(Werte, ranges, name, onlyname=False, xname='Kanal'):
+def Plot(Werte, ranges, name, funktionParams=(1,0), onlyname=False, xname='$K$'):
     for rangeVar in ranges:
         plt.cla()
         plt.clf()
         #print(Werte[rangeVar[0]-1:rangeVar[1]]!=0)
-        plt.plot(np.array(range(rangeVar[0],rangeVar[1]+1))[Werte[rangeVar[0]-1:rangeVar[1]]!=0], (Werte[rangeVar[0]-1:rangeVar[1]])[Werte[rangeVar[0]-1:rangeVar[1]]!=0], 'gx', label='Werte')  
+        plt.plot(Line(np.array(range(rangeVar[0],rangeVar[1]+1))[Werte[rangeVar[0]-1:rangeVar[1]]!=0],*funktionParams), (Werte[rangeVar[0]-1:rangeVar[1]])[Werte[rangeVar[0]-1:rangeVar[1]]!=0], 'gx', label='Werte')  
         plt.xlabel(xname)
         plt.ylabel(r'$N$')
         plt.yscale('log')
@@ -107,11 +107,11 @@ def Plot(Werte, ranges, name, onlyname=False, xname='Kanal'):
         else:
             plt.savefig('build/'+name+'_'+str(rangeVar[0])+'-'+ str(rangeVar[1])+'.pdf') 
 
-def gausFitMitPlot(Werte, ranges, name, plotF=False):
+def gausFitMitPlot(Werte, ranges, name, plotF=False, funktionParams=(1,0)):
     AllParams = []
     for rangeVar in ranges:
-        p0=[np.max(Werte[rangeVar[0]-1:rangeVar[1]])-np.min(Werte[rangeVar[0]-1:rangeVar[1]]),np.min(Werte[rangeVar[0]-1:rangeVar[1]]),(rangeVar[1]-rangeVar[0])/15,(rangeVar[1]+rangeVar[0])/2]
-        params, covar = curve_fit(gaus,range(rangeVar[0],rangeVar[1]+1),Werte[rangeVar[0]-1:rangeVar[1]],maxfev=10000,p0=p0)
+        p0=[np.max(Werte[rangeVar[0]-1:rangeVar[1]])-np.min(Werte[rangeVar[0]-1:rangeVar[1]]),np.min(Werte[rangeVar[0]-1:rangeVar[1]]),funktionParams[0]*((rangeVar[1]-rangeVar[0])/15),Line((rangeVar[1]+rangeVar[0])/2,*funktionParams)]
+        params, covar = curve_fit(gaus,Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*funktionParams),Werte[rangeVar[0]-1:rangeVar[1]],maxfev=10000,p0=p0)
         AllParams.append(uncertainties.correlated_values(params, covar))
         if plotF:
             plt.cla()
@@ -121,7 +121,7 @@ def gausFitMitPlot(Werte, ranges, name, plotF=False):
             plt.plot(x, gaus(x,*params), 'r-', label='Fit')
             #plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
             plt.xlim(x[0],x[-1]) 
-            plt.xlabel(r'Kanal')
+            plt.xlabel(r'$K$')
             plt.ylabel(r'$N$')
             plt.legend(loc='best')
             plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
@@ -152,7 +152,7 @@ wahrscheinlichkeiten*= unp.uarray(0.2659,0.0013)/100
 EU152 = np.genfromtxt('scripts/EU152',unpack=True)
 print('EU152')
 Plot(EU152,[[1,8192],[1,2000],[2000,4000],[1800,4000],[4000,8192]],'EU152')
-EU152Params=gausFitMitPlot(EU152,ranges,'EU152',True)
+EU152Params=gausFitMitPlot(EU152,ranges,'EU152')
 print(EU152Params)
 pos=[]
 sigma=[]
@@ -177,7 +177,7 @@ aStd=unp.std_devs(a)
 wahrscheinlichkeitenN=unp.nominal_values(wahrscheinlichkeiten)
 nurUeberProzent=0.02
 GenommeneWerteEu=wahrscheinlichkeitenN>nurUeberProzent
-
+nichtGenommeneWerteEu=np.logical_and(GenommeneWerteEu==False,wahrscheinlichkeitenN!=0)
 x=np.linspace(1,8192,1000)
 params, covar = curve_fit(Line,pos[GenommeneWerteEu], unp.nominal_values(energies[GenommeneWerteEu]))
 umrechnungsParams=uncertainties.correlated_values(params, covar)
@@ -186,11 +186,14 @@ plt.cla()
 plt.clf()
 xA=posU[GenommeneWerteEu]
 yA=energies[GenommeneWerteEu]
-plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
+xA2=posU[nichtGenommeneWerteEu]
+yA2=energies[nichtGenommeneWerteEu]
+plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='gefittete Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
+plt.errorbar(unp.nominal_values(xA2), unp.nominal_values(yA2), yerr=unp.std_devs(yA2), xerr=unp.std_devs(xA2), label='nicht gefittete Werte',fmt='gx', capthick=0.5, linewidth='0.5',ecolor='g',capsize=1,markersize=1.5) 
 plt.plot(x, Line(x, *params), 'r-', label='Fit')
 print('x0:',x[0])
 plt.xlim(x[0],x[-1]) 
-plt.xlabel(r'Kanal')
+plt.xlabel(r'$K$')
 plt.ylabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
 plt.legend(loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
@@ -211,29 +214,33 @@ def potenzFunktion(x, a, p):
 
 a=7.31 +1.5 #cm
 r=2.25 #cm
-print('omega/4pi')
 omegaDurch4PI = (1-a/np.sqrt(a**2+r**2))/2
-print(omegaDurch4PI)
+print('omega/4pi',omegaDurch4PI)
 AnzahlAnTagen=unp.uarray(6462,1) #days
 HalbwertsZeit=unp.uarray(4943,5) #days
 AktivitätEu=unp.uarray(4130,60) #bq
 AktivitätEu=1/2**(AnzahlAnTagen/HalbwertsZeit) * AktivitätEu
-print(AktivitätEu)
+print('aktivität Eu',AktivitätEu)
 
-print(np.sum(EU152)/(AktivitätEu*omegaDurch4PI*4740))
+#print('Qinsgesammt alle einträge', np.sum(EU152)/(AktivitätEu*omegaDurch4PI*4740))
 x=np.linspace(0,3700,1000)
 inhalt=aU*(np.sqrt(2*np.pi)*sigmaU)
 xA=posU[GenommeneWerteEu]
-yA=inhalt[GenommeneWerteEu]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[GenommeneWerteEu])
+xA2=posU[nichtGenommeneWerteEu]
+Messzeit=4740
+yA=inhalt[GenommeneWerteEu]/(AktivitätEu*omegaDurch4PI*Messzeit*wahrscheinlichkeiten[GenommeneWerteEu])
+yA2=inhalt[nichtGenommeneWerteEu]/(AktivitätEu*omegaDurch4PI*Messzeit*wahrscheinlichkeiten[nichtGenommeneWerteEu])
 xA=Line(xA[1:],*unp.nominal_values(umrechnungsParams))
+xA2=Line(xA2,*unp.nominal_values(umrechnungsParams))
 yA=yA[1:]
 params, covar = curve_fit(potenzFunktion, unp.nominal_values(xA), unp.nominal_values(yA),maxfev=10000,sigma=unp.std_devs(yA))
 paramsEQU=uncertainties.correlated_values(params, covar)
-print(paramsEQU)
+print('Q Params', paramsEQU)
 plt.cla()
 plt.clf()
+plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='gefittete Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
+plt.errorbar(unp.nominal_values(xA2), unp.nominal_values(yA2), yerr=unp.std_devs(yA2), xerr=unp.std_devs(xA2), label='nicht gefittete Werte',fmt='gx', capthick=0.5, linewidth='0.5',ecolor='g',capsize=1,markersize=1.5) 
 plt.plot(x, potenzFunktion(x, *params), 'r-', label='Fit') 
-plt.errorbar(unp.nominal_values(xA), unp.nominal_values(yA), yerr=unp.std_devs(yA), xerr=unp.std_devs(xA), label='Werte',fmt='x', capthick=0.5, linewidth='0.5',ecolor='b',capsize=1,markersize=1.5) 
 plt.xlim(150,1500)
 plt.ylim(0,0.3)
 plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
@@ -249,8 +256,8 @@ for rangew in ranges:
     range2.append(rangew[1])
 range1=np.array(range1)
 range2=np.array(range2)
-makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([posU[3:]],unpFormat,[r'','3.1f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.1f',True])+convert([aU[3:]],unpFormat,[r'','4.0f',True])+convert([hU[3:]],unpFormat,[r'','3.1f',True]),r'{$E_\gamma^\text{lit}/\si{\kilo\electronvolt}$} & {$W/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
-makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([Line(posU[3:],*umrechnungsParams)],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([inhalt[3:]],unpFormat,[r'','5.0f',True])+convert([inhalt[3:]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[3:])],unpFormat,[r'','0.3f',True]),r'{$E_\gamma^\text{lit}/\si{\kilo\electronvolt}$} & {$E_\gamma$} & {$W/\si{\percent}$} & {$Z$} & {$Q$}','a2',['S[table-format=4.2]','S[table-format=4.2]','S[table-format=2.2]','S[table-format=5.0]','S[table-format=0.3]'])
+makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([posU[3:]],unpFormat,[r'','3.1f',True])+convert([sigmaU[3:]],unpFormat,[r'','1.1f',True])+convert([aU[3:]],unpFormat,[r'','4.0f',True])+convert([hU[3:]],unpFormat,[r'','3.1f',True]),r'{$E_\gamma^{\text{lit,\cite{MARTIN20131497}}}/\si{\kilo\electronvolt}$} & {$W^\text{\cite{MARTIN20131497}}/\si{\percent}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','a',['S[table-format=4.2]','S[table-format=2.2]','S[table-format=3.1]','S[table-format=1.1]','S[table-format=4.1]','S[table-format=3.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
+makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([Line(posU[3:],*umrechnungsParams)],unpFormat,[r'','4.2f',True])+convert([wahrscheinlichkeiten[3:]*100],unpFormat,[r'','2.2f',True])+convert([inhalt[3:]],unpFormat,[r'','5.0f',True])+convert([inhalt[3:]/(AktivitätEu*omegaDurch4PI*4740*wahrscheinlichkeiten[3:])],unpFormat,[r'','0.3f',True]),r'{$E_\gamma^{\text{lit,\cite{MARTIN20131497}}}/\si{\kilo\electronvolt}$} & {$E_\gamma$} & {$W^\text{\cite{MARTIN20131497}}/\si{\percent}$} & {$Z$} & {$Q$}','a2',['S[table-format=4.2]','S[table-format=4.2]','S[table-format=2.2]','S[table-format=5.0]','S[table-format=0.3]'])
 
 #rangeVar=[1,8192]
 #xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
@@ -265,27 +272,28 @@ makeNewTable(convert([energies[3:]],unpFormat,[r'','4.2f',True])+convert([Line(p
 #plt.legend(loc='best')
 #plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
 #plt.savefig('build/EU152.pdf')
-Plot(EU152,[[1,8192]],'EU152', True)
+Plot(EU152,[[1,8192]],'EU152', (1,0), True)
 
 ######################################################Cs137
 
 Cs137 = np.genfromtxt('scripts/Cs137',unpack=True)
-rangeVar=[1,8192]
-xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
-yA=Cs137[rangeVar[0]-1:rangeVar[1]]
-plt.cla()
-plt.clf()
-plt.plot(xA, yA, 'gx', label='Werte') 
-plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
-plt.ylabel(r'$N$')
+rangeVar=[1,2000]
+Plot(Cs137,[rangeVar],'Cs137', unp.nominal_values(umrechnungsParams), True, r'$E_\gamma$')
+#xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+#yA=Cs137[rangeVar[0]-1:rangeVar[1]]
+#plt.cla()
+#plt.clf()
+#plt.plot(xA, yA, 'gx', label='Werte') 
+#plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+#plt.ylabel(r'$N$')
 #plt.ylim(0,175)
 #plt.xlim(0,500)
-plt.legend(loc='best')
-plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/Cs137.pdf')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/Cs137.pdf')
 ranges = [[1635,1660],[400,550]]
 print('Cs137')
-peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137')
+peakCs137=gausFitMitPlot(Cs137,ranges,'Cs137', True)
 range1=[]
 range2=[]
 aU=[]
@@ -309,7 +317,7 @@ range1=np.array(range1)
 range2=np.array(range2)
 makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','4.1f',True])+convert([posU],unpFormat,[r'','5.1f',True])+convert([sigmaU],unpFormat,[r'','3.1f',True])+convert([aU],unpFormat,[r'','4.0f',True])+convert([hU],unpFormat,[r'','2.0f',True]),r'{$E_\gamma/\si{\kilo\electronvolt}$} & {$b$} & {$\sigma$} & {$a$} & {$c$}','b',['S[table-format=3.1]','S[table-format=4.1]','S[table-format=2.1]','S[table-format=4.0]','S[table-format=2.0]'],[r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}',r'{:1.0f}'])
 
-print(peakCs137)
+print('PeakParams', peakCs137)
 A0=(range(1635,1660+1),Cs137[1635-1:1660])
 A1=(range(1642,1644+1),Cs137[1642-1:1644])
 A2=(range(1644,1647+1),Cs137[1644-1:1647])
@@ -347,7 +355,7 @@ mm5, = plt.plot(x, Line(x,*unp.nominal_values(params1)), 'b-', label='Fit')
 mm6, = plt.plot(x, Line(x,*unp.nominal_values(params4)), 'y-', label='Fit')
 plt.ylim(0,max(Cs137[1635-1:1660])/4)
 #plt.plot(x, gaus(x,*p0), 'b-', label='Fit geschätzt')
-plt.xlabel(r'Kanal')
+plt.xlabel(r'$K$')
 plt.ylabel(r'$N$')
 plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Zehntel der Höhe','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
@@ -362,7 +370,7 @@ mm4, = plt.plot(x, x*0+halbeHöhe, 'b-', label='Fit')
 mm5, = plt.plot(x, Line(x,*unp.nominal_values(params2)), 'y-', label='Fit')
 mm6, = plt.plot(x, Line(x,*unp.nominal_values(params3)), 'r-', label='Fit')
 plt.ylim(0,max(Cs137[1635-1:1660])+100)
-plt.xlabel(r'Kanal')
+plt.xlabel(r'$K$')
 plt.ylabel(r'$N$')
 plt.legend([(mm1, mm2, mm3), mm4, mm5, mm6], ['Wertepaare','Hälfte der Höhe','Fit der linken Flanke','Fit der rechten Flanke'],handler_map={tuple: HandlerTuple(ndivide=None)},loc='best')
 plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
@@ -401,7 +409,7 @@ xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnun
 yA=Cs137[rangeVar[0]-1:rangeVar[1]]
 params, covar = curve_fit(diffWirkung, xA, yA)
 paramsKon=uncertainties.correlated_values(params, covar)
-print(paramsKon)
+print('paramsKon',paramsKon)
 rangeVar=[1,1250]
 xA2=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
 yA2=Cs137[rangeVar[0]-1:rangeVar[1]]
@@ -481,7 +489,7 @@ makeNewTable(convert([np.array([paramsEmax1[0],paramsEmax2[0]])],unpFormat,[r'',
 print('Ba')
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/D',unpack=True)
-Plot(D,ranges,'D')
+#Plot(D,ranges,'D')
 ranges = [[200,215],[650,740],[750,770],[880,900],[950,970]]
 DParams=gausFitMitPlot(D,ranges,'D')
 range1=[]
@@ -532,19 +540,20 @@ wahrscheinlichkeitenBa=np.array([18.3,62.1,8.9])/100
 A=inhalt/(potenzFunktion(Line(Pos,*umrechnungsParams),*paramsEQU)*wahrscheinlichkeitenBa*omegaDurch4PI*t)
 print('A',A)
 print('A', *weighted_avg_and_sem(unp.nominal_values(A), 1/unp.std_devs(A) * 3/np.sum(1/unp.std_devs(A))))
-rangeVar=[1,8192]
-xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
-yA=D[rangeVar[0]-1:rangeVar[1]]
-plt.cla()
-plt.clf()
-plt.plot(xA, yA, 'gx', label='Werte') 
-plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
-plt.ylabel(r'$N$')
+rangeVar=[1,1200]
+Plot(D,[rangeVar],'D', unp.nominal_values(umrechnungsParams), True, r'$E_\gamma$')
+#xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+#yA=D[rangeVar[0]-1:rangeVar[1]]
+#plt.cla()
+#plt.clf()
+#plt.plot(xA, yA, 'gx', label='Werte') 
+#plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+#plt.ylabel(r'$N$')
 #plt.ylim(0,175)
 #plt.xlim(0,500)
-plt.legend(loc='best')
-plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/D.pdf')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/D.pdf')
 
 
 ########################################################?c060?
@@ -552,7 +561,7 @@ plt.savefig('build/D.pdf')
 print('c060')
 ranges = [[1,8192]]
 D = np.genfromtxt('scripts/unbekannt',unpack=True)
-Plot(D,ranges,'unbekannt')
+#Plot(D,ranges,'unbekannt')
 ranges = [[2900,2930],[3280,3340]]
 DParams=gausFitMitPlot(D,ranges,'unbekannt')
 range1=[]
@@ -580,19 +589,20 @@ makeNewTable(convert([Line(posU,*umrechnungsParams)],unpFormat,[r'','1.1f',True]
 print(DParams)
 print('E1', Line(DParams[0][3],*umrechnungsParams))
 print('E2', Line(DParams[1][3],*umrechnungsParams))
-rangeVar=[1,8192]
-xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
-yA=D[rangeVar[0]-1:rangeVar[1]]
-plt.cla()
-plt.clf()
-plt.plot(xA, yA, 'gx', label='Werte') 
-plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
-plt.ylabel(r'$N$')
+rangeVar=[1,4000]
+Plot(D,[rangeVar],'unbekannt', unp.nominal_values(umrechnungsParams), True, r'$E_\gamma$')
+#xA=Line(np.array(range(rangeVar[0],rangeVar[1]+1)),*unp.nominal_values(umrechnungsParams))
+#yA=D[rangeVar[0]-1:rangeVar[1]]
+#plt.cla()
+#plt.clf()
+#plt.plot(xA, yA, 'gx', label='Werte') 
+#plt.xlabel(r'$E_\gamma/\si{\kilo\electronvolt}$')
+#plt.ylabel(r'$N$')
 #plt.ylim(0,175)
 #plt.xlim(0,500)
-plt.legend(loc='best')
-plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
-plt.savefig('build/unbekannt.pdf')
+#plt.legend(loc='best')
+#plt.tight_layout(pad=0, h_pad=1.08, w_pad=1.08)
+#plt.savefig('build/unbekannt.pdf')
 #Pos=[]
 #Sigma=[]
 #a=[]
