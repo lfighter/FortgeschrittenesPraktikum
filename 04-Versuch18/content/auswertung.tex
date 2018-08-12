@@ -28,11 +28,11 @@ Fehlerrechnung wurde mithilfe von Uncertainties \cite{uncertainties} durchgefüh
 \end{figure}
 Zunächst wird den einzelnen Kanälen mithilfe einer Energiekalibrierung eine zugehörige Energie zugeordnet. Um eine möglichst exakte Kalibrierung vornehmen zu können wird $^{152}$Eu als Kalibrationsstrahler verwendet, da dieser ein reichhaltiges Spektrum besitzt. Zur Kalibrierung werden zunächst die einzelnen Vollenergiepeaks des Spektrums herausgesucht und jeweils mit einem Fit der Form
 \begin{equation}
-    N(K)=a \cdot \exp\left(\frac{1}{2}\left( \frac{K-b}{\sigma}\right)^2\right) +c
+    N(K)=a \cdot \exp\left(\frac{1}{2}\left( \frac{K-b}{\sigma}\right)^2\right) +c \label{eq:gaußFit}
 \end{equation}
 ohne Gewichtung gefittet. Es ergeben sich die Werte in Tabelle \ref{tab:a}. Es werden alle Wertepaare, die zu einem Peak gehören, welcher durch Emissionen mit einer Wahrscheinlichkeit von unter $\SI{2}{\percent}$ zustande kommt, für die weiteren Fits ignoriert. Die Maxima der ermittelten Gaußkurven an den Positionen $b$ werden anschließend mit den Literaturwerten der Vollenergiepeaks von $^{152}$Eu \cite{MARTIN20131497} verglichen um an die zugehörigen Energien der Peaks zu gelangen. Anschließend wird die Energieabhängigkeit der Kanäle über einen linearen Fit der Form 
 \begin{equation}
-	E_\gamma(K)=a \cdot K+b 
+	E_\gamma(K)=a \cdot K+b \label{eq:eKali}
 \end{equation}
 mit curve\_fit \cite{scipy} bestimmt. Dabei werden die Unsicherheiten der Wertepaare nicht berücksichtigt. Es ergibt sich ein Graph gemäß Abb. \ref{fig:E}. Für die bestimmten Parameter $a$ und $b$ folgt:
 \begin{equation}
@@ -56,7 +56,7 @@ Im Anschluss folgt die Berechnung des Raumwinkels $\Omega$. Hierzu wurde die Lä
 \end{figure}
 \begin{table}
 	\centering
-	\caption{Die aus den in Tabelle \ref{tab:a} aufgeführten Parametern berechneten Peakinhalte $Z$, mit daraus berechneter Vollenergienachweiswahrscheinlichkeit $Q$. Zusätzlich die berechneten Energien $E_\gamma$, welche aus den jeweiligen Peakpositionen und dem im Abschnitt \ref{subsec:EnergieKali} bestimmten Zusammenhang berechnet wurden, sowie die aus der Literatur entnommenen Energien $E_\gamma^\text{lit}$ und Emissions-Wahrscheinlichkeiten $W$.}
+	\caption{Die aus den in Tabelle \ref{tab:a} aufgeführten Parametern berechneten Peakinhalte $Z$, mit daraus berechneter Vollenergienachweiswahrscheinlichkeit $Q$. Zusätzlich die berechneten Energien $E_\gamma$, welche aus den jeweiligen Peakpositionen und dem im Abschnitt \ref{subsec:EnergieKali} bestimmten Zusammenhang der Form \eqref{eq:eKali} berechnet wurden, sowie die aus der Literatur entnommenen Energien $E_\gamma^\text{lit}$ und Emissions-Wahrscheinlichkeiten $W$.}
 	\input{build/a2.tex}
 \end{table}
 Zuletzt wird die Vollenergienachweiswahrscheinlichkeit $Q$ des Detektors mit den bisher bestimmten Kenngrößen ermittelt. Dazu werden die Flächeninhalte $Z$ der bestimmte Gaußkurven mit der Formel 
@@ -120,15 +120,9 @@ mittels curve\_fit \cite{scipy} ergeben sich die Parameter:
 	\caption{Die Parameter der gefitteten Geraden zur Bestimmung der Position der Komptenkante des Spektrums von $^{137}$Cs.}
 	\input{build/geraden2.tex}
 \end{table}
-Nun wird das Spektrum von $^{137}$Cs auf Basis der nun kalibrierten Kenngrößen des Detektors bestimmt. Es wird mit der Lage des Vollenergiepeaks begonnen. Dazu wird dieses mithilfe eines gaußkurvenförmigen Fittes mittels curve\_fit \cite{scipy} gefittet. Daraus ergeben sich die Parameter:
-\begin{gather*}
-a = \num{298(3)e1}\\
-c = \num{18 \pm 12}\\
-\sigma = \num{2.17(3)}\\
-b = \num{1648.03(2)}
-\end{gather*}
- Die Energie des Vollenergiepeaks ergibt sich über die Kalibrierung aus dem Parameter $b$ zu $\SI{660.9(6)}{\kilo\electronvolt}$.
- Als nächstes wird die Halbwertsbreite bestimmt. Hierzu werden die Daten um den Peak mithilfe von zwei linearen Fits der Form $ a \cdot x + b$ mit curve\_fit \cite{scipy} approximiert. Die Halbwertsbreite wird über eine zusätzliche Konstante, die sich auf halber Höhe des Maximums befindet, bestimmt. Aus den Parametern der Fits und aus der Geraden ergibt sich die Gleichung:
+Nun wird das Spektrum von $^{137}$Cs auf Basis der nun kalibrierten Kenngrößen des Detektors bestimmt. Es wird mit der Lage des Vollenergiepeaks begonnen. Dazu wird dieses mithilfe eines gaußkurvenförmigen Fittes gemäß Formel \eqref{eq:gaußFit} mittels curve\_fit \cite{scipy} gefittet. Daraus ergibt sich der erste Parametersatz in Tabelle \ref{tab:b}.
+Die Energie des Vollenergiepeaks ergibt sich über die Kalibrierung aus dem Parameter $b$ zu $\SI{660.9(6)}{\kilo\electronvolt}$.
+Als nächstes wird die Halbwertsbreite bestimmt. Hierzu werden die Daten um den Peak mithilfe von zwei linearen Fits der Form $ a \cdot x + b$ mit curve\_fit \cite{scipy} approximiert. Die Halbwertsbreite wird über eine zusätzliche Konstante, die sich auf halber Höhe des Maximums befindet, bestimmt. Aus den Parametern der Fits und aus der Geraden ergibt sich die Gleichung:
 \begin{equation}
     \Delta E_\text{1/2} = \frac{-H_{0.5}+b_1}{a_1} + \frac{H_{0.5}-b_2}{a_2}, \label{eq:Z}
 \end{equation}
@@ -149,7 +143,7 @@ Im Anschluss wird die zusätzlich die Zehntelbreite bestimmt. Hierzu wird dassse
 	\caption{Die Parameter der gefitteten Peaks des Spektrums von $^{133}$Ba mit den ermittelten Energien.}
 	\input{build/D.tex}
 \end{table}
-Nun wird die Aktivität einer weiteren Proben bestimmt. Diese besteht entweder um $^{125}$Sb oder um $^{133}$Ba. Auch worum sich nun genau handelt, soll geklärt werden. Dazu werden wieder die einzelnen Peaks aus den gemessenen Daten ermittelt und jeweils wieder gaußförmig mittels curve\_fit \cite{scipy} gefittet. Die bestimmten Parameter befinden sich in Tabelle \ref{tab:D}. Die bestimmten Energien der Peaks werden anschließend mit der Literatur\cite{V18} verglichen. Daraus ergibt sich, dass es sich bei der Probe um $^{133}$Ba handelt. Nun wird die zugehörige Aktivität bestimmt. Diese berechnet gemäß Formel \eqref{eq:ZZZ}. Hierzu wird die Fläche unter den einzelnen Peaks wieder mit Formel \eqref{eq:flach} bestimmt. Der ungewichtete Mittelwert der Aktivitäten der einzelnen Peaks ergibt sich $A = \SI{133(3)e1}{\becquerel}$.
+Nun wird die Aktivität einer weiteren Proben bestimmt. Diese besteht entweder um $^{125}$Sb oder um $^{133}$Ba. Auch worum sich nun genau handelt, soll geklärt werden. Dazu werden wieder die einzelnen Peaks aus den gemessenen Daten ermittelt und jeweils wieder gaußförmig gemäß Formel \eqref{eq:gaußFit} mittels curve\_fit \cite{scipy} gefittet. Die bestimmten Parameter befinden sich in Tabelle \ref{tab:D}. Die bestimmten Energien der Peaks werden anschließend mit der Literatur \cite{V18} verglichen. Daraus ergibt sich, dass es sich bei der Probe um $^{133}$Ba handelt. Nun wird die zugehörige Aktivität bestimmt. Diese berechnet gemäß Formel \eqref{eq:ZZZ}. Hierzu wird die Fläche unter den einzelnen Peaks wieder mit Formel \eqref{eq:flach} bestimmt. Der ungewichtete Mittelwert der Aktivitäten der einzelnen Peaks ergibt sich $A = \SI{133(3)e1}{\becquerel}$.
 
 
 \subsection{Bestimmung des Materials eines unbekannten Gammastrahlers}
@@ -164,4 +158,4 @@ Nun wird die Aktivität einer weiteren Proben bestimmt. Diese besteht entweder u
 	\caption{Die Parameter der gefitteten Peaks des Spektrums von $^{60}$Co mit den ermittelten Energien.}
 	\input{build/unbekannt.tex}
 \end{table}
-Zuletzt wird versucht anhand der Gestalt des ermittelten Spektrums Rückschlüsse auf das vermessene Element zu ziehen und es dadurch zu bestimmen. Dazu wird die gleiche Methode wie bei der Untersuchung von $^{133}$Ba verwendet. Die Betrachtung des Spektrums in Abb. \ref{fig:4} ergibt beim Vergleich mit der Literatur \cite{Co60}, dass es sich bei der Probe um $^{60}$Co handelt.% Die Aktivität bestimmt sich zu $A = \SI{}{\becquerel}$.
+Zuletzt wird versucht anhand der Gestalt des ermittelten Spektrums Rückschlüsse auf das vermessene Element zu ziehen und es dadurch zu bestimmen. Dazu wird die gleiche Methode wie bei der Untersuchung von $^{133}$Ba verwendet. Die Betrachtung des Spektrums in Abb. \ref{fig:4} ergibt beim Vergleich mit der Literatur \cite{BROWNE20131849}, dass es sich bei der Probe um $^{60}$Co handelt.% Die Aktivität bestimmt sich zu $A = \SI{}{\becquerel}$.
