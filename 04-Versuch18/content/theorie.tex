@@ -12,24 +12,26 @@
 \end{figure}
 
 Zunächst werden die Absorptionseigenschaften von Materie bezüglich Gammastrahlung erläutert.
-Wird Materie mit Gammastrahlung bestrahlt, so kommt es zu Wechselwirkungen der einzelnen Gammaquanten des Strahles mit den Atomen, Elektronen der Materie sowie den von diesen erzeugten Feldern. Desweiteren können die Quanten auch mit externen Feldern wechselwirken.%vll sind auch felder insgesamt gemeint,also auch externe
- Diese sorgen dafür, dass die Intensität des Gammastrahles entlang seines Weges durch den Festkörper abnimmt. Die drei dominierenden Effekte sind der Photoeffekt, der Comptoneffekt und die Paarbildung.
+Wird Materie mit Gammastrahlung bestrahlt, so kommt es zu Wechselwirkungen der einzelnen Gammaquanten des Strahles mit den Atomen und Elektronen der Materie, sowie den von diesen erzeugten Feldern. Des Weiteren können die Quanten auch mit externen Feldern wechselwirken.
+ Diese sorgen dafür, dass die Intensität des Gammastrahles entlang seines Weges durch die Materie abnimmt. Die drei dominierenden Effekte sind der Photoeffekt, der Comptoneffekt und die Paarbildung.
+
 Die Wechselwirkungswahrscheinlichkeit eines jeden Effektes wird über den Wirkungsquerschnitt $\sigma$ angegeben.
 % Der Beitrag der jeweiligen Wechselwirkung an der gesamten Intensitätsabnahme wird durch den zugehörigen Wirkungsquerschnitt beschrieben.
- Anschaulich lässt sich dieser als die Größe einzelner Zielscheiben deuten, welche den Einfangsradius der Atome und Elektronen beschreiben. Die Größe der Scheiben ist so gewählt, dass die Anzahl der Wechselwirkungen mit der Anzahl der verwendeten Projektilteilchen  übereinstimmt. Es wird eine infinitesimale Absorberdicke verwendet, sodass es zu keiner Überlappung der Scheiben kommt. Eine Skizze der oben genannten Vorstellung des Wirkungsquerschnitts ist in Abb. \ref{fig:aborb} dargestellt. Die Wahrscheinlichkeit, dass ein Teilchen von dem Absorber eingefangen wird, lässt sich, dem Modell gemäß, durch
+ Anschaulich lässt sich dieser als die Größe einzelner Zielscheiben deuten, welche den Einfangsradius der Atome und Elektronen beschreiben. Die Größe der Scheiben ist so gewählt, dass die Anzahl der Wechselwirkungen mit der Anzahl der verwendeten Projektilteilchen  übereinstimmt. Wird eine infinitesimale Absorberdicke verwendet, kommt es zu keiner Überlappung der Scheiben. Eine Skizze der oben genannten Vorstellung des Wirkungsquerschnitts ist in Abb. \ref{fig:aborb} dargestellt.
+ 
+ Die Wahrscheinlichkeit $\diff W$, dass ein Teilchen von dem Absorber eingefangen wird, lässt sich, dem Modell gemäß, durch
  \begin{equation}
-    d\text{W} = n \sigma d\text{x}
+    \diff W = n \sigma \diff x
  \end{equation}
- ausdrücken. Bei $N_0$, auf den infinitisimal dicken Absorber auftreffenden, Quanten folgt für die Zahl der absorbierten Teilchen:
-
+ ausdrücken. Bei $N$ Quanten, die auf den infinitesimal dicken Absorber auftreffen, folgt für die Zahl der absorbierten Teilchen:
 \begin{equation}
-    d\text{N} = N_0  d\text{W} =n N_0 \sigma d\text{x}.
+   \diff N = -N  \diff W =-n N \sigma \diff x.
 \end{equation}
 Daraus ergeben sich für einen Absorber der Dicke $D$ mit
 \begin{equation}
 N(D) = N_0 \exp(-n \sigma D) \text{  bzw.  }  N_2(D) = N_0 (1 - \exp(-n \sigma D)) \label{eq:Nd}
 \end{equation}
-die Anzahl der wechselgewirkten Quanten $N(D)$ und die Anzahl der noch verbliebenen Quanten $N_2(D)$. Die Konstante $ \mu = n \sigma$ wird auch als Extinktionskoeffizient bezeichnet und ihr Kehrwert liefert die mittlere Reichweite der Quanten im Absorber, siehe Abb. \ref{fig:aborb}.
+die Anzahl der wechselgewirkten Quanten $N(D)$ und die Anzahl der noch verbliebenen Quanten $N_2(D)$. Die Anzahl der auf den Absorber treffenden Quanten wird mit $N_0$ bezeichnet. Die Konstante $ \mu = n \sigma$ wird auch als Extinktionskoeffizient bezeichnet und ihr Kehrwert liefert die mittlere Reichweite der Quanten im Absorber, siehe Abb. \ref{fig:aborb}.
 %wirkungsquerschnitt erläutern
 
 \subsubsection{Photoeffekt}
@@ -38,9 +40,7 @@ Der Photoeffekt beschreibt die vollständige Absorption der Energie eines Gammaq
     \gamma + \text{Atom} \to \text{Atom}^+ + e^-
 \end{equation}
 beschreiben. Das in der Schale entstandene Loch wird anschließend durch ein Elektron einer höheren Schale gefüllt. Dieser Vorgang wiederholt sich entlang der höheren Schalen.
-%auch noch nich so geil(satz links)
-Die dabei frei werdenden Energien werden in Form von Röntgenquanten abgegeben. Sie verlassen den Detektor im Normalfall nicht, weswegen auch die gesamte Energie des Gammaquants im Absorber verbleibt. Dies ist im Sinne der Gammaspektroskopie wünschenwert, da sich die möglichen unterschiedlichen Zerfälle aus dem Spektrum des Photoeffekts ablesen lassen.%passt das so ,lukas fragen ob eindeutig genug
-%satz sieht geklaut aus  
+Die dabei frei werdenden Energien werden in Form von Röntgenquanten abgegeben. Sie verlassen den Detektor im Normalfall nicht, weswegen auch die gesamte Energie des Gammaquants im Absorber verbleibt. Dies ist im Sinne der Gammaspektroskopie wünschenswert, da sich das Spektrum durch die Lage der Vollenergiepeaks ablesen lässt.
 Der Wirkungsquerschnitt des Photoeffektes lässt sich näherungsweise durch
 \begin{equation}
     \sigma_\text{ph} \propto z^\alpha E^\delta \label{eq:sigp}
@@ -66,7 +66,7 @@ beschreiben. Für die Energiebereiche natürliche Strahler lassen sich $\alpha$ 
 
 Der Comptoneffekt beschreibt die unelastische Streuung eines Gammaquants an einem freien Elektron gemäß Abb. \ref{fig:compton}, wobei das Gammaquant einen Teil seiner Energie an das Elektron abgibt und seine Bewegungsrichtung ändert. Das Elektron wird näherungsweise als ruhende, punktförmige Masse angenommen. Daher lässt sich der Vorgang durch
 \begin{equation}
-    \gamma + e^- \to \gamma^{,} + e^{-,}
+    \gamma + e^- \to \gamma' + {e^{-}}'
 \end{equation}
 beschreiben. Für die Energien gilt $E_{\gamma'} < E_\gamma$.
 %Bild der comptonstreuung einfügen
@@ -83,16 +83,16 @@ Daraus ergibt sich unter einem Streuwinkel $\theta_\gamma$ von $\SI{180}{\degree
     E_{\text{e}',\text{max}} = \frac{2 \epsilon}{1 + 2 \epsilon} E_\gamma , \label{eq:emaxcomp}
 \end{equation}
 welcher geringer als die Energie des Gammaquants ist. %klingt ziemlich ähnlich zur anleitung 
-Aufgrund der Winkelabhängigkeit der auftretenden Energieüberträge ist der Comptoneffekt für die Gammaspektroskopie ein unerwünschter Effekt, da das Materialspezifische Spektrum der Gammastrahlung der Zerfälle durch dessen kontinuierliches Spektrum überlagert wird.%richtiges wort dafür. ist der satz eindeutig genug weil(ist diese dieses klar)
+Aufgrund der Winkelabhängigkeit der auftretenden Energieüberträge ist der Comptoneffekt für die Gammaspektroskopie ein unerwünschter Effekt, da das materialspezifische Spektrum der Gammastrahlung durch dessen kontinuierliches Spektrum überlagert wird.
  Es zeigt sich, dass die Strahlung der Comptonstreuung keine isotrope Winkelverteilung besitzt. Für niederenergetische Gammaquanten zeigen sich Ähnlichkeiten zu einer Dipolstrahlung, bei hohen Energien oberhalb der Ruheenergie von Elektronen findet die Streuung vornehmlich in Vorwärtsrichtung statt. Für den niederenergetischen Fall mit $E_\gamma < \SI{10}{\kilo\electronvolt}$ kann der Wirkungsquerschnitt näherungsweise durch den Thomsonschen Wirkungsquerschnitt dargestellt werden und erhält
 \begin{equation}
     \sigma_\text{Co} = 2 \pi r_e^2
 \end{equation}
-mit dem klassischen Elektronenradius $r_e$. Da der maximale Energieübertrag des Comptoneffektes geringer ausfällt, als der Peak des zugehörigen Photoeffektes, kommt es hinter dem maximalen Energieübertrag, der Comptonkante zu einer Lücke im Spektrum. Da ein Strahler in der Regel mehrere Zerfallskanäle mit unterschiedlichen Peaks besitzt, sind die Lücken im Experiment oft ohne geeignete Auswertung nicht zu erkennen.%wertend ?
+mit dem klassischen Elektronenradius $r_e$. Da der maximale Energieübertrag des Comptoneffektes geringer ausfällt, als der Peak des zugehörigen Photoeffektes, kommt es hinter dem maximalen Energieübertrag, der Comptonkante zu einer Lücke im Spektrum. Da das Spektrum eines Strahlers in der Regel zu mehreren Vollenergiepeaks führt, überlagern sich die zugehörigen Comptonkontinuen und können so nicht mehr den einzelnen Photonenenergien zugeordnet werden.
 
-Der differentielle Wirkungsquerschnitt $\frac{d \sigma}{d\text{E}}$ des Comptoneffekts besitzt die Form gemäß Abb.\ref{fig:comptonk} und lässt sich mit
+Der differentielle Wirkungsquerschnitt $\frac{\diff \sigma}{\diff E}$ des Comptoneffekts besitzt die Form gemäß Abb. \ref{fig:comptonk} und lässt sich mit
 \begin{equation}
-    \frac{d \sigma}{d\text{E}} =  \frac{\pi r_\text{e}^2}{m_0 c^2 \epsilon^2}\left(2+\frac{E_\text{e'}}{E_\gamma - E_\text{e'}}^2 \left[ \frac{1}{\epsilon^2} +\frac{E_\gamma - E_\text{e'}}{E_\gamma} - \frac{2(E_\gamma - E_\text{e'})}{\epsilon E_\gamma} \right]\right) \label{eq:sigmacompdiff}
+    \frac{\diff \sigma}{\diff E} =  \frac{\pi r_\text{e}^2}{m_0 c^2 \epsilon^2}\left(2+\frac{E_\text{e'}}{E_\gamma - E_\text{e'}}^2 \left[ \frac{1}{\epsilon^2} +\frac{E_\gamma - E_\text{e'}}{E_\gamma} - \frac{2(E_\gamma - E_\text{e'})}{\epsilon E_\gamma} \right]\right) \label{eq:sigmacompdiff}
 \end{equation}
 beschreiben.
 
@@ -100,21 +100,21 @@ beschreiben.
 \subsubsection{Paarbildung}
 Im Falle hochenergetischer Gammaquanten mit $E_\gamma > 2 m_e c^2$ können sich diese in ein Elektron und ein Positron umwandeln. Es gilt jedoch Impulserhaltung, weshalb ein geeignetes Teilchen als Stoßpartner vorhanden sein muss, welcher den Impuls des Gammaquants aufnimmt. Dies ist meistens ein Atom, es sind aber auch Elektronen möglich. Bei letzteren ist die Rückstoßenergie, welche mit $m^{-1}$ läuft, deutlich größer, weshalb für die Paarbildung mit einem Elektron $E_\gamma > 4 m_e c^2$ erfüllt sein muss. Die überschüssige Energie des Gammaquants verteilt sich anschließend in Form von kinetischer Energie gleichmäßig auf Elektron und Positron. Auch für die Paarbildung lässt sich nur schwer ein allgemeiner Wirkungsquerschnitt abhängig von Kernladungszahl $Z$ und $E_\gamma$ angeben, da dieser aufgrund der auftretenden Coulombkräfte abhängig vom Ort in der Elektronenhülle ist, an welchem die Paarbildung stattgefunden hat. Es können jedoch Spezialfälle für verschwindende und vollständige Abschirmung der Kernkräfte angegeben werden. Für diese gilt:
 \begin{equation}
-    \sigma_\text{kernnah} = \alpha r_e^2 Z^2 \left( \frac{28}{9}\ln(2) \epsilon - \frac{218}{27}\right) \text{mit } \SI{10}{\mega\electronvolt} < E_\gamma \SI{25}{\mega\electronvolt} \label{eq:sigmapaar1},
+    \sigma_\text{kernnah} = \alpha r_e^2 Z^2 \left( \frac{28}{9}\ln(2) \epsilon - \frac{218}{27}\right) \text{mit } \SI{10}{\mega\electronvolt} < E_\gamma < \SI{25}{\mega\electronvolt} \label{eq:sigmapaar1},
 \end{equation}
 
 \begin{equation}
     \sigma_\text{kernfern} = \alpha r_e^2 Z^2 \left( \frac{28}{9}\ln\left(\frac{183}{\sqrt[3]{Z}}\right) \epsilon - \frac{218}{27}\right) \text{mit } \SI{500}{\mega\electronvolt} < E_\gamma \label{eq:sigmapaar2}.
 \end{equation}
 %mherer paeks bei paarbildung erklären
-Da ein Peak bei der kompletten Energie des Gammaquants nur entsteht, wenn sowohl Elektron als auch Positron vom Detektor aufgenommen werden bilden sich im Spektrum mehrere Peaks aus. Dies liegt daran, dass die Positronen mit den Elektronen des Absorbers wider zu zwei Gammaquanten annihilieren können, welche den Detektor anschließend wieder verlassen können. Aufgrunddessen bildet sich zwei Peaks bei den geringeren Energie $E-\SI{511}{\kilo\electronvolt}$(SEP) und $E-\SI{1022}{\kilo\electronvolt}$(DEP) aus.  
+Da ein Peak bei der kompletten Energie des Gammaquants nur entsteht, wenn sowohl Elektron als auch Positron vom Detektor aufgenommen werden bilden sich im Spektrum mehrere Peaks aus. Dies liegt daran, dass die Positronen mit den Elektronen des Absorbers wieder zu zwei Gammaquanten annihilieren können, welche den Detektor anschließend wieder verlassen können. Aufgrund dessen bilden sich zwei Peaks bei den geringeren Energien $E_\gamma-\SI{511}{\kilo\electronvolt}$ (SEP) und $E_\gamma-\SI{1022}{\kilo\electronvolt}$ (DEP) aus.  
 
-Zusammengefasst bilden die Wirkungsquerschnitte aller betrachteter Effekte im Falle vom Germanium einen Graphen proportional zu Abb.\ref{fig:effekt} aus. %Germaniumbild einfügen
+Zusammengefasst bilden die Wirkungsquerschnitte aller betrachteter Effekte im Falle vom Germanium einen Graphen proportional zu Abb. \ref{fig:effekt} aus. %Germaniumbild einfügen
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Images/effekt.png}
-    \caption{Die Energieabhängigkeit des Extinktionskoefizienten separariert nach den beteiligten Wechselwirkungen\cite{V18}.}
+    \caption{Die Energieabhängigkeit des Extinktionskoeffizienten separiert nach den beteiligten Wechselwirkungen \cite{V18}.}
     \label{fig:effekt}
 \end{figure}
 
@@ -122,18 +122,20 @@ Zusammengefasst bilden die Wirkungsquerschnitte aller betrachteter Effekte im Fa
 
 \begin{figure}
 	\centering
-    \includegraphics[width=\linewidth-200pt,height=\textheight-200pt,keepaspectratio]{content/Images/detek.png}
-    \includegraphics[width=\linewidth-200pt,height=\textheight-200pt,keepaspectratio]{content/Images/fermikante.png}
-    \caption{Die schematische Darstellung der Wirkungsweise des Halbleiterdetektors\cite{V18}.}
+    \includegraphics[width=\linewidth-250pt,height=\textheight-200pt,keepaspectratio]{content/Images/detek.png}
+    \includegraphics[width=\linewidth-250pt,height=\textheight-200pt,keepaspectratio]{content/Images/fermikante.png}
+    \caption{Die schematische Darstellung der Wirkungsweise des Halbleiterdetektors \cite{V18}.}
     \label{fig:POTENTIAL}
 \end{figure}
 %mal sehen ob das bild passt
 Die Basis des Reinst-Germaniumdetektor bildet eine Halbleiterdiode. Diese besteht aus zwei aneinandergrenzenden, unterschiedlich dotierten Materialien. Aufgrund des Ladungsträgergefälles diffundieren die beweglichen Elektronen und Löcher durch die Grenzfläche zwischen beiden Materialien hindurch und rekombinieren im Anschluss. Es verbleiben die Akzeptoren im p-dotierten und die Donatoren im n-dotierten Bereich und bilden dort eine positive bzw. negative Ladung aus. Diese erzeugen ein elektrisches Feld, welches die Bewegung der Ladungsträger wieder unterbindet. Es bildet sich eine Verarmungszone um die Grenzfläche aus. Über eine anliegende Sperrspannung lässt sich das Feld weiter verstärken, wodurch die Verarmungszone breiter wird.
 %is der satz gut fragsmiley
-Der ganze Vorgang wird durch ein Potentialbild nach Abb. \ref{fig:POTENTIAL} veranschaulicht. Gelangt ein Gammaquant in den Detektor und setzt ein hochenergetisches Elektron in der Verarmungszone frei, so stößt dieses auf seinem Weg durch die Verarmungszone weitere Elektronen und hebt sie aus dem Valenzband ins Leitungsband. Die entstehenden Löcher verhalten sich wie positive Ladungen. Aufgrund des in der Verarmungszone vorherrschenden elektrischen Feldes rekombinieren die Ladungsträger jedoch nicht, sondern werden anhand ihrer Ladung getrennt. Dies resultiert in einem Ladungsimpuls, welcher proportional zur Energie des gestreuten Gammaquants ist. Diese Ladungsmpulse bilden die Grundlage der Gammaspektroskopie. Daher ist es wichtig, dass möglichst viele Gammaquanten in der Verarmungszone wechselwirkungen, da nur diese Wechselwirkungen zu registrierbaren Effekten führen.% iwie is der satz immer noch nich so geil
+Der ganze Vorgang wird durch ein Potentialbild nach Abb. \ref{fig:POTENTIAL} veranschaulicht.
+
+Gelangt ein Gammaquant in den Detektor und setzt ein hochenergetisches Elektron in der Verarmungszone frei, so stößt dieses auf seinem Weg durch die Verarmungszone weitere Elektronen und hebt sie aus dem Valenzband ins Leitungsband. Die entstehenden Löcher verhalten sich wie positive Ladungen. Aufgrund des in der Verarmungszone vorherrschenden elektrischen Feldes rekombinieren die Ladungsträger in dieser nicht und werden somit anhand ihrer Ladung getrennt. Dies resultiert in einem Ladungsimpuls, welcher proportional zur Energie des gestreuten Gammaquants ist. Diese Ladungsimpulse bilden die Grundlage der Gammaspektroskopie. Da die Ladungsimpulse nur in der Verarmungszone entstehen können, ist es wichtig, dass möglichst viele Gammaquanten in der Verarmungszone wechselwirken.
  % da die Anzahl der gehobenen Elektron-Loch Paare von der Energie des Quants abhängt und die Höhe des Ladungsimpuls von der Anzahl der Elektron-Loch Paare.
 % diese sätze sind partiell echt mies     
-Da die Wahrscheinlichkeit einer Wechselwirkung des Gammaquants mit den Elektronen exponentiell von der Dicke des Materials abhängt, siehe Formel \eqref{eq:Nd}, ist es nötig eine möglichst breite Verarmungszone zu erzeugen. Diese Breite hängt von mehreren Faktoren ab.
+Da die Wahrscheinlichkeit einer Wechselwirkung des Gammaquants mit den Elektronen exponentiell von der Dicke des Materials abhängt (siehe Formel \eqref{eq:Nd}), ist es nötig eine möglichst breite Verarmungszone zu erzeugen. Diese Breite hängt von mehreren Faktoren ab.
 
 \subsubsection{Möglichkeiten die Verarmungszone zu verbreitern}
 
@@ -148,9 +150,9 @@ mit der Dielektrizitätszahl $\epsilon$ und den Akzeptoren bzw. Donatorendichten
 \subsection{Die Eigenschaften eines Halbleiterdetektors}%nich mehr ganz so mist
 \label{subsec:eighat}
 Die Qualität eines Detektors wird anhand mehrerer Kenngrößen festgesetzt.
-Eine wichtige Detektorkenngröße für die Spektroskopie von Gammaquanten ist das Auflösungsvermögen des Detektors. Dieses ergibt sich im wesentlichen aus der Halbwertsbreite aufgenommener Peaks einer multichromatischen Gammastrahlung. 
+Eine wichtige Detektorkenngröße für die Spektroskopie von Gammaquanten ist das Auflösungsvermögen des Detektors. Dieses ergibt sich im wesentlichen aus den Halbwertsbreiten aufgenommener Peaks von Gammaquanten unterschiedlicher Energien. 
 % passt das jetzt mit multichromatisch
-Ist der Abstand der Mittelwerte zweier benachbarter Peaks mindestens so groß wie die Halbwertsbreite, so können beide Peaks unterschieden werden. Eine weitere Kenngröße ist die Höhe der Peaks. Unter der Annahme, dass ein Gammaquant, das in der Verarmungszone wechselwirkt, in dieser auch seine gesamte Energie abgibt, so folgt die Höhe des Peaks aus der Bindungsenergie und der Anzahl der erzeugten Elektron-Loch Paare. Es zeigt sich jedoch, dass die Elektron-Loch Paare nur unter Mitwirkung von Phononen entstehen. Diese werden benötigt, da Germanium ein indirekter Halbleiter ist. Die Phononen sind notwendig um bei einem Übergang den seitlichen Versatz zwischen Valenz- und Leitungsband zu überwinden. Daher verteilt sich ein Teil der Energie auf die Phononen. Für Germanium bedeutet dies, dass für ein Elektron-Loch Paar $\SI{2.9}{\electronvolt}$ benötigt werden, obwohl die Energielücke zwischen Valenz und Leitungsband nur $\SI{0.67}{\electronvolt}$ beträgt. Daher kann bei der Erzeugung nicht mehr von unkorrelierten, seltenen Ereignissen ausgegangen werden und für die Standardabweichung der zugehörigen Verteilung folgt:
+Ist der Abstand der Mittelwerte zweier benachbarter Peaks mindestens so groß wie die Halbwertsbreite, so können beide Peaks unterschieden werden. Unter der Annahme, dass ein Gammaquant, das in der Verarmungszone wechselwirkt, in dieser auch seine gesamte Energie abgibt, so folgt die Höhe des entstehenden Spannungsimpulses, aus der Bindungsenergie und der Anzahl der erzeugten Elektron-Loch Paare. Es zeigt sich jedoch, dass die Elektron-Loch Paare nur unter Mitwirkung von Phononen entstehen. Diese werden benötigt, da Germanium ein indirekter Halbleiter ist. Die Phononen sind notwendig, um bei einem Übergang den seitlichen Versatz zwischen Valenz- und Leitungsband zu überwinden. Daher verteilt sich ein Teil der Energie auf die Phononen. Für Germanium bedeutet dies, dass für ein Elektron-Loch Paar $\SI{2.9}{\electronvolt}$ benötigt werden, obwohl die Energielücke zwischen Valenz und Leitungsband nur $\SI{0.67}{\electronvolt}$ beträgt. Daher kann bei der Erzeugung nicht mehr von unkorrelierten, seltenen Ereignissen ausgegangen werden und für die Standardabweichung der zugehörigen Verteilung folgt:
 \begin{equation}
 \sigma = \sqrt{F \frac{E_\gamma}{E_\text{B}} }
 \end{equation}
@@ -158,9 +160,9 @@ mit dem Fano-Faktor $F$. Da die aufgrund der Elektron-Loch Paar Erzeugung hervor
 \begin{equation}
 \Delta E_\text{1/2} = \sqrt{8 \ln(2) F E_\gamma E_\text{B}} \label{eq:deltE}.
 \end{equation}
-Die Halbwertsbreite wird jedoch durch weitere Rauscheffekte erhöht. Dazu gehören Rauschen aufgrund von Restverunreinigungen im Detektorkristall, aufgrund der angeschlossenen Verstärker und aufgrund von Imhomogenitäten im erzeugten E-Feld. Letztere folgen aus der Bauweise des Detektors. Die Effekte haben nur sehr schwache Korrelationen, sodass ihre Einflüsse in Form zusätzlicher Halbwertsbreiten quadratisch zur Ursprünglichen addiert werden können. Es gilt für die gesamte Energieauflösung $H_\text{Ges}$:
+Die Halbwertsbreite wird jedoch durch weitere Rauscheffekte erhöht. Dazu gehören Rauschen aufgrund von Restverunreinigungen im Detektorkristall, aufgrund der angeschlossenen Verstärker und aufgrund von Inhomogenitäten im erzeugten E-Feld. Letztere folgen aus der Bauweise des Detektors. Die Effekte haben nur sehr schwache Korrelationen, sodass ihre Einflüsse in Form zusätzlicher Halbwertsbreiten quadratisch zur Ursprünglichen addiert werden können. Es gilt für die gesamte Energieauflösung $H_\text{Ges}$:
 \begin{equation}
-    \H_\text{Ges} = \sqrt{\Delta E_\text{1/2}^2 + H_\text{R}^2 + H_\text{I}^2 + H_\text{E}^2}, \label{eq:Hges}
+    H_\text{Ges} = \sqrt{\Delta E_\text{1/2}^2 + H_\text{R}^2 + H_\text{I}^2 + H_\text{E}^2}, \label{eq:Hges}
 \end{equation}
 mit der ungestörten Halbwertbreite $\Delta E_\text{1/2}$, der Halbwertbreite durch Leckströme $H_\text{R}$, der Halbwertsbreite aufgrund von Feldinhomogenitäten $H_\text{I}$ und der Halbwertsbreite aufgrund von Verstärkerrauschen $H_\text{E}$.
 Auch in diesem Fall können die Rauscheffekte durch geringe Temperaturen minimiert werden. Im Fall der Spannung müssen Kompromisse eingegangen werden, da die Rauscheffekte sowohl bei geringen als auch bei höheren Spannungen verstärkt auftreten.
@@ -172,15 +174,17 @@ Eine letzte wichtige Kenngröße ist die Effizienz eines Detektors. Sie gibt die
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth-100pt,height=\textheight-100pt,keepaspectratio]{content/Images/spek.png}
-    \caption{Das Spektrum eines monochromatischen Gammastrahlers mit zu geringer Energie zur Paarerzeugung\cite{V18}.}
+    \caption{Das Spektrum eines monochromatischen Gammastrahlers mit zu geringer Energie zur Paarerzeugung \cite{V18}.}
     \label{fig:spektrum}
 \end{figure}
 
-Das aufgenommene Spektrum eines Gammastrahlers besteht selbst im einfachsten Fall eines monochromatischen Strahlers nicht nur aus einem Peak, sondern besitzt eine Form gemäß Abb.\ref{fig:spektrum}. Da die Energien des Strahlers in Abb.\ref{fig:spektrum} unterhalb der Schwelle zur Paarerzeugung liegen, wird der Peak am oberen Ende der Energieskala durch den Photoeffekt hervorgerufen. Etwas unterhalb des Peak beginnt das Compton Kontinuum, welche aufgrund des Comptoneffekts auftritt. Das obere Ende des Kontinuums wird durch die Comptonkante beschrieben. Bei dieser Energie wird der Gammaquant unter einem Winkel von $\SI{180}{\degree}$ gestreut. Zusätzlich ist etwa in der Mitte des Comptonkontinuums ein weiterer Peak zu erkennen. Dieser wird Rückstreupeak genannt und entsteht, indem Elektronen die den Detektor eigentlich schon verlassen hatten unter einem Winkel von $\SI{180}{\degree}$ zurück in den Detektor gestreut werden und dort ihre nun geringere Energie mithilfe eines Photoeffekts abgeben. Der Abfall des Graphen am unteren Ende der Energieskala folgt aus der endlichen Nachweisgrenze des Detektors aufgrund der den Detektor umgebenden Aluminium-Schutzhülle. Wird ein Gammastrahler mit verschiedenen Zerfallskanälen untersucht, so kommt es zur Überlagerung der Graphen aller Kanäle. Aufgrunddessen liegen die Photopeaks der niederenergetischen Übergänge im Bereich des Compton Kontinuums der höheren Übergänge und erscheinen daher größer, weshalb der Begriff des Vollenergiepeaks passender ist. Desweiteren besitzt jeder Kanal eine unterschiedliche Zerfallswahrscheinlichkeit, was zu unterschiedlich hohen Peaks führt. Zuletzt ist auch die Effizienz des Detektors von der betrachteten Energie abhängig. All diese Aspekte verändern die Form des aufgenommenen Spektrums und sind bei einer Analyse entsprechend zu berücksichtigen. Das Zählergebnis $Z$ eines Kanals ist durch
+Das aufgenommene Spektrum eines Gammastrahlers besteht selbst im einfachsten Fall eines monochromatischen Strahlers nicht nur aus einem Peak, sondern besitzt eine Form gemäß Abb.\ref{fig:spektrum}. Da die Energien des Strahlers in Abb.\ref{fig:spektrum} unterhalb der Schwelle zur Paarerzeugung liegen, wird der Peak am oberen Ende der Energieskala durch die volle Energiedeposition des Gammaquants mit mithilfe des Photoeffektes hervorgerufen. Etwas unterhalb des Peak beginnt das Compton Kontinuum, welche aufgrund des Comptoneffekts auftritt. Das obere Ende des Kontinuums wird durch die Comptonkante beschrieben. Bei dieser Energie wird der Gammaquant unter einem Winkel von $\SI{180}{\degree}$ gestreut. Zusätzlich ist etwa in der Mitte des Comptonkontinuums ein weiterer Peak zu erkennen. Dieser wird Rückstreupeak genannt und entsteht, indem Elektronen die den Detektor eigentlich schon verlassen hatten unter einem Winkel von $\SI{180}{\degree}$ zurück in den Detektor gestreut werden und dort ihre nun geringere Energie vollständig mithilfe des Photoeffektes abgeben.
+
+Der Abfall des Graphen am unteren Ende der Energieskala, folgt aus der endlichen Nachweisgrenze des Detektors aufgrund der den Detektor umgebenden Aluminium-Schutzhülle. Wird ein multichromatischer  Gammastrahler untersucht, so kommt es zur Überlagerung der Graphen aller Kanäle. Aufgrund dessen liegen die Photopeaks der niederenergetischen Übergänge im Bereich des Compton Kontinuums der höheren Übergänge. Des Weiteren besitzt jeder Übergang eine unterschiedliche Wahrscheinlichkeit, was zu unterschiedlich hohen Peaks bei ansonsten identischen Bedingungen führt. Zuletzt ist auch die Vollenergienachweiswahrscheinlichkeit des Detektors von der betrachteten Energie abhängig. All diese Aspekte verändern die Form des aufgenommenen Spektrums und sind bei einer Analyse entsprechend zu berücksichtigen. Der Vollenergiepeakinhalt $Z$ ist durch
 \begin{equation}
     Z = \frac{\Omega}{4 \pi}\cdot A \cdot W \cdot Q \cdot t \label{eq:ZZZ}
 \end{equation}
-gegeben mit dem Raumwinkel $\Omega$, der Probenaktivität $A$, der jeweiligen Emissionenwahrscheinlichkeit eines Übergangs, der Vollenergienachweiswahrscheinlichkeit $Q$ und der Messzeit $t$. Sind $Z,\Omega,A,t$ und $W$ bekannt so lässt sich daraus $Q$ ermitteln. Für $\Omega$ gilt näherungsweise
+gegeben, mit dem Raumwinkel $\Omega$, der Probenaktivität $A$, der jeweiligen Wahrscheinlichkeit eines Übergangs $W$, der Vollenergienachweiswahrscheinlichkeit $Q$ und der Messzeit $t$. Sind $Z,\Omega,A,t$ und $W$ bekannt so lässt sich daraus $Q$ ermitteln. Für $\Omega$ gilt näherungsweise
 \begin{equation}
     \frac{\Omega}{4 \pi} = 0.5 \left( 1- \frac{a}{\sqrt{a^2 + r^2}}\right) ,\label{eq:omega}
 \end{equation}
